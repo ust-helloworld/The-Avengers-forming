@@ -1,4 +1,4 @@
-<html ng-app = "teamform-member-app">
+<html ng-app = "teamform-memberDetail-app">
 <head> 
 <title>Profile testing</title> 
 
@@ -32,7 +32,7 @@
 
      <script>
 	 
-angular.module('teamform-member-app',['firebase'])
+angular.module('teamform-memberDetail-app',['firebase'])
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
 	
 	//initalizeFirebase();
@@ -61,22 +61,21 @@ angular.module('teamform-member-app',['firebase'])
 			database.ref(refPath).once("value").then(function (data)
 			{
 				//here use data to get back the data :)				
-				alert(data.child("name").val());
-				if ( data.child("name").val() != null ) {
-					$scope.Fname = data.child("name").val();
+				alert(data.val().name);
+				if ( data.val().name != null ) {
+					$scope.Fname = data.val().name;
 				} else {
 					$scope.Fname = "";
 				}
-				if ( data.child("skills").val() != null ) {
-					$scope.Fskill = data.child("skills").val();
+				if ( data.val().skills != null ) {
+					$scope.Fskill = data.val().skills;
 				} else {
 					$scope.Fskill = "";
 				}
 				$scope.datadebug = {
-				name: data.child("name").val(),
-				skill: data.child("skills").val()
+				name: data.val().name,
+				skill: data.val().skills
 				};
-				alert($scope.datadebug);
 			});
 		}
 	}
