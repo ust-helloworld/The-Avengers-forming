@@ -30,11 +30,11 @@ function initalizeFirebase() {
 	
   // Initialize Firebase
  var config = {
-    apiKey: "AIzaSyAEY8hkQDFuTuGQjAFJQ25_NraC7YOdvHY",
-    authDomain: "comp3111-gpproj-myrepo.firebaseapp.com",
-    databaseURL: "https://comp3111-gpproj-myrepo.firebaseio.com",
-    storageBucket: "comp3111-gpproj-myrepo.appspot.com",
-    messagingSenderId: "205035311568"
+    apiKey: "AIzaSyD3xgRRiRZMaQwDIkdpBJRVKU1G7Tl3T-E",
+    authDomain: "teamform-b1af3.firebaseapp.com",
+    databaseURL: "https://teamform-b1af3.firebaseio.com",
+    storageBucket: "teamform-b1af3.appspot.com",
+    messagingSenderId: "96092400789"
   };
 
   firebase.initializeApp(config);
