@@ -27,7 +27,6 @@ function getRandomIntInclusive(min, max) {
 //
 
 function initalizeFirebase() {
-	
   // Initialize Firebase
  var config = {
     apiKey: "AIzaSyD3xgRRiRZMaQwDIkdpBJRVKU1G7Tl3T-E",
