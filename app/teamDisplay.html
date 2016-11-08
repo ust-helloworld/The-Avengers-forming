@@ -1,0 +1,79 @@
+<html ng-app = "teamform-teamDetail-app">
+<heads> 
+<title>Display testing</title> 
+
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+  <!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>     
+    <script src="lib/angularfire.min.js"></script>
+</head>
+<body>
+
+<div id = "YourProfiljje" ng-controller = "QueryTeam" class="text-center">
+   Please input your data:)<br>Enter Team Name and activity name for load()<br>
+  <form id = "QueryForm">
+    <label>Which activity: <input type = text ng-model = "FActivity"></label><br>
+    <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
+  </form>
+  <div id = "testing_ouput">
+    {{ datadebug | json}}
+    <div ng-repeat = "x in datadebug">
+      Team Name : {{x.$id}}<br>
+    Team Size : {{x.size}}<br>
+    <div ng-repeat = "y in x.teamMembers">Team Members : {{y}}</div><br>
+    </div>
+  </div>
+   
+   </div>
+   
+
+
+     <script>
+   
+angular.module('teamform-teamDetail-app',['firebase'])
+.controller('QueryTeam',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope,$firebaseObject, $firebaseArray) {
+  
+  //initalizeFirebase();
+  initalizeFirebase();
+  database = firebase.database();
+  
+  $scope.FActivity = "abc";
+  $scope.datadebug = {
+  };
+  
+  $scope.load = function () {
+    alert ("click load :P");
+  
+    FActivity = $scope.FActivity;
+    if ( FActivity !== '' ) {
+      
+      var refPath = FActivity + "/team/";
+      alert (refPath);
+    
+    //connect using Firebase Object
+      $scope.fireObj = $firebaseObject(firebase.database().ref(refPath));
+	  
+	  $scope.teams = [];
+      $scope.teams = $firebaseArray(firebase.database().ref(refPath));
+	  
+	  $scope.fireObj.$loaded()
+	    .then (function (data) {
+		  //$scope.datadebug = data;
+		  //alert(data);
+		
+		});
+		$scope.datadebug = $scope.teams ;
+    };
+  };
+  
+
+}]);
+   
+   </script>
+
+</body>
+</html>
