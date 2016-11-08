@@ -1,4 +1,4 @@
-<html ng-app = "teamform-activityDetail-app">
+<html ng-app = "teamform-eventDetail-app">
 <head> 
 <title>Profile testing</title> 
 
@@ -14,7 +14,7 @@
 <body>
 
 <div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
-   Please input your data:)<br>Enteractivity name for load()<br>
+   Please input your data:)<br>Enter event name for load()<br>
   <form id = "ProfileForm">
     <label>Name:<input type=text ng-model = "FName"></label><br>
     <label>Description:<input type=text ng-model = "FDescription"></label><br>
@@ -42,7 +42,7 @@
 
      <script>
    
-angular.module('teamform-activityDetail-app',['firebase'])
+angular.module('teamform-eventDetail-app',['firebase'])
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
   
   //initalizeFirebase();
