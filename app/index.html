@@ -19,8 +19,20 @@
       <script src="lib/bootstrap.min.js"></script>
       <script src="lib/angular/angular.min.js"></script>
       <script src="lib/angular/angular-route.min.js"></script>
-
-
+      <!-- Adding firebase -->
+      <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+      <script>
+      // Initialize Firebase
+      var config = {
+      apiKey: "AIzaSyAC54jiqnr4seZ9CPAXrfjckOJxOXEf334",
+      authDomain: "myapp-9535a.firebaseapp.com",
+      databaseURL: "https://myapp-9535a.firebaseio.com",
+      storageBucket: "myapp-9535a.appspot.com",
+      messagingSenderId: "1053548923364"
+      };
+      firebase.initializeApp(config);
+      </script>
+      <!-- end with ending firebase -->
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -100,9 +112,9 @@
 
                      <div class="text-center">
                         <h1>teamform</h1>
-                        <p>A real-time online team forming app for any event  </p>
+                        <p>A real-time online team forming app for any event</p>
                      </div>
-                     <section class="artistpage">
+                     <section class="Team">
                        <div class="search">
                          <h1>Team Directory</h1>
                          <label>search: </label>
