@@ -1,20 +1,28 @@
+<<<<<<< HEAD
+<html ng-app = "teamform-eventDetail-app">
+=======
 <html ng-app = "teamform-activityDetail-app">
+>>>>>>> refs/remotes/ust-helloworld/master
 <head> 
 <title>Profile testing</title> 
 
     <!-- Customized libraries shared by pages -->
-    <script src="js/site.js"></script>
+    <script src="../js/site.js"></script>
 	<!-- Angular and Angular-route libraries (v1.5.7) -->
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/angular-route.min.js"></script>
+    <script src="../lib/angular.min.js"></script>
+    <script src="../lib/angular-route.min.js"></script>
     <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-    <script src="lib/firebase.js"></script>     
-    <script src="lib/angularfire.min.js"></script>
+    <script src="../lib/firebase.js"></script>     
+    <script src="../lib/angularfire.min.js"></script>
 </head>
 <body>
 
 <div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
+<<<<<<< HEAD
+   Please input your data:)<br>Enter event name for load()<br>
+=======
    Please input your data:)<br>Enteractivity name for load()<br>
+>>>>>>> refs/remotes/ust-helloworld/master
   <form id = "ProfileForm">
     <label>Name:<input type=text ng-model = "FName"></label><br>
     <label>Description:<input type=text ng-model = "FDescription"></label><br>
@@ -42,7 +50,11 @@
 
      <script>
    
+<<<<<<< HEAD
+angular.module('teamform-eventDetail-app',['firebase'])
+=======
 angular.module('teamform-activityDetail-app',['firebase'])
+>>>>>>> refs/remotes/ust-helloworld/master
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
   
   //initalizeFirebase();
