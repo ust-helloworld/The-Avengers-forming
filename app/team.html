@@ -38,11 +38,10 @@
                 <a class="navbar-brand page-scroll" href="#page-top">
                     <!--<i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap-->
                     <!--profile-->
-                    <a href = "#contact"  data-toggle ="modal">
-                        <div class = "navbar-brand">
-                            
-                            <img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                </div>
+                    <a href="#selfProfile" data-toggle="modal">
+                    <div class="navbar-brand">
+                        <img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    </div>
                     </a>
                 </a>
             </div>
@@ -66,7 +65,7 @@
                     <li>
                         <a class="page-scroll" href="login.html">Logout</a>
                     </li>
-                    
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -78,81 +77,95 @@
     <header class="intro">
         <div class="intro-body">
             <div class="container">
-                
                 <!--team inform-->
-                <div class = "row">
-                    
-                     <div class = "col-lg-3">
-                      <div class ="list-group">
-                      
-                      
-        
-                      <a href = "#" class = "list-group-item " >
-                      <h4 class = "list-group-item-heading">Name</h4>
-                      <p class ="list-group-item-text"> position of the team</p>
-                      </a>
-                          
-                      <a href = "#" class = "list-group-item">
-                      <h4 class = "list-group-item-heading" >Name</h4>
-                      <p class = "list-group-item-text">position of the team</p>
-                      </a>
-                      </div>
-                    
-                      </div>
-                      <div class = "col-lg-9">
-                        <div class = " panel-default">
-                            <div class = "panel-body">
-                                <div class = "page-header">
-                                    <h3>Your teamname <small>posted</h3>
-                            
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="list-group">
+                            <a href="#teamMem1" class="list-group-item " data-toggle="modal">
+                                <h4 class="list-group-item-heading">Name</h4>
+                                <p class="list-group-item-text"> position of the team</p>
+                            </a>
+
+                            <a href="#teamMem2" class="list-group-item" data-toggle="modal">
+                                <h4 class="list-group-item-heading">Name</h4>
+                                <p class="list-group-item-text">position of the team</p>
+                            </a>
                         </div>
-                        <img class = "featuredImg" src = "img/team-img.jpg" width = "100%" > 
-                        <p> your team information here... </p>
-                        
-                     </div>
-
-                 </div>
-            </div>
-    
-		</div>
-       
-</div>  
-        </div>
-             </div>
-      </div>
-        </div>
-    </header>
-
-  
- <div class="modal fade" id="contact">
-        <!--<div class="modal-content">-->
-        <div class="close-modal" data-dismiss="modal">
-                    <div class="lr">
-                        <div class="rl">
+                    </div>
+                    <div class="col-lg-9">
+                        <div class=" panel-default">
+                            <div class="panel-body">
+                                <div class="page-header">
+                                    <h3>Your teamname <small>posted</h3>
+                                </div>
+                                <img class = "featuredImg" src = "img/team-img.jpg" width = "100%" > 
+                                <p> your team information here... </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-        
-        
+            </div>
+       </div>
+    </header>
+
+  
+    <div class="modal fade" id="selfProfile">
+        <!--<div class="modal-content">-->
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl"></div>
+            </div>
+        </div>
         <div class="container">
             <div class="col-xs-8 col-xs-offset-2">
                 <center>
                     <!-- <div class="panel panel-default"><div class="panel-body">-->
-                    <img class="fetureImg" src="profile/brown.png">
-                        
-                        <h2> {Username} </h2>
-                        <hr>
-                        <h3> {Self-Intro}</h3>
-                        <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.
-                        
-                        In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
-                        
-                        </p>
-                        </center>
+                    <img class="featureImg" src="profile/brown.png">
+                    <h2> {Username} </h2><hr>
+                    <h3> {Self-Intro}</h3>
+                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
+                    </p>
+                </center>
             </div>
         </div>
-
-
+    </div>
+    <div class="modal fade" id="teamMem1">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-xs-8 col-xs-8 col-xs-offset-2">
+                <center>
+                    <img class="featureImg" src="profile/cony.png">
+                    <h2> {Username-Team Member1} </h2><hr>
+                    <h3> {Self-Intro}</h3>
+                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="teamMem2">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-xs-8 col-xs-8 col-xs-offset-2">
+                <center>
+                    <img class="featureImg" src="profile/sally.png">
+                    <h2> {Username-Team Member1} </h2><hr>
+                    <h3> {Self-Intro}</h3>
+                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+        
   
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.js"></script>
@@ -169,7 +182,5 @@
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
     
-
 </body>
-
 </html>
