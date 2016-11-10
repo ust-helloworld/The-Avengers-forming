@@ -178,10 +178,6 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.param.teamMembers = data.child("teamMembers").val();
 				
 			}
-			else{
-				$scope.param.teamMembers = "";
-			}
-
 			if ( data.child("mergeRequests").val() != null){
 				$scope.mergeSelection = data.child("mergeRequests").val();
 			}
