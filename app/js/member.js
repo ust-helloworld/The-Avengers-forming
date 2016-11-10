@@ -17,7 +17,10 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+    if (firebase.apps.length === 0)
+    {
+    initalizeFirebase();
+    }
 	
 	$scope.userID = "";
 	$scope.userName = "";	
