@@ -22,7 +22,6 @@ angular.module('teamform-member-app', ['firebase'])
 	// Set default member to be the current user
 	firebase.auth().onAuthStateChanged(function(user){
 		if (user) {
-			$scope.saveFunc();
 			$scope.userID = user.uid;
 			$scope.userName = user.displayName;
 			$scope.loadFunc();
@@ -66,12 +65,11 @@ angular.module('teamform-member-app', ['firebase'])
 			var refPath = getURLParameter("q") + "/member/" + userID;
 			var ref = firebase.database().ref(refPath);
 			ref.set(newData, function(){
-				// Complete call back
+				// complete call back
 				//alert("data pushed...");
 
 				// Finally, go back to the front-end
-				//window.location.href= "index.html";
-				console.log("Save data")
+				window.location.href= "index.html";
 			});
 		}
 	}
