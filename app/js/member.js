@@ -14,7 +14,10 @@ angular.module('teamform-member-app', ['firebase'])
 	// TODO: implementation of MemberCtrl
 
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	if (firebase.apps.length === 0)
+	{
+		initalizeFirebase();
+	}
 
 	// Set default member to be the current user
 	firebase.auth().onAuthStateChanged(function(user){
