@@ -24,7 +24,6 @@
     <label>You are well-known in :<input type=text ng-model = "Fskill"></label><br>
     <label>You apply for activity: <input type = text ng-model = "activity"></label><br>
 	<label>Your description : <textarea ng-model = "description"></textarea><br>
-
 	<label> You received group invitation for : <span ng-repeat = "xinvite in inviteReceived" ng-click = "accept(xinvite)">{{xinvite}}  </span></label><br>
     <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
   </form>

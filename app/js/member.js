@@ -38,7 +38,6 @@ angular.module('teamform-member-app', ['firebase'])
 		var userID = $scope.userID;
 		if ( userID !== '' ) {
 			var refPath ="/event/"+ getURLParameter("q") + "/member/" + userID;
-
 			retrieveOnceFirebase(firebase, refPath, function(data) {
 				if ( data.child("name").val() != null ) {
 					$scope.userName = data.child("name").val();
@@ -80,7 +79,6 @@ angular.module('teamform-member-app', ['firebase'])
 
 	$scope.refreshTeams = function() {
 		var refPath ="/event/" + getURLParameter("q") + "/team";
-
 		var ref = firebase.database().ref(refPath);
 		// Link and sync a firebase object
 		$scope.selection = [];
