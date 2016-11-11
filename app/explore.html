@@ -149,114 +149,7 @@
             </div>
         </center>
     </section>
-                        <!--start search
-                            <div class="input-group" id="adv-search">
-                                <input type="text" class="form-control" placeholder="Search for snippets" />
-                                    <div class="input-group-btn">
-                                            <div class="btn-group" role="group">
-                                                <div class="dropdown dropdown-lg">
-                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                                        <form class="form-horizontal" role="form">
-                                                            <div class="form-group">
-                                                                <label for="filter">Filter by</label>
-                                                                <select class="form-control">
-                                                                    <option value="0" selected>All</option>
-                                                                    <option value="1">Users</option>
-                                                                    <option value="2">Teams</option>
-                                                                    <option value="3">Events</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="contain">Author</label>
-                                                                <input class="form-control" type="text" />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="contain">Contains the words</label>
-                                                                <input class="form-control" type="text" />
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
-                        <!--<h1 class="brand-heading">Grayscale</h1>
-                        <p class="intro-text">A free, responsive, one page Bootstrap theme.
-                            <br>Created by Start Bootstrap.</p>
-                        <a href="#about" class="btn btn-circle page-scroll">
-                            <i class="fa fa-angle-double-down animated"></i>
-                        </a>-->
-      
-
-    <!--search
-    <div class="container">
-        <div class = "form-group row">
-            <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
-    </div>-->
-
-
-    <!-- About Section
-    <section id="about" class="container content-section text-center">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>About Grayscale</h2>
-                <p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-                <p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-                <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
-            </div>
-        </div>
-    </section>
--->
-    <!-- Download Section
-    <section id="download" class="content-section text-center">
-        <div class="download-section">
-            <div class="container">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Download Grayscale</h2>
-                    <p>You can download Grayscale for free on the preview page at Start Bootstrap.</p>
-                    <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a>
-                </div>
-            </div>
-        </div>
-    </section>
--->
-    <!-- Contact Section
-    <section id="contact" class="container content-section text-center">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>Contact Start Bootstrap</h2>
-                <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
-                <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
-                </p>
-                <ul class="list-inline banner-social-buttons">
-                    <li>
-                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
--->
-    <!-- Map Section
-    <div id="map"></div>
--->
-    <!-- Footer
-    <footer>
-        <div class="container text-center">
-            <p>Copyright &copy; Your Website 2016</p>
-        </div>
-    </footer>
-     -->
+                       
     
     <!--bottom navbar-->
     <div class = "navbar navbar-inverted navbar-fixed-bottom">
@@ -266,8 +159,8 @@
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href = "#" class = "navbar-text"> Team </a></li>
-                    <li><a href = "#" class = "navbar-text"> Event </a></li>
+                    <li><a href = "#addteam" data-toggle="modal"  class = "navbar-text"> Team </a></li>
+                    <li><a href = "#addevent" data-toggle="modal" class = "navbar-text"> Event </a></li>
                 </ul>
             </div>
         </div>
@@ -298,8 +191,146 @@
             </div>
         </div>
     </div>
+    <div class ="modal fade2" id ="addteam" role = "dialog">
+        <div class = "modal-dialog">
+            <div class= "modal-content">
+                <form class="Form-horizontal">
+                <div class ="modal-header-addteam">
+                <br><center><h3>Create a Team</h3></center>
+                </div>
+                <div class="modal-body-addteam">
+                    <div class = "form-group">
+                        <label for = "contact-name" class = "col-lg-3 control-lable">Team Name:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your team name"><br>
+                    </div>
+                </div>
+                <div class = "form-group">
+                        <label for = "contact-event" class = "col-lg-3 control-lable">Choose an Event:</label>
+                        <div class ="col-lg-9">
+                    <select class = "form-control">
+                            <option  class = "form-control">Which event do you want to joint</option>
+                             </select><br>
+                    </div>
+                </div>
+                <div class = "form-group">
+                        <label for = "contact-descrip" class = "col-lg-3 control-lable"> Team description:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-descrip" placeholder = "Describe your team"><br>
+                    </div>
+                  </div>
+                   <div class="form-group">
+					  <label for = "contact-size" class = "col-lg-3 control-lable"> Team Size:</label> 					  
+					  <span>
+						 <span class="badge"> 8</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+
+						  
+					   </span><br>
+				   </div>
+                   <div class = "form-group">
+                       <label for = "contact-img" class = "col-lg-3 control-lable"> Select an image for your team:</label>
+                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                 <div class="form-inline">
+              <div class="form-group">
+                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
+              </div>
+              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
+            </div>
+          </form>
+                   </div>
+        
+          
+
+                </div>
+                <div class ="modal-footer">
+                    <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
+                    <a class ="btn btn-default" data-dismiss = "modal">Create </a>
+            
+                
+                </div>
+                </form>
+                </div>
+        </div>
+    </div>
     
+     <div class ="modal fade3" id ="addevent" role = "dialog">
+         
+        <div class = "modal-dialog">
+            <div class= "modal-content">
+                <form class="Form-horizontal">
+                <div class ="modal-header-addteam">
+                <br><center><h3>Create an Event</h3></center>
+                </div>
+                <div class="modal-body-addteam">
+                    <div class = "form-group">
+                        <label for = "contact-name" class = "col-lg-3 control-lable">Event Name:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your event name"><br>
+                    </div>
+                </div>
+               
+                <div class = "form-group">
+                        <label for = "contact-descrip" class = "col-lg-3 control-lable"> Event description:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-descrip" placeholder = "Describe your event"><br>
+                    </div>
+                  </div>
+                   <div class="form-group">
+					  <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label> 					  
+					  <span>
+						 <span class="badge"> 10</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+
+						  
+					   </span>
+				   </div>
+                   <div class = "container"> </div>
+                   <div class="form-group">
+                       
+					  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label> 					  
+					  <span>
+						 <span class="badge"> 6</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+
+						  
+					   </span>
+				   </div>
+                   <div class = "container"> </div>
+                    <div class = "form-group">
+                       <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
+                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                 <div class="form-inline">
+              <div class="form-group">
+                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
+              </div>
+              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
+            </div>
+            
+          </form>
+                   </div>
+
+                </div>
+                <div class ="modal-footer">
+                    <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
+                    <a class ="btn btn-default" data-dismiss = "modal">Create </a>
+            
+                
+                </div>
+                </form>
+                </div>
+        </div>
+         
+    </div>
     
     
     <!-- jQuery -->
