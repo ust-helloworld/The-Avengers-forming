@@ -21,6 +21,7 @@ angular.module('teamform-member-app', ['firebase'])
 		if (user) {
 			$scope.userID = user.uid;
 			$scope.userName = user.displayName;
+			$scope.loadFunc();
 		} else {
 			$scope.userID = "Please log in";
 			$scope.userName = "Please log in";
