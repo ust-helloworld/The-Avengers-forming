@@ -64,6 +64,7 @@ angular.module('teamform-member-app', ['firebase'])
 				'name': userName,
 				'selection': $scope.selection
 			};
+
 			var refPath = "/event/"+ getURLParameter("q") + "/member/" + userID;	
 			var ref = firebase.database().ref(refPath);
 			ref.set(newData, function(){
@@ -79,6 +80,7 @@ angular.module('teamform-member-app', ['firebase'])
 
 	$scope.refreshTeams = function() {
 		var refPath ="/event/" + getURLParameter("q") + "/team";
+
 		var ref = firebase.database().ref(refPath);
 		// Link and sync a firebase object
 		$scope.selection = [];
