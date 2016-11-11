@@ -22,9 +22,9 @@ angular.module('teamform-member-app', ['firebase'])
 	// Set default member to be the current user
 	firebase.auth().onAuthStateChanged(function(user){
 		if (user) {
-			$scope.saveFunc();
 			$scope.userID = user.uid;
 			$scope.userName = user.displayName;
+			$scope.saveFunc();
 			$scope.loadFunc();
 		} else {
 			$scope.userID = "Please log in";
