@@ -39,25 +39,12 @@
           <div class="col-md-2 col-xs-2"></div>
           <div class="col-md-8 col-xs-8 panel">
 
-            <!-- Form -->
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
-                <div class="col-sm-5">
-                  <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
-                </div>
-                <div class="col-sm-4">
-                  <button type="button" class="btn btn-primary" ng-click="saveFunc();">Add/Modify</button>
-                  <button type="button" class="btn btn-primary" ng-click="loadFunc();">Load</button>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputName" class="col-sm-3 control-label">Name</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
-                </div>
-              </div>
-            </form>
+            <!-- Information -->
+            <p>User ID: {{userID}}</p>
+            <p>Name: {{userName}}</p>
+            <button type="button" class="btn btn-primary" ng-click="saveFunc();">Add/Modify</button>
+            <!-- <button type="button" class="btn btn-primary" ng-click="loadFunc();">Load</button> -->
+            <!-- End of information -->
 
             <!-- Select team preference here -->
             <div class="row text-left">
