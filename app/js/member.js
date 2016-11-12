@@ -38,7 +38,6 @@ angular.module('teamform-member-app', ['firebase'])
 		var userID = $scope.userID;
 		if ( userID !== '' ) {
 			var refPath ="/event/"+ getURLParameter("q") + "/member/" + userID;
-
 			retrieveOnceFirebase(firebase, refPath, function(data) {
 				if ( data.child("name").val() != null ) {
 					$scope.userName = data.child("name").val();

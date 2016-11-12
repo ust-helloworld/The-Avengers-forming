@@ -11,21 +11,20 @@
     <script src="../lib/firebase.js"></script>     
     <script src="../lib/angularfire.min.js"></script>
 	<!-- page JS -->
-	<script src = "../js/memberDetailTemp.js"></script>
+	<script src = "../js/memberDetail.js"></script>
 
 </head>
 <body>
 
 <div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
-  Please input your data:)<br>Use UserID and activity to access data from database.<br>
+  Please input your data:<br>
   <form id = "ProfileForm">
-    <label>Your UserId:<input type=text ng-model = "FUID"></label><br>
+    <label>Your UserId:<input type=text ng-model = "FUID" disabled></label><br>
     <label>Your Name:<input type=text ng-model = "Fname"></label><br>
     <label>You are well-known in :<input type=text ng-model = "Fskill"></label><br>
-    <label>You apply for activity: <input type = text ng-model = "activity"></label><br>
-	<label>Your description : <textarea ng-model = "description"></textarea><br>
+    <label>Your description : <textarea ng-model = "description"></textarea><br>
 	<label> You received group invitation for : <span ng-repeat = "xinvite in inviteReceived" ng-click = "accept(xinvite)">{{xinvite}}  </span></label><br>
-    <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
+    <input type = "button" ng-click = "save()" value = "save">
   </form>
   <div id = "testing_ouput">
     {{ datadebug | json}}
@@ -36,6 +35,8 @@
    
  </div>
    
+
+
 
 </body>
 </html>
