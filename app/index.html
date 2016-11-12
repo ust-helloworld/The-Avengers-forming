@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="indexApp">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -153,7 +153,17 @@
                      </div>
                      <br >
 
+                     <ul class="eventList">
+                           <!-- //orderby which attritue in each element ,also order by name mean 跟次序already direction is suborder -->
+                       <li ng-repeat="item in event" >
 
+
+                         <div class="info">
+                           <h2>{{item}}</h2>
+
+                         </div>
+                       </li>
+                     </ul>
 
 
                      <br >
