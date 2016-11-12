@@ -1,0 +1,42 @@
+<html ng-app = "teamform-memberDetail-app">
+<head> 
+<title>MemberDetail</title> 
+
+    <!-- Customized libraries shared by pages -->
+    <script src="../js/site.js"></script>
+	<!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="../lib/angular.min.js"></script>
+    <script src="../lib/angular-route.min.js"></script>
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="../lib/firebase.js"></script>     
+    <script src="../lib/angularfire.min.js"></script>
+	<script src = "memberDetailTemp.js"></script>
+
+</head>
+<body>
+
+<div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
+  Please input your data:)<br>Use UserID and activity to access data from database.<br>
+  <form id = "ProfileForm">
+    <label>Your UserId:<input type=text ng-model = "FUID"></label><br>
+    <label>Your Name:<input type=text ng-model = "Fname"></label><br>
+    <label>You are well-known in :<input type=text ng-model = "Fskill"></label><br>
+    <label>You apply for activity: <input type = text ng-model = "activity"></label><br>
+	<label>Your description : <textarea ng-model = "description"></textarea><br>
+	<label> You received group invitation for : <span ng-repeat = "xinvite in inviteReceived" ng-click = "accept(xinvite)">{{xinvite}}  </span></label><br>
+    <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
+  </form>
+  <div id = "testing_ouput">
+    {{ datadebug | json}}
+	<div ng-repeat = "comment in comments">
+	  Comment: {{comment}}
+	</div>
+  </div>
+   
+ </div>
+   
+
+
+
+</body>
+</html>
