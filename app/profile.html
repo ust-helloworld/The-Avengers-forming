@@ -64,7 +64,7 @@
   <!-- This is a session for displaying member in the event -->
     <ul class="memberInfolist">
           <!-- //orderby which attritue in each element ,also order by name mean 跟次序already direction is suborder -->
-      <li  ng-repeat="item in member|orderBy:memberName:direction" >
+      <li  ng-repeat="item in member|filter:query |orderBy:memberName:direction" >
 
         <img ng-src="images/{{item.picture}}_tn.jpg" alt="Photo of {{item.name}}">
         <div class="info">
