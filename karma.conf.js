@@ -14,7 +14,7 @@ module.exports = function(config) {
 	  'js/*.js',
       'unit_tests/*.js'	  
     ],
-	exclude: [
+	exclude: ['js/grayscale.js','js/grayscale.min.js'
 	],
 	preprocessors: {	 	
 		 'js/site.js' : ['coverage'],		

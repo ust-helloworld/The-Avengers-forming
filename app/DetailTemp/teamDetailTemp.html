@@ -1,0 +1,34 @@
+<html ng-app = "teamform-teamDetail-app">
+<head> 
+<title>Profile testing</title> 
+
+    <!-- Customized libraries shared by pages -->
+    <script src="../js/site.js"></script>
+	<!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="../lib/angular.min.js"></script>
+    <script src="../lib/angular-route.min.js"></script>
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="../lib/firebase.js"></script>     
+    <script src="../lib/angularfire.min.js"></script>
+	<!-- page JS-->
+	<script src="../js/teamDetailTemp.js"></script>
+</head>
+<body>
+
+<div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
+   Please input your data:)<br>Enter Team Name and activity name for load()<br>
+  <form id = "ProfileForm">
+    <label>Team Name:<input type=text ng-model = "FName"></label><br>
+    <label>Team Description:<input type=text ng-model = "FDescription"></label><br>
+    <label>Team Size: <input type=text ng-model = "FSize"></label><br>
+    <label>Which activity: <input type = text ng-model = "FActivity"></label><br>
+    <label>Have who?: <input type = text ng-model = "FMembers"></label><br>
+    <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
+  </form>
+  <div id = "testing_ouput">
+    {{ datadebug | json}}
+  </div>
+   
+   </div>
+</body>
+</html>

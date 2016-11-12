@@ -28,7 +28,9 @@ $(document).ready(function(){
     	}
     });
 
-    var app = angular.module('indexApp', ["firebase"]);
+
+});
+var app = angular.module('indexApp', ["firebase"]);
 
     app.controller('indexController',
 
@@ -40,10 +42,7 @@ $(document).ready(function(){
 
         $scope.event = $firebaseArray(ref);//firebase copy the data to view also link it to firebase blinding firebase to model
 
-      
+
 
       }
     );
-
-
-});
