@@ -128,7 +128,7 @@ angular.module('teamform-team-app', ['firebase'])
 			// for each team membxers, clear the selection in /[eventName]/team/
 			$.each($scope.mergeRequestReceived, function(i,obj){
 				var rec = $scope.team.$getRecord(obj.$id);
-				console.log(rec);
+				//console.log(rec);
 				$scope.team.$remove(rec);
 			});
 
@@ -247,7 +247,7 @@ angular.module('teamform-team-app', ['firebase'])
 		
 		$.each($scope.param.teamMembers, function(i,obj){
 			var rec = $scope.member.$getRecord(obj);
-			console.log(rec);
+			//console.log(rec);
 			rec.selection = [];
 			$scope.member.$save(rec);
 		});
@@ -266,7 +266,7 @@ angular.module('teamform-team-app', ['firebase'])
 					return false;
 				}
 			});
-			console.log(rec);
+			//console.log(rec);
 			var path = eventName + '/member/' + rec;
 			retrieveOnceFirebase(firebase, path, function(data) {
 				joined = data.child("joinedTeam").val();

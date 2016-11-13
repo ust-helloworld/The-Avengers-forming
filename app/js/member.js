@@ -109,7 +109,7 @@ angular.module('teamform-member-app', ['firebase'])
 
 			if (data.child("invitationRequests").val() != null){
 				list2 = data.child("invitationRequests").val();
-				var index = list2.indexOf($scope.userName);
+				var index = list2.indexOf($scope.userID);
 				list2.splice(index, 1);
 			}
 			firebase.database().ref(path).update({"invitationRequests": list2});
