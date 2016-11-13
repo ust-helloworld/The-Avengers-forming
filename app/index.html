@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,25 +49,25 @@
     <script src="lib/firebase.js"></script>
     <script src="js/fblogin.js"></script>
 
-  </head>
+    </head>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-    <!-- Navigation -->
+        <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header navbar-left">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
+                   <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
                     <!--<i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap-->
-                    <!--profile-->
-                    <a href = "#contact"  data-toggle ="modal">
+                   <!--profile-->
+                   <a href = "#contact"  data-toggle ="modal">
                         <div class = "navbar-brand">
-
+                            
                             <img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                </div>
+                        </div>
                     </a>
                 </a>
             </div>
@@ -88,114 +88,89 @@
                     <li>
                         <a class="page-scroll" href="explore.html">Explore</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="#selectevent">Enter a event</a>
-                    </li>
-                </ul>
+                    </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
 
-    <!-- Intro Header -->
-    <header class="intro">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading">Hello World</h1>
-                       <!-- <p class="intro-text">A free, responsive, one page Bootstrap theme.
+        <!-- Intro Header -->
+        <header class="intro">
+            <div class="intro-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h1 class="brand-heading">Hello World</h1>
+                            <!-- <p class="intro-text">A free, responsive, one page Bootstrap theme.
                             <br>Created by Start Bootstrap.</p>
                         <a href="#about" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
                          -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <section id="selectevent" class="container content-section text-center">
-      <div class="text-center">
-        <input id="input_text" type="text" class="input-lg" style="color:black !important">
-        <br>
-        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-        <div>
-          <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-          <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-          <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-          <!-- Copy from firebase facebook pop-up auth template -->
-         <!-- Button that handles sign-in/sign-out -->
-         <button disabled class="btn btn-primary" id="quickstart-sign-in" type="button">Log in with Facebook</button>
-        </div>
-      </div>
-      <!-- For debugging -->
-      <!-- Container where we'll display the user details -->
-      <div class="quickstart-user-details-container">
-        Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-        <div>Firebase auth <code>currentUser</code> object value:</div>
-        <pre><code id="quickstart-account-details">null</code></pre>
-        <div>Facebook OAuth Access Token:</div>
-        <pre><code id="quickstart-oauthtoken">null</code></pre>
-      </div>
-    </section>
 
-    <!--You program-->
-    <section id="events" class="container content-section text-center">
-        <center>
-            <div class = "container">
-                     <div class = "col-md-12">
+
+        <!--You program-->
+        <section id="events" class="container content-section text-center">
+            <center>
+                <div class="container">
+                    <div class="col-md-12">
                         <h2>Upcoming event</h2>
                         <hr>
                         <h3><a href="#">hackUST</a></h3>
                         <img src="img/hackUST.jpg">
-                            <p>
+                        <p>hackUST is a 24-hour coding event where programmers, designers, engineers, entrepreneurs come together
+                            for 2 days to turn their boldest ideas into reality.
+                        </p>
+                    </div>
 
-                            hackUST is a 24-hour coding event where programmers, designers, engineers, entrepreneurs come together for 2 days to turn their boldest ideas into reality.
-                            </p>
-                      </div>
-            </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3><a href="#">abcdefg</a></h3>
+                            <img src="img/event1.jpg" height="279">
+                            <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows
+                                us to divide our page into 12 columns.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- <div class = "jumbotron">-->
+                            <h3><a href="#">abcdefg</a></h3>
+                            <img src="img/event2.jpeg" height="279">
+                            <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows
+                                us to divide our page into 12 columns.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- <div class = "jumbotron">-->
+                            <h3><a href="#">abcdefg</a></h3>
+                            <img src="img/event3.jpg" height="279">
+                            <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows
+                                us to divide our page into 12 columns.</p>
+                        </div>
 
-        <div class = "row">
-            <div class = "col-md-4">
-                <h3><a href = "#">abcdefg</a></h3>
-                <img src="img/event1.jpg" height="279">
-                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
-            </div>
-         <div class = "col-md-4">
-                <!-- <div class = "jumbotron">-->
-                <h3><a href = "#">abcdefg</a></h3>
-                <img src="img/event2.jpeg" height="279">
-                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
-         </div>
-            <div class = "col-md-4">
-                <!-- <div class = "jumbotron">-->
-                <h3><a href = "#">abcdefg</a></h3>
-                <img src="img/event3.jpg" height="279">
-                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
-            </div>
+                    </div>
+            </center>
+        </section>
 
-        </div>
-         </center>
-    </section>
-
-    <!--bottom navbar-->
-<div class = "navbar navbar-inverted navbar-fixed-bottom">
-    <div class = "container">
-            <div class="dropup pull-right">
-            <button class = "btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <!--bottom navbar-->
+        <div class="navbar navbar-inverted navbar-fixed-bottom">
+            <div class="container">
+                <div class="dropup pull-right">
+                    <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
-            <ul class="dropdown-menu">
-                <li><a href = "#" class = "navbar-text"> Team </a></li>
-                <li><a href = "#" class = "navbar-text"> Event </a></li>
-            </ul>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="navbar-text"> Team </a></li>
+                        <li><a href="#" class="navbar-text"> Event </a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-    <!-- About Section
+        <!-- About Section
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
@@ -209,7 +184,7 @@
 
 
 
-    <!-- Download Section
+        <!-- Download Section
     <section id="download" class="content-section text-center">
         <div class="download-section">
             <div class="container">
@@ -222,7 +197,7 @@
         </div>
     </section>
 -->
-    <!-- Contact Section
+        <!-- Contact Section
     <section id="contact" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
@@ -245,10 +220,10 @@
         </div>
     </section>
 -->
-    <!-- Map Section
+        <!-- Map Section
     <div id="map"></div>
 -->
-    <!-- Footer
+        <!-- Footer
     <footer>
         <div class="container text-center">
             <p>Copyright &copy; Your Website 2016</p>
@@ -256,48 +231,53 @@
     </footer>
      -->
 
-    <div class="modal fade" id="contact">
-        <!--<div class="modal-content">-->
+        <div class="modal fade" id="contact">
+            <!--<div class="modal-content">-->
 
 
 
-        <div class="container">
-            <div class="col-xs-8 col-xs-offset-2">
-                <center>
-                    <!-- <div class="panel panel-default"><div class="panel-body">-->
-                    <img class="fetureImg" src="profile/brown.png">
+            <div class="container">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <center>
+                        <!-- <div class="panel panel-default"><div class="panel-body">-->
+                        <img class="fetureImg" src="profile/brown.png">
 
                         <h2> {Username} </h2>
                         <hr>
                         <h3> {Self-Intro}</h3>
-                        <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.
-
-                        In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
+                        <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons
+                            is grouped, an appropriate role attribute needs to be provided. For button groups, this would
+                            be role="group", while toolbars should have a role="toolbar".One exception are groups which only
+                            contain a single control (for instance the justified button groups with elements) or a dropdown.
+                            In addition, groups and toolbars should be given an explicit label, as most assistive technologies
+                            will otherwise not announce them, despite the presence of the correct role attribute. In the
+                            examples provided here, we use aria-label, but alternatives such as aria-labelledby can also
+                            be used.
 
                         </p>
-                        </center>
+                    </center>
+                </div>
             </div>
-        </div>
 
 
 
-    <!-- jQuery -->
-    <script src="vendor/jquery/jquery.js"></script>
+            <!-- jQuery -->
+            <script src="vendor/jquery/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+            <!-- Bootstrap Core JavaScript -->
+            <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+            <!-- Plugin JavaScript -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+            <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
-    <!-- Theme JavaScript -->
-    <script src="js/grayscale.min.js"></script>
+            <!-- Theme JavaScript -->
+            <script src="js/grayscale.min.js"></script>
 
-    <script src="js/index.js"></script>
+            <script src="js/index.js"></script>
 
-</body>
+            </body>
 
 </html>
