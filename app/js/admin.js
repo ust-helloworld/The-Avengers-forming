@@ -43,6 +43,9 @@ angular.module('teamform-admin-app', ['firebase'])
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}
+			if(typeof $scope.param.description == "undefined"){				
+				$scope.param.description = null;
+			}
 			
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
@@ -62,7 +65,12 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
-	
+	//refPath = eventName + "/admin/param";
+	//ref1 = $firebaseObject(firebase.database().ref(refPath));
+	//ref1.$loaded().then(function (data){
+	//  if (data.description != null)
+	//  $scope.FDescription = data.description;	
+	//});
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
@@ -90,8 +98,39 @@ angular.module('teamform-admin-app', ['firebase'])
 
 		$scope.param.$save();
 		
-		// Finally, go back to the front-end
-		window.location.href= "index.html";
+		//refPath = eventName + "/admin/param";
+		var database = firebase.database();
+		//database.ref(refPath).update({'description':$scope.FDescription});
+		
+		if (typeof document.getElementById("FPhoto").files[0]!="undefined")
+	  {
+		  files = document.getElementById("FPhoto").files;
+		  console.log("have sth to upload");
+		  console.log(files[0].name);
+		  
+		  // Create a root reference
+          var storageRef = firebase.storage().ref();
+
+          // Create a reference to 'mountains.jpg'
+          var eventRef = storageRef.child("event/"+eventName);
+          eventRef.put(files[0]).then(function(snapshot){
+			 console.log('Uploaded a file!'); 
+			  var downloadURL = snapshot.downloadURL;
+			  var refPath = eventName + "/admin/param";
+			  database.ref(refPath).update({'imgURL':downloadURL}).then(function (){
+				   // Finally, go back to the front-end
+			       window.location.href= "index.html";
+			  });
+			  
+			 
+			  
+		  });		  
+	  }
+	  else {// Finally, go back to the front-end
+	    window.location.href= "index.html";
+      }
+		
+		
 	}
 	
 		
