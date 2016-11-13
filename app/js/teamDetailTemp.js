@@ -1,38 +1,3 @@
-<html ng-app = "teamform-teamDetail-app">
-<head> 
-<title>Profile testing</title> 
-
-    <!-- Customized libraries shared by pages -->
-    <script src="js/site.js"></script>
-	<!-- Angular and Angular-route libraries (v1.5.7) -->
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/angular-route.min.js"></script>
-    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-    <script src="lib/firebase.js"></script>     
-    <script src="lib/angularfire.min.js"></script>
-</head>
-<body>
-
-<div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
-   Please input your data:)<br>Enter Team Name and activity name for load()<br>
-  <form id = "ProfileForm">
-    <label>Team Name:<input type=text ng-model = "FName"></label><br>
-    <label>Team Description:<input type=text ng-model = "FDescription"></label><br>
-    <label>Team Size: <input type=text ng-model = "FSize"></label><br>
-    <label>Which activity: <input type = text ng-model = "FActivity"></label><br>
-    <label>Have who?: <input type = text ng-model = "FMembers"></label><br>
-    <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
-  </form>
-  <div id = "testing_ouput">
-    {{ datadebug | json}}
-  </div>
-   
-   </div>
-   
-
-
-     <script>
-   
 angular.module('teamform-teamDetail-app',['firebase'])
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
   
@@ -40,7 +5,7 @@ angular.module('teamform-teamDetail-app',['firebase'])
   initalizeFirebase();
   database = firebase.database();
   
-  $scope.FName = "teamA";
+  $scope.FName = "abc";
   $scope.FDescription = "Need C++";
   $scope.FSize = "";
   $scope.FActivity = "abc";
@@ -51,19 +16,19 @@ angular.module('teamform-teamDetail-app',['firebase'])
   };
   
   $scope.load = function () {
-    alert ("click load :P");
+    console.log ("click load :P");
     FName = $scope.FName;
     FActivity = $scope.FActivity;
     if ( FName !== '' ) {
       
       var refPath = FActivity + "/team/"+FName;
-      alert (refPath);
+      console.log (refPath);
       //This is the way for getting data from firebase
       //.once("value") <--the value inside value must be value;
       database.ref(refPath).once("value").then(function (data)
       {
         //here use data to get back the data :)        
-        alert(data.val().size);
+        console.log(data.val().size);
         if ( data.val().size != null ) {
           $scope.FSize = data.val().size;
         } else {
@@ -84,10 +49,11 @@ angular.module('teamform-teamDetail-app',['firebase'])
 
         $scope.datadebug = data.val();
       });
+	  
     }
-  }
+  };
   $scope.save = function () {
-    alert ("click save :P");
+    console.log ("click save :P");
     FName = $scope.FName;
     FActivity = $scope.FActivity;
     FMembers = $scope.FMembers;
@@ -97,7 +63,7 @@ angular.module('teamform-teamDetail-app',['firebase'])
     if ( FName !== '' && FActivity !=='') {
       
       var refPath = FActivity + "/team/"+FName;
-      alert (refPath);
+      console.log (refPath);
       //this is the method to set/rewrite the data inside firebase
       database.ref(refPath).set(
       {
@@ -113,12 +79,7 @@ angular.module('teamform-teamDetail-app',['firebase'])
         teamMembers: FMemberList
       };
     }
-  }
+  };
   
 
 }]);
-   
-   </script>
-
-</body>
-</html>

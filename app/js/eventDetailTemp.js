@@ -1,48 +1,4 @@
-<html ng-app = "teamform-activityDetail-app">
-<head> 
-<title>Profile testing</title> 
-
-    <!-- Customized libraries shared by pages -->
-    <script src="js/site.js"></script>
-	<!-- Angular and Angular-route libraries (v1.5.7) -->
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/angular-route.min.js"></script>
-    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-    <script src="lib/firebase.js"></script>     
-    <script src="lib/angularfire.min.js"></script>
-</head>
-<body>
-
-<div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
-   Please input your data:)<br>Enteractivity name for load()<br>
-  <form id = "ProfileForm">
-    <label>Name:<input type=text ng-model = "FName"></label><br>
-    <label>Description:<input type=text ng-model = "FDescription"></label><br>
-    <label>Minimum Size: <input type=text ng-model = "FMinSize"></label><br>
-	<label>Maxmum Size: <input type=text ng-model = "FMaxSize"></label><br>
-    <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
-  </form>
-  <div id = "testing_ouput">
-    Number of groups: {{numgroup.length}} <br>
-	<div id = "test">
-	  <div ng-repeat = "x in showgroup">
-		GroupMember : {{x.teamMembers}}<br>
-		TotalNum : {{x.teamMembers.length}}
-		<br>
-	  </div>
-	</div>
-	<br><br>
-    {{ datadebug | json}}
-	
-  </div>
-   
-   </div>
-   
-
-
-     <script>
-   
-angular.module('teamform-activityDetail-app',['firebase'])
+angular.module('teamform-eventDetail-app',['firebase'])
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
   
   //initalizeFirebase();
@@ -63,18 +19,17 @@ angular.module('teamform-activityDetail-app',['firebase'])
   };
   
   $scope.load = function () {
-    alert ("click load :P");
+    console.log ("click load :P");
     FName = $scope.FName;
     if ( FName !== '' ) {
       
       var refPath = FName;
-      alert (refPath);
+      console.log (refPath);
       //This is the way for getting data from firebase
       //.once("value") <--the value inside value must be value;
       database.ref(refPath).once("value").then(function (data)
       {
         //here use data to get back the data :)        
-        alert(data.val().admin.param.minTeamSize);
         if (data.val().admin.param.minTeamSize != null ) {
           $scope.FMinSize = data.val().admin.param.minTeamSize;
         } else {
@@ -99,7 +54,7 @@ angular.module('teamform-activityDetail-app',['firebase'])
     }
   };
   $scope.save = function () {
-    alert ("click save :P");
+    console.log ("click save :P");
     FName = $scope.FName;
     FDescription = $scope.FDescription;
     FMinSize = $scope.FMinSize;
@@ -107,7 +62,7 @@ angular.module('teamform-activityDetail-app',['firebase'])
     if ( FName !== '') {
       
       var refPath = FName + "/admin/param/";
-      alert (refPath);
+      console.log (refPath);
       //this is the method to set/rewrite the data inside firebase
 	  
 	  updates = {};
@@ -128,8 +83,3 @@ angular.module('teamform-activityDetail-app',['firebase'])
   
 
 }]);
-   
-   </script>
-
-</body>
-</html>
