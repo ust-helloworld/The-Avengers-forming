@@ -93,8 +93,8 @@ angular.module('teamform-member-app', ['firebase'])
 			});
 		}
 	}
+	$scope.joinedTeam = "";
 	$scope.handleInvitation = function(t){
-		$scope.joinedTeam = "";
 		var path = "/event/" + eventName + '/team/' + t.$id;
 
 		var list = [];

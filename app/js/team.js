@@ -82,7 +82,7 @@ angular.module('teamform-team-app', ['firebase'])
 		});
 
 		$.each($scope.member, function(i,obj){
-			if (typeof obj.joinedTeam == "undefined"){
+			if (obj.joinedTeam == ""){
 				$scope.members.push(obj);
 			}
 		});
