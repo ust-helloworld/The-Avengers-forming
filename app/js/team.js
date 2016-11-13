@@ -15,9 +15,8 @@ angular.module('teamform-team-app', ['firebase'])
     function($scope, $firebaseObject, $firebaseArray) {
 		
 	// Call Firebase initialization code defined in site.js
-	if (firebase.apps.length === 0)
-	{
-	initalizeFirebase();
+	if (firebase.apps.length == 0){
+		initalizeFirebase();
 	}
 
 	var refPath = "";
@@ -60,6 +59,7 @@ angular.module('teamform-team-app', ['firebase'])
 	
 	$scope.requests = [];
 	$scope.mergeRequestReceived = [];
+	$scope.members = [];
 	$scope.refreshViewRequestsReceived = function() {
 		
 		//$scope.test = "";		
@@ -67,22 +67,26 @@ angular.module('teamform-team-app', ['firebase'])
 		var teamID = $.trim( $scope.param.teamName );	
 				
 		$.each($scope.member, function(i,obj) {			
-			//$scope.test += i + " " + val;
-			//$scope.test += obj.$id + " " ;
 			
 			var userID = obj.$id;
 			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1 ) {
-				//$scope.test += userID + " " ;
 				
 				$scope.requests.push(userID);
 			}
 		});
-		$scope.mergeRequestReceived = []; // new array storing the merge request received by the team
+		$scope.mergeRequestReceived = [];
 		$.each($scope.team, function(i,obj) {			
 			if(typeof obj.mergeRequests != "undefined" && obj.mergeRequests.indexOf(teamID) > -1){
 				$scope.mergeRequestReceived.push(obj);
 			}
 		});
+
+		$.each($scope.member, function(i,obj){
+			if (typeof obj.joinedTeam == "undefined"){
+				$scope.members.push(obj);
+			}
+		});
+
 		
 		
 
@@ -113,29 +117,18 @@ angular.module('teamform-team-app', ['firebase'])
 			var newData = {				
 				'size': $scope.param.currentTeamSize,
 				'teamMembers': $scope.param.teamMembers,
-				'mergeRequests': $scope.mergeSelection
+				'mergeRequests': $scope.mergeSelection,
+				'invitationRequests':$scope.invitationRequests
 			};		
 			
 			var refPath = getURLParameter("q") + "/team/" + teamID;	
 			var ref = firebase.database().ref(refPath);
 			
 			
-			// for each team members, clear the selection in /[eventName]/team/
-			$.each($scope.param.teamMembers, function(i,obj){
-				
-				
-				//$scope.test += obj;
-				
-				var rec = $scope.member.$getRecord(obj);
-				rec.selection = [];
-				$scope.member.$save(rec);
-				
-				
-				
-			});
-			$.each($scope.mergeRequestReceived, function(i,obj){ // if team B received the request from team A, then team A is removed
-				var rec = $scope.team.$getRecord(obj.$id); 
-				//console.log(rec);
+			// for each team membxers, clear the selection in /[eventName]/team/
+			$.each($scope.mergeRequestReceived, function(i,obj){
+				var rec = $scope.team.$getRecord(obj.$id);
+				console.log(rec);
 				$scope.team.$remove(rec);
 			});
 
@@ -181,8 +174,13 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.param.teamMembers = data.child("teamMembers").val();
 				
 			}
+
 			if ( data.child("mergeRequests").val() != null){
 				$scope.mergeSelection = data.child("mergeRequests").val();
+			}
+
+			if ( data.child("invitationRequests").val() != null){
+				$scope.invitationRequests = data.child("invitationRequests").val();
 			}
 			
 			$scope.$apply(); // force to refresh
@@ -193,11 +191,11 @@ angular.module('teamform-team-app', ['firebase'])
 		/*************** TeamMergeRequest *******************/
 	$scope.mergeSelection = [];
 	$scope.teamMergeRequest = function(teamItem){
-		if(typeof teamItem.teamMembers == "undefined"){ // if team B has no team members, create a team member array of length 0,
+		if(typeof teamItem.teamMembers == "undefined"){
 			teamItem.teamMembers = [];
 		}
 		if($scope.param.teamMembers.length + teamItem.teamMembers.length <= teamItem.size && $scope.mergeSelection.length < 1){
-			$scope.mergeSelection.push(teamItem.$id); // if members in team A + members in team B > the maximum size of team B, not allow to merge
+			$scope.mergeSelection.push(teamItem.$id);
 			$scope.saveFunc();
 		}
 		else{
@@ -206,26 +204,54 @@ angular.module('teamform-team-app', ['firebase'])
 	}
 
 	$scope.processMergeRequest = function(q){
-		for (var i = 0; i < q.teamMembers.length; i++){ // add members of team A to team B
+		for (var i = 0; i < q.teamMembers.length; i++){
 			$scope.param.teamMembers.push(q.teamMembers[i])
-		}
-		
+		}		
 		$scope.saveFunc();	
 	}
 	//**************************************
+	$scope.invitationRequests = [];
+	$scope.invitationToMembers = function(t){
+		if($scope.param.teamMembers.length + $scope.invitationRequests.length < $scope.param.currentTeamSize && $scope.invitationRequests.indexOf(t) < 0){
+			$scope.invitationRequests.push(t.$id);
+		}
+		else{
+			alert("Invalid operation.")
+		}
+		$scope.saveFunc();
+	}
 	
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;
-		
 		if ( 
 		    $scope.param.teamMembers.indexOf(r) < 0 && 
 			$scope.param.teamMembers.length < $scope.param.currentTeamSize  ) {
-				
 			// Not exists, and the current number of team member is less than the preferred team size
+
 			$scope.param.teamMembers.push(r);
 			
-			$scope.saveFunc();
+			//$scope.saveFunc;
 		}
+		$.each($scope.member, function(i, obj){
+			if (obj.$id == r){
+				rec = obj.$id
+				return false;
+			}
+		});
+		var path = eventName + '/member/' + rec;
+		retrieveOnceFirebase(firebase, path, function(data) {
+			joined = data.child("joinedTeam").val();
+			joined = $scope.param.teamName;
+			firebase.database().ref(path).update({"joinedTeam": joined});
+		});
+		
+		$.each($scope.param.teamMembers, function(i,obj){
+			var rec = $scope.member.$getRecord(obj);
+			console.log(rec);
+			rec.selection = [];
+			$scope.member.$save(rec);
+		});
+		//$scope.saveFunc();
 	}
 	
 	$scope.removeMember = function(member) {
@@ -234,8 +260,23 @@ angular.module('teamform-team-app', ['firebase'])
 		if ( index > -1 ) {
 			$scope.param.teamMembers.splice(index, 1); // remove that item
 			
+			$.each($scope.member, function(i, obj){
+				if (obj.$id == member){
+					rec = obj.$id
+					return false;
+				}
+			});
+			console.log(rec);
+			var path = eventName + '/member/' + rec;
+			retrieveOnceFirebase(firebase, path, function(data) {
+				joined = data.child("joinedTeam").val();
+				joined = "";
+				firebase.database().ref(path).update({"joinedTeam": joined});
+			})
 			$scope.saveFunc();
 		}
+		
+		
 		
 	}
 	
