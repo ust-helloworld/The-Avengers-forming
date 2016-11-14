@@ -1,28 +1,24 @@
 $(document).ready(function(){
-
 	$('#team_page_controller').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
 	var eventName = getURLParameter("q");
 	if (eventName != null && eventName !== '' ) {
 		$('#text_event_name').text("Event name: " + eventName);
-		
 	}
-
 });
 
 angular.module('teamform-team-app', ['firebase'])
-.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
+.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray',
     function($scope, $firebaseObject, $firebaseArray) {
-		
 	// Call Firebase initialization code defined in site.js
 	if (firebase.apps.length == 0){
 		initalizeFirebase();
 	}
 
 	var refPath = "";
-	var eventName = getURLParameter("q");	
-	
-	// TODO: implementation of MemberCtrl	
+	var eventName = getURLParameter("q");
+
+	// TODO: implementation of MemberCtrl
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
@@ -30,39 +26,30 @@ angular.module('teamform-team-app', ['firebase'])
 		"teamToSelect": []
 
 	};
-		
-	
 
-	refPath =  eventName + "/admin";
-	retrieveOnceFirebase(firebase, refPath, function(data) {	
-
+	refPath =  "event/" + eventName + "/admin";
+	retrieveOnceFirebase(firebase, refPath, function(data) {
 		if ( data.child("param").val() != null ) {
 			$scope.range = data.child("param").val();
 			$scope.param.currentTeamSize = parseInt(($scope.range.minTeamSize + $scope.range.maxTeamSize)/2);
 			$scope.$apply(); // force to refresh
 			$('#team_page_controller').show(); // show UI
-			
-		} 
+		}
 	});
-	
-	
-	refPath = eventName + "/member";	
+
+	refPath = "event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-	
-	
-	refPath = eventName + "/team";	
+
+	refPath = "event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-	
 
-	
 	$scope.requests = [];
 	$scope.mergeRequestReceived = [];
 	$scope.members = [];
 	$scope.refreshViewRequestsReceived = function() {
-		
-		//$scope.test = "";		
+		//$scope.test = "";
 		$scope.requests = [];
 		var teamID = $.trim( $scope.param.teamName );	
 				
@@ -86,42 +73,27 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.members.push(obj);
 			}
 		});
-
-		
-		
-
 		$scope.$apply();
-		
 	}
-	
-	
-	
-	
-	
-	
 
 	$scope.changeCurrentTeamSize = function(delta) {
 		var newVal = $scope.param.currentTeamSize + delta;
 		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
 			$scope.param.currentTeamSize = newVal;
-		} 
+		}
 	}
 
 	$scope.saveFunc = function() {
-		
-		
 		var teamID = $.trim( $scope.param.teamName );
-		
 		if ( teamID !== '' ) {
-			
-			var newData = {				
+			var newData = {
 				'size': $scope.param.currentTeamSize,
 				'teamMembers': $scope.param.teamMembers,
 				'mergeRequests': $scope.mergeSelection,
 				'invitationRequests':$scope.invitationRequests
 			};		
 			
-			var refPath = getURLParameter("q") + "/team/" + teamID;	
+			var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;	
 			var ref = firebase.database().ref(refPath);
 			
 			
@@ -131,48 +103,26 @@ angular.module('teamform-team-app', ['firebase'])
 				//console.log(rec);
 				$scope.team.$remove(rec);
 			});
-
-				
-			
-			
-			
-			ref.set(newData, function(){			
-
+			ref.set(newData, function(){
 				// console.log("Success..");
-				
 				// Finally, go back to the front-end
 				window.location.href= "index.html";
 			});
-			
-			
-			
-			
 		}
-		
-		
 	}
-	
-	$scope.loadFunc = function() {
-		
-		var teamID = $.trim( $scope.param.teamName );		
-		var eventName = getURLParameter("q");
-		var refPath = eventName + "/team/" + teamID ;
-		retrieveOnceFirebase(firebase, refPath, function(data) {	
 
+	$scope.loadFunc = function() {
+		var teamID = $.trim( $scope.param.teamName );
+		var eventName = getURLParameter("q");
+		var refPath = "event/" + eventName + "/team/" + teamID ;
+		retrieveOnceFirebase(firebase, refPath, function(data) {
 			if ( data.child("size").val() != null ) {
-				
 				$scope.param.currentTeamSize = data.child("size").val();
 				$scope.param.teamToSelect = $scope.team;
-				
 				$scope.refreshViewRequestsReceived();
-								
-				
-			} 
-			
+			}
 			if ( data.child("teamMembers").val() != null ) {
-				
 				$scope.param.teamMembers = data.child("teamMembers").val();
-				
 			}
 
 			if ( data.child("mergeRequests").val() != null){
@@ -182,13 +132,11 @@ angular.module('teamform-team-app', ['firebase'])
 			if ( data.child("invitationRequests").val() != null){
 				$scope.invitationRequests = data.child("invitationRequests").val();
 			}
-			
 			$scope.$apply(); // force to refresh
 		});
-
 	}
 
-		/*************** TeamMergeRequest *******************/
+	/*************** TeamMergeRequest *******************/
 	$scope.mergeSelection = [];
 	$scope.teamMergeRequest = function(teamItem){
 		if(typeof teamItem.teamMembers == "undefined"){
@@ -253,9 +201,8 @@ angular.module('teamform-team-app', ['firebase'])
 		});
 		//$scope.saveFunc();
 	}
-	
+
 	$scope.removeMember = function(member) {
-		
 		var index = $scope.param.teamMembers.indexOf(member);
 		if ( index > -1 ) {
 			$scope.param.teamMembers.splice(index, 1); // remove that item
@@ -274,16 +221,6 @@ angular.module('teamform-team-app', ['firebase'])
 				firebase.database().ref(path).update({"joinedTeam": joined});
 			})
 			$scope.saveFunc();
-		}
-		
-		
-		
+		}	
 	}
-	
-	
-	
-	
-	
-	
-		
 }]);
