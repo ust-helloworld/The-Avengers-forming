@@ -27,7 +27,7 @@ angular.module('teamform-eventDetail-app',['firebase'])
       console.log (refPath);
       //This is the way for getting data from firebase
       //.once("value") <--the value inside value must be value;
-      database.ref(refPath).once("value").then(function (data)
+      retrieveOnceFirebase(firebase, refPath, function (data)
       {
         //here use data to get back the data :)        
         if (data.val().admin.param.minTeamSize != null ) {
