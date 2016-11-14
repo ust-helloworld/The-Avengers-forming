@@ -1,0 +1,87 @@
+ <!-- after hitting the block of member, it should link to that page. -->
+<!DOCTYPE html>
+<html lang="en" ng-app = "profileApp">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - profile page</title>
+
+      <!-- libraries and CSS
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)
+		site.css: A customized css for our web application. Not from any web framework.
+	  -->
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+      <script src="lib/angular.min.js"></script>
+      <script src="lib/firebase.js"></script>
+      <script src="lib/angularfire.min.js"></script>
+
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/site.css" >
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+      <script src="js/profileCtrl.js"></script>
+   </head>
+
+   <body>
+
+  <div class="memberinfo"  ng-controller = "DetailsController">
+
+    <h2>Member</h2>
+    <!-- PART FOR SEARCHING -->
+    <div class"search">
+      <h1>Search Bar</h1>
+      <input ng-model="query" placeholder="Search for member" autofocus>
+
+      <select ng-model="memberName"> //the value of select is blinded by select and now it is blinded to ng-model
+        <option value="name">Name</option> //name
+        <option value="name">Name</option> //name
+        <option value="name">Name</option> //name
+
+      </select>
+      <!-- it will be treated as clicking  -->
+      <label>
+      Asending
+      <!-- when checked here it mean direction to be zero -->
+      <input type="radio" ng-model="direction" >
+     </label>
+      <label>
+      Desending
+       <input type="radio" ng-model="direction" value="reverse">
+      </label>
+    </div>
+
+  <!-- This is a session for displaying member in the event -->
+    <ul class="memberInfolist">
+          <!-- //orderby which attritue in each element ,also order by name mean 跟次序already direction is suborder -->
+      <li  ng-repeat="item in member|filter:query |orderBy:memberName:direction" >
+
+        <img ng-src="images/{{item.picture}}_tn.jpg" alt="Photo of {{item.name}}">
+        <div class="info">
+          <h2>{{item.name|uppercase}}</h2>
+          <h2>{{item.selection|json}}</h2>
+
+
+        </div>
+      </li>
+    </ul>
+    <!-- <div class="info">
+      <h3>{{member[whichItem].reknown}}</h3>
+      <img ng-src="images/{{member[whichItem].shortname}}_tn.jpg" alt="Photo of {{member[whichItem].name}}">
+      <div class="bio">{{member[whichItem].bio}}</div>
+    </div> -->
+  </div>
+  <a href="index.html">&laquo; Back to main page</a>
+
+</body>
+</html>

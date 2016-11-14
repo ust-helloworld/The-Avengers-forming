@@ -40,7 +40,7 @@ angular.module('teamform-memberDetail-app',['firebase'])
       console.log (refPath);
       //This is the way for getting data from firebase
       //.once("value") <--the value inside value must be value;
-      database.ref(refPath).once("value").then(function (data)
+      retrieveOnceFirebase(firebase, refPath,function (data)
       {
 		 {
 		  $scope.Fname = currentUser['displayName'];
