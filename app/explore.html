@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Grayscale - Start Bootstrap Theme</title>
+    <title>Teamform</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
 
     <!-- Theme CSS -->
     <link href="css/grayscale.min.css" rel="stylesheet">
-
+    <link href="css/styles.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -42,10 +42,9 @@
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
                     <!--<i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap-->
-                   <!--profile-->
-                   <a href = "#contact"  data-toggle ="modal">
-                        <div class = "navbar-brand">
-                            
+                    <!--profile-->
+                    <a href="#contact" data-toggle="modal">
+                        <div class="navbar-brand">
                             <img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         </div>
                     </a>
@@ -68,7 +67,10 @@
                     <li>
                         <a class="page-scroll" href="explore.html">Explore</a>
                     </li>
-                    </ul>
+                    <li>
+                        <a class="page-scroll" href="login.html">Logout</a>
+                    </li>
+                </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -78,101 +80,79 @@
     <!-- Intro Header-->
     <header class="intro">
         <div class="intro-body">
-           <div class="container">
-               
-               
-               <!--Seach engine-->
-               <p>
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="container">
+
+
+                <!--Seach engine-->
+                <p>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-menu-down" aria-hidden="true">
                         </button>
                             <ul class="dropdown-menu">
-                               
                                 <li><a href="#">Another action</a></li>
                                 <li><a href="#">Something else here</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated lin
-                                    k</a></li>
+                                <li><a href="#">Separated link</a></li>
                             </ul>
-                            
-                        
-                    </div>
-                    <input type="text" class="form-control" aria-label="Hello World" placeholder="Search Hello World">
+                        </div>
+                        <input type="text" class="form-control" aria-label="Hello World" placeholder="Search Hello World">
                         <div class="input-group-btn">
-                        <button type="button" class = "btn btn-default">
+                            <button type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
                         </div>
-                </div>
-               </p>
-               
-               <a href="#events" class="btn btn-circle page-scroll">
-                   <i class="fa fa-angle-double-down animated"></i></a>
-           </div>
+                    </div>
+                </p>
+
+                <a href="#events" class="btn btn-circle page-scroll">
+                    <i class="fa fa-angle-double-down animated"></i>
+                </a>
+            </div>
         </div>
     </header>
-    
-    
-    
-    
-               <!--events-->
-                <section id="events" class="container content-section text-center">
-               <div class = "container">
-                   <!--<div class = "jumbotron">-->
-                       <div class = "container">
-                           <div class = "col-md-12">
-                               <center>
-                                   <h2>Upcoming event</h2>
-                                   <hr>
-                                   <h3><a href="#">hackUST</a></h3>
-                                   <img src="img/hackUST.jpg">
-                                       <p>
-                                       
-                                        hackUST is a 24-hour coding event where programmers, designers, engineers, entrepreneurs come together for 2 days to turn their boldest ideas into reality.
-                                       </p>
-                                        </div>
-                           
-                       </div>
-                   </div>
-               <!-- </div>-->
-               
-               <div class = "row">
-                   <div class = "col-md-4">
-                       <!-- <div class = "jumbotron">-->
-                           
-                           <h3><a href = "#">abcdefg</a></h3>
-                           <img src="img/event1.jpg" height="279">
-                           <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
-                           
-                       </div>
-                   <!-- </div>-->
-                   
-                   
-                   
-                   <div class = "col-md-4">
-                       <!-- <div class = "jumbotron">-->
-                           <h3><a href = "#">abcdefg</a></h3>
-                           <img src="img/event2.jpeg" height="279">
-                           <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
-                           
-                       </div>
-                   <!-- </div>-->
-                   
-                   
-                   <div class = "col-md-4">
-                      <!-- <div class = "jumbotron">-->
-                           <h3><a href = "#">abcdefg</a></h3>
-                           <img src="img/event3.jpg" height="279">
-                           <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
-                           
-                       </div>
-                  <!-- </div>-->
-                   </center>
-               </div>
-               </section>
-                        <!--start search
+    <!--events-->
+    <section id="events" class="container content-section text-center">
+        <center>
+            <div class="container">
+                <div class="container">
+                    <div class="col-md-10 col-md-offset-1">
+
+                        <h2>Upcoming event</h2>
+                        <hr>
+                        <h3><a href="event.html">hackUST</a></h3>
+                        <a href="event.html"><img src="img/hackUST.jpg"></a>
+                                <p>
+                                    hackUST is a 24-hour coding event where programmers, designers, engineers, entrepreneurs come together for 2 days to turn
+                                    their boldest ideas into reality.
+                                </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3><a href="#">abcdefg</a></h3>
+                    <a href=""><img src="img/event1.jpg" height="279"></a>
+                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to
+                        divide our page into 12 columns.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3><a href="#">abcdefg</a></h3>
+                    <a href=""><img src="img/event2.jpeg" height="279"></a>
+                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to
+                        divide our page into 12 columns.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3><a href="#">abcdefg</a></h3>
+                    <a href=""><img src="img/event3.jpg" height="279"></a>
+                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to
+                        divide our page into 12 columns.</p>
+                </div>
+            </div>
+        </center>
+    </section>
+    <!--start search
                             <div class="input-group" id="adv-search">
                                 <input type="text" class="form-control" placeholder="Search for snippets" />
                                     <div class="input-group-btn">
@@ -207,13 +187,13 @@
                                         </div>
                                     </div>
                                 </div>-->
-                        <!--<h1 class="brand-heading">Grayscale</h1>
+    <!--<h1 class="brand-heading">Grayscale</h1>
                         <p class="intro-text">A free, responsive, one page Bootstrap theme.
                             <br>Created by Start Bootstrap.</p>
                         <a href="#about" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>-->
-      
+
 
     <!--search
     <div class="container">
@@ -280,69 +260,55 @@
         </div>
     </footer>
      -->
-    
+
     <!--bottom navbar-->
-    <div class = "navbar navbar-inverted navbar-fixed-bottom">
-        <div class = "container">
+    <div class="navbar navbar-inverted navbar-fixed-bottom">
+        <div class="container">
             <div class="dropup pull-right">
-                <button class = "btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href = "#" class = "navbar-text"> Team </a></li>
-                    <li><a href = "#" class = "navbar-text"> Event </a></li>
+                    <li><a href="#" class="navbar-text"> Team </a></li>
+                    <li><a href="#" class="navbar-text"> Event </a></li>
                 </ul>
             </div>
         </div>
     </div>
-    
-    
-    
+
+
+
     <div class="modal fade" id="contact">
-                   <!--<div class="modal-content">-->
-           
-           
-           
-                     <div class="container">
-                     <div class="col-xs-8 col-xs-offset-2">
-                         <center>
-                   <!-- <div class="panel panel-default"><div class="panel-body">-->
-                <img class="fetureImg" src="profile/brown.png">
-                    
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-xs-8 col-xs-offset-2">
+                <center>
+                    <!-- <div class="panel panel-default"><div class="panel-body">-->
+                    <img class="fetureImg" src="profile/brown.png">
                     <h2> {Username} </h2>
                     <hr>
                     <h3> {Self-Intro}</h3>
-                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.
-                        
-                        In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
-                    
+                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is
+                        grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group",
+                        while toolbars should have a role="toolbar".One exception are groups which only contain a single
+                        control (for instance the justified button groups with elements) or a dropdown. In addition, groups
+                        and toolbars should be given an explicit label, as most assistive technologies will otherwise not
+                        announce them, despite the presence of the correct role attribute. In the examples provided here,
+                        we use aria-label, but alternatives such as aria-labelledby can also be used.
                     </p>
-                    </center>
-                </div>
-            </div>
-                 <!--</div></div>
-                  <div class="modal-header">
-                   
-                </div>
-               <div class="modal-body">
-                    
-                        <ul>
-                            <li> Name: </li>
-                            <li> Age: </li>
-                            <li> Gender: </li>
-                        </ul>
-                    </div>
-                <div class="modal-footer">
-                    Goodbye World.
-                </div>
-                -->
-            </div>
+                </center>
             </div>
         </div>
     </div>
-    
-    
-    
+
+
+
+
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.js"></script>
 

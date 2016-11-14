@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -39,14 +38,12 @@
                 <a class="navbar-brand page-scroll" href="#page-top">
                     <!--<i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap-->
                     <!--profile-->
-                    <a href="#selfProfile" data-toggle="modal">
-                        <div class="navbar-brand">
-                            <img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <a href="#contact" data-toggle="modal">
+                        <div class="navbar-brand"><img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
                         </div>
                     </a>
                 </a>
-
-
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -79,74 +76,95 @@
     <header class="intro">
         <div class="intro-body">
             <div class="container">
-                <!--team inform-->
-                <center>
-                    <div class="row">
-                        <!--<div class="col-lg-3">
-                        <div class="list-group">
-                            <a href="#teamMem1" class="list-group-item " data-toggle="modal">
-                                <h4 class="list-group-item-heading">Name</h4>
-                                <p class="list-group-item-text"> position of the team</p>
-                            </a>
 
-                            <a href="#teamMem2" class="list-group-item" data-toggle="modal">
-                                <h4 class="list-group-item-heading">Name</h4>
-                                <p class="list-group-item-text">position of the team</p>
-                            </a>
-                        </div>
-                    </div>-->
-                        <div class="col-lg-10">
-                            <div class=" panel-default">
-                                <div class="panel-body">
-                                    <div class="page-header">
-                                        <h3>
-                                            <a href="#teamMemList" data-toggle="modal">
-                                                <small>people</small>
-                                            </a>
-                                            Your teamname
-                                            <small>posted</small>
-                                        </h3>
-                                    </div>
-                                    <img class="featuredImg" src="img/team-img.jpg" width="100%">
-                                    <p> your team information here... </p>
+                <!--team inform-->
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1">
+                        <div class=" Event">
+                            <div class="event-body">
+                                <div class="page-header">
+                                    <h3>
+                                        <a href="#EventMemList" data-toggle="modal">
+                                            <small>people</small>
+                                        </a>
+                                        Event name
+                                        <small>posted time</small>
+                                    </h3>
                                 </div>
+                                <img class="featuredImg" src="img/event-img.jpg" width="100%">
+                                <p> Event information here... </p>
                             </div>
                         </div>
                     </div>
-                </center>
+                </div>
             </div>
         </div>
     </header>
+    <section id="team">
+        <a href="#team">
+            <h1 class="text-center"> Formed teams</h1>
+        </a>
+        <div class="teamse">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="text-center"><a href="team.html">Team Name</a></h3>
+                    <a class="thumbnail" href="team.html"> <img src="img/team.jpg"></a>
+                    <p class="text-center">your position</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!--bottom navbar-->
+    <div class="navbar navbar-inverted navbar-fixed-bottom">
+        <div class="container">
+            <div class="dropup pull-right">
+                <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="navbar-text"> Team </a></li>
+                    <li><a href="#" class="navbar-text"> Event </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
-    <div class="modal fade" id="selfProfile">
+    <div class="modal fade" id="contact">
         <!--<div class="modal-content">-->
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
-                <div class="rl"></div>
+                <div class="rl">
+                </div>
             </div>
         </div>
+
+
         <div class="container">
             <div class="col-xs-8 col-xs-offset-2">
                 <center>
                     <!-- <div class="panel panel-default"><div class="panel-body">-->
-                    <img class="featureImg" src="profile/brown.png">
+                    <img class="fetureImg" src="profile/brown.png">
+
                     <h2> {Username} </h2>
                     <hr>
                     <h3> {Self-Intro}</h3>
                     <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is
                         grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group",
                         while toolbars should have a role="toolbar".One exception are groups which only contain a single
-                        control (for instance the justified button groups with elements) or a dropdown.In addition, groups
+                        control (for instance the justified button groups with elements) or a dropdown. In addition, groups
                         and toolbars should be given an explicit label, as most assistive technologies will otherwise not
                         announce them, despite the presence of the correct role attribute. In the examples provided here,
                         we use aria-label, but alternatives such as aria-labelledby can also be used.
+
                     </p>
                 </center>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="teamMem1">
+      <div class="modal fade" id="teamMem1">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
                 <div class="rl"></div>
@@ -196,9 +214,7 @@
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade" id="teamMemList">
+    <div class="modal fade" id="EventMemList">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
                 <div class="rl"></div>
@@ -216,25 +232,8 @@
             </a>
         </div>
     </div>
-
-
-    <!--bottom navbar-->
-    <div class="navbar navbar-inverted navbar-fixed-bottom">
-        <div class="container">
-            <div class="dropup pull-right">
-                <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" class="navbar-text"> Team </a></li>
-                    <li><a href="#" class="navbar-text"> Event </a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.js"></script>
-
 
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -247,6 +246,7 @@
 
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
+
 
 </body>
 
