@@ -27,28 +27,30 @@ angular.module('teamform-admin-app', ['firebase'])
 	ref = firebase.database().ref(refPath);
 
 	// Link and sync a firebase object
+	$scope.checkdata = function(data) {
+		// Fill in some initial values when the DB entry doesn't exist
+		if(typeof $scope.param.maxTeamSize == "undefined"){
+			$scope.param.maxTeamSize = 10;
+		}
+		if(typeof $scope.param.minTeamSize == "undefined"){
+			$scope.param.minTeamSize = 1;
+		}
+		if(typeof $scope.param.description == "undefined"){				
+			$scope.param.description = null;
+		}
+		// Enable the UI when the data is successfully loaded and synchornized
+		$('#admin_page_controller').show();
+	}
 
 	$scope.param = $firebaseObject(ref);
 	$scope.param.$loaded()
-		.then( function(data) {
-			// Fill in some initial values when the DB entry doesn't exist
-			if(typeof $scope.param.maxTeamSize == "undefined"){
-				$scope.param.maxTeamSize = 10;
-			}
-			if(typeof $scope.param.minTeamSize == "undefined"){
-				$scope.param.minTeamSize = 1;
-			}
-			if(typeof $scope.param.description == "undefined"){				
-				$scope.param.description = null;
-			}
-			// Enable the UI when the data is successfully loaded and synchornized
-			$('#admin_page_controller').show();
-		})
+		.then($scope.checkdata(null));
+		/*
 		.catch(function(error) {
 			// Database connection error handling...
 			//console.error("Error:", error);
 		});
-
+*/
 
 	refPath = eventName + "/team";
 	$scope.team = [];

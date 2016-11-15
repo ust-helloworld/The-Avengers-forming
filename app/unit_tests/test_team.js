@@ -41,18 +41,19 @@ describe('teamform-team-app module', function() {
 			$scope.saveFunc();
 			expect(firebase.database().ref($scope.refPath)).toBeDefined();
         });
-
-        it('processRequest & removeMember', function() {
+        it('processRequest', function() {
 			$scope.param.teamMembers = ["abc"];
 			$scope.param.currentTeamSize = 3;
-			var test = "cde";
+			var test = "a";
+			$scope.member = [{$id: "a"}];
 			$scope.processRequest(test);
 			expect($scope.param.teamMembers.length).toEqual(2);
         });
 
         it('removeMember', function() {
-			$scope.param.teamMembers = ["abc", "cde"];
-			var test = "cde";
+			$scope.param.teamMembers = ["a", "cde"];
+			var test = "a";
+			$scope.member = [{$id: "a"}];
 			$scope.removeMember(test);
 			expect($scope.param.teamMembers.length).toEqual(1);
         });
@@ -79,4 +80,21 @@ describe('teamform-team-app module', function() {
 			expect($scope.param.teamMembers.length).toEqual(4);
         });
 
+        it('invitationToMembers success', function() {
+			$scope.invitationRequests = [];
+			$scope.param.currentTeamSize = 5;
+			var test = {'$id': 'a'};
+			$scope.param.teamMembers = ["a3", "a4"];
+			$scope.invitationToMembers(test);
+			expect($scope.invitationRequests.length).toEqual(1);
+        });
+
+        it('invitationToMembers fail', function() {
+			$scope.invitationRequests = [];
+			$scope.param.currentTeamSize = 2;
+			var test = {'$id': 'a'};
+			$scope.param.teamMembers = ["a3", "a4"];
+			$scope.invitationToMembers(test);
+			expect($scope.invitationRequests.length).toEqual(0);
+        });
 });

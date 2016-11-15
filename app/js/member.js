@@ -22,8 +22,7 @@ angular.module('teamform-member-app', ['firebase'])
 	database = firebase.database();
 	var eventName = getURLParameter("q");
 
-	// Set default member to be the current user
-	firebase.auth().onAuthStateChanged(function(user){
+	$scope.authcheck = function(user){
 		if (user) {
 			$scope.userID = user.uid;
 			$scope.userName = user.displayName;
@@ -34,7 +33,10 @@ angular.module('teamform-member-app', ['firebase'])
 			$scope.userName = "Please log in";
 			alert("Please log in");
 		}
-	});
+	}
+
+	// Set default member to be the current user
+	//firebase.auth().onAuthStateChanged($scope.authcheck(user));
 	$scope.teams = {};
 
 	$scope.refreshReceived = function(){

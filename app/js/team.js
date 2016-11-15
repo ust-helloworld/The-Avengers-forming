@@ -192,13 +192,14 @@ angular.module('teamform-team-app', ['firebase'])
 			joined = $scope.param.teamName;
 			firebase.database().ref(path).update({"joinedTeam": joined});
 		});
-		
+		/*
 		$.each($scope.param.teamMembers, function(i,obj){
 			var rec = $scope.member.$getRecord(obj);
 			//console.log(rec);
 			rec.selection = [];
 			$scope.member.$save(rec);
 		});
+		*/
 		//$scope.saveFunc();
 	}
 

@@ -24,10 +24,12 @@ describe('teamform-admin-app module', function() {
             $scope.changeMaxTeamSize(1);
 			expect($scope.param.maxTeamSize).toEqual(11);
         });
-/*  	  
-        it('saveFunc', function() {
-            $scope.saveFunc();
-			expect($scope.param.$save()).toBeDefined();
+
+
+	  
+        it('check', function() {
+            $scope.checkdata(null);
+			expect($scope.param.maxTeamSize).toEqual(10);
         });
-*/
+
 });
