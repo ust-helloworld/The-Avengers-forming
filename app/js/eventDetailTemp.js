@@ -1,4 +1,5 @@
-angular.module('teamform-eventDetail-app',['firebase'])
+   
+angular.module('teamform-activityDetail-app',['firebase'])
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
   
   //initalizeFirebase();
@@ -82,4 +83,13 @@ angular.module('teamform-eventDetail-app',['firebase'])
   };
   
 
+<<<<<<< HEAD:app/js/eventDetailTemp.js
 }]);
+=======
+}]);
+   
+   </script>
+
+</body>
+</html>
+>>>>>>> b8f7b5ceec83cba1c09f2f1104f4c13e7d981d84:app/activityDetailTemp.html
