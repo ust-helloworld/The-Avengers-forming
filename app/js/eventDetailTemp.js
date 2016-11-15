@@ -1,10 +1,10 @@
 angular.module('teamform-eventDetail-app',['firebase'])
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
-  
+
   //initalizeFirebase();
   initalizeFirebase();
   database = firebase.database();
-  
+
   $scope.FName = "abc";
   $scope.FDescription = "";
   $scope.FMinSize = "";
@@ -17,19 +17,20 @@ angular.module('teamform-eventDetail-app',['firebase'])
     minSize: $scope.FMinSize,
 	maxSize: $scope.FMaxSize
   };
-  
+
   $scope.load = function () {
     console.log ("click load :P");
     FName = $scope.FName;
     if ( FName !== '' ) {
-      
+
       var refPath = FName;
       console.log (refPath);
       //This is the way for getting data from firebase
       //.once("value") <--the value inside value must be value;
-      database.ref(refPath).once("value").then(function (data)
+
+      retrieveOnceFirebase(firebase, refPath, function (data)
       {
-        //here use data to get back the data :)        
+        //here use data to get back the data :)
         if (data.val().admin.param.minTeamSize != null ) {
           $scope.FMinSize = data.val().admin.param.minTeamSize;
         } else {
@@ -60,19 +61,19 @@ angular.module('teamform-eventDetail-app',['firebase'])
     FMinSize = $scope.FMinSize;
     FMaxSize = $scope.FMaxSize;
     if ( FName !== '') {
-      
+
       var refPath = FName + "/admin/param/";
       console.log (refPath);
       //this is the method to set/rewrite the data inside firebase
-	  
+
 	  updates = {};
 	  updates['minTeamSize'] = FMinSize;
 	  updates['maxTeamSize'] = FMaxSize;
 	  updates['description'] = FDescription;
-	  
-	  
+
+
 	  database.ref(refPath).update(updates);
-      
+
       $scope.datadebug = {
         //description: FDescription,
         minTeamSize: FMinSize,
@@ -80,6 +81,6 @@ angular.module('teamform-eventDetail-app',['firebase'])
       };
     }
   };
-  
+
 
 }]);
