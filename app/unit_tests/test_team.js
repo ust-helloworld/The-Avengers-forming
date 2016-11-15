@@ -13,11 +13,13 @@ describe('teamform-team-app module', function() {
 
         it('refreshViewRequestsReceived for requests', function() {
 			$scope.requests = [];
+			$scope.members = [];
 			$scope.param.teamName = 'abc';
-			var test = {'$id': 'a', 'selection': ['abc']};
+			var test = {'$id': 'a', 'selection': ['abc'], 'joinedTeam': ""};
 			$scope.member = [test];
 			$scope.refreshViewRequestsReceived();
 			expect($scope.requests.length).toEqual(1);
+			expect($scope.members.length).toEqual(1);
         });
 
         it('refreshViewRequestsReceived for mergerequests', function() {
@@ -41,6 +43,7 @@ describe('teamform-team-app module', function() {
 			$scope.saveFunc();
 			expect(firebase.database().ref($scope.refPath)).toBeDefined();
         });
+
         it('processRequest', function() {
 			$scope.param.teamMembers = ["abc"];
 			$scope.param.currentTeamSize = 3;
@@ -58,18 +61,18 @@ describe('teamform-team-app module', function() {
 			expect($scope.param.teamMembers.length).toEqual(1);
         });
 
-        it('teamMergeRequest with no team member', function() {
-			var test = {};
-			$scope.teamMergeRequest(test);
-			expect(test.teamMembers.length).toEqual(0);
-        });
-
-        it('teamMergeRequest with team members', function() {
-			$scope.mergeSelection = [];
-			var test = {$id: "a",teamMembers: ["a1", "a2"], size: 7};
-			$scope.param.teamMembers = ["a3", "a4"];
+        it('teamMergeRequest success', function() {
+			var test = {$id: "a", size: 7};
 			$scope.teamMergeRequest(test);
 			expect($scope.mergeSelection.length).toEqual(1);
+        });
+
+        it('teamMergeRequest fail', function() {
+			$scope.mergeSelection = [];
+			var test = {$id: "a",teamMembers: ["a1", "a2"], size: 2};
+			$scope.param.teamMembers = ["a3", "a4"];
+			$scope.teamMergeRequest(test);
+			expect($scope.mergeSelection.length).toEqual(0);
         });
 
         it('processMergeRequest', function() {

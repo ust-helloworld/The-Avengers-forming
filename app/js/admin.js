@@ -44,7 +44,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	}
 
 	$scope.param = $firebaseObject(ref);
-	$scope.param.$loaded().then($scope.checkdata(null));
+//	$scope.param.$loaded().then($scope.checkdata(data));
 		/*
 		.catch(function(error) {
 			// Database connection error handling...
