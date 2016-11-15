@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" ng-app="indexApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -94,7 +93,6 @@
                     </li>
                 </ul>
             </div>
-
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
@@ -118,6 +116,19 @@
             </div>
         </div>
     </header>
+    <!-- Team Directory SEARCH -->
+      <div  class="text-center">
+        <h1>Team Directory</h1>
+        <label>Search: </label>
+        <input ng-model="query" placeholder="Search for event" autofocus>
+
+        <label class="formgroup">by:
+          <select ng-model="">
+            <option value="name">Name</option>
+            <option value="name">Name</option>
+          </select>
+        </label>
+        <!-- Team Directory SEARCH END -->
 
     <section id="selectevent" class="container content-section text-center">
       <div class="text-center">

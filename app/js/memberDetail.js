@@ -1,11 +1,11 @@
-   
+
 angular.module('teamform-memberDetail-app',['firebase'])
 .controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
 
   //initalizeFirebase();
   initalizeFirebase();
   database = firebase.database();
-  
+
   $scope.FUID = getURLParameter("userid");
   $scope.Fname = "";
   $scope.Fskill = "";
@@ -14,16 +14,17 @@ angular.module('teamform-memberDetail-app',['firebase'])
     skill: $scope.Fskill
   };
   $scope.inviteReceived = [];
-  
+
   $scope.load = function () {
     console.log ("click load :P");
     FUID = $scope.FUID;
     if ( FUID !== '' ) {
-  
+
       var refPath = "/user/"+FUID;
       console.log (refPath);
       //This is the way for getting data from firebase
       //.once("value") <--the value inside value must be value;
+
       retrieveOnceFirebase(firebase,refPath, function (data)
       {
 	  if (data.val()!=null){
@@ -72,7 +73,7 @@ angular.module('teamform-memberDetail-app',['firebase'])
 	  skilllist = Fskill.split(',');
 	else skilllist = Fskill;
     if ( FUID !== '') {
-      
+
       var refPath = "/user/"+FUID;
       //this is the method to set/rewrite the data inside firebase
 	  updates = {};
@@ -109,8 +110,6 @@ angular.module('teamform-memberDetail-app',['firebase'])
 	  });
 	}
   };*/
-  
+
 
 }]);
-   
-   

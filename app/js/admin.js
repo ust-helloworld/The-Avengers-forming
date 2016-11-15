@@ -20,6 +20,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	initalizeFirebase();
 	}
 
+
 	var refPath, ref, eventName;
 
 	eventName = getURLParameter("q");
@@ -38,7 +39,7 @@ angular.module('teamform-admin-app', ['firebase'])
 			if(typeof $scope.param.minTeamSize == "undefined"){
 				$scope.param.minTeamSize = 1;
 			}
-			if(typeof $scope.param.description == "undefined"){				
+			if(typeof $scope.param.description == "undefined"){
 				$scope.param.description = null;
 			}
 			// Enable the UI when the data is successfully loaded and synchornized
@@ -80,30 +81,30 @@ angular.module('teamform-admin-app', ['firebase'])
 		//refPath = eventName + "/admin/param";
 		var database = firebase.database();
 		//database.ref(refPath).update({'description':$scope.FDescription});
-		
+
 		if (typeof document.getElementById("FPhoto").files[0]!="undefined")
 	  {
 		  files = document.getElementById("FPhoto").files;
 		  console.log("have sth to upload");
 		  console.log(files[0].name);
-		  
+
 		  // Create a root reference
           var storageRef = firebase.storage().ref();
 
           // Create a reference to 'mountains.jpg'
           var eventRef = storageRef.child("event/"+eventName);
           eventRef.put(files[0]).then(function(snapshot){
-			 console.log('Uploaded a file!'); 
+			 console.log('Uploaded a file!');
 			  var downloadURL = snapshot.downloadURL;
 			  var refPath = eventName + "/admin/param";
 			  database.ref(refPath).update({'imgURL':downloadURL}).then(function (){
 				   // Finally, go back to the front-end
 			       window.location.href= "index.html";
 			  });
-			  
-			 
-			  
-		  });		  
+
+
+
+		  });
 	  }
 	  else {// Finally, go back to the front-end
 	    window.location.href= "index.html";

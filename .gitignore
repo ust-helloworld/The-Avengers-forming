@@ -8,4 +8,5 @@ tmp
 *.log
 app/js/site.js
 app/js/site.js
+app/js/team.js
 app/js/site.js
