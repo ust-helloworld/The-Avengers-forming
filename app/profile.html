@@ -51,12 +51,12 @@
       </select>
       <!-- it will be treated as clicking  -->
       <label>
-      Asending
+      Ascending
       <!-- when checked here it mean direction to be zero -->
       <input type="radio" ng-model="direction" >
      </label>
       <label>
-      Desending
+      Dscending
        <input type="radio" ng-model="direction" value="reverse">
       </label>
     </div>
@@ -68,8 +68,8 @@
 
         <img ng-src="images/{{item.picture}}_tn.jpg" alt="Photo of {{item.name}}">
         <div class="info">
-          <h2>{{item.name|uppercase}}</h2>
-          <h2>{{item.selection|json}}</h2>
+          <h1>Name:{{item.name|uppercase}}</h1>
+          <h1>Team joined:{{item.selection|json}}</h1>
 
 
         </div>
