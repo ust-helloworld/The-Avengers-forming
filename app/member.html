@@ -59,6 +59,14 @@
                 </div>
               </div>
             </div>
+          <div class="row text-right">  
+            <h3>Invitation from team:</h3>
+              <div ng-repeat="team in invitationByTeams">
+              <button type="button" class="btn" ng-click="handleInvitation(team);">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{team.$id}}
+              </button> 
+            </div>
+          </div>
           </div>
 
           <div class="col-md-2 col-xs-2"></div>
