@@ -27,7 +27,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 	};
 
-	refPath =  "event/" + eventName + "/admin";
+	refPath =  "/event/" + eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {
 		if ( data.child("param").val() != null ) {
 			$scope.range = data.child("param").val();
@@ -37,11 +37,11 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 	});
 
-	refPath = "event/" + eventName + "/member";
+	refPath = "/event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 
-	refPath = "event/" + eventName + "/team";
+	refPath = "/event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 
@@ -93,7 +93,7 @@ angular.module('teamform-team-app', ['firebase'])
 				'invitationRequests':$scope.invitationRequests
 			};		
 			
-			var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;	
+			var refPath = "/event/" + getURLParameter("q") + "/team/" + teamID;	
 			var ref = firebase.database().ref(refPath);
 			
 			
@@ -114,7 +114,7 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.loadFunc = function() {
 		var teamID = $.trim( $scope.param.teamName );
 		var eventName = getURLParameter("q");
-		var refPath = "event/" + eventName + "/team/" + teamID ;
+		var refPath = "/event/" + eventName + "/team/" + teamID ;
 		retrieveOnceFirebase(firebase, refPath, function(data) {
 			if ( data.child("size").val() != null ) {
 				$scope.param.currentTeamSize = data.child("size").val();
@@ -186,7 +186,7 @@ angular.module('teamform-team-app', ['firebase'])
 				return false;
 			}
 		});
-		var path = eventName + '/member/' + rec;
+		var path = "/event/" + eventName + '/member/' + rec;
 		retrieveOnceFirebase(firebase, path, function(data) {
 			joined = data.child("joinedTeam").val();
 			joined = $scope.param.teamName;
@@ -214,7 +214,7 @@ angular.module('teamform-team-app', ['firebase'])
 				}
 			});
 			//console.log(rec);
-			var path = eventName + '/member/' + rec;
+			var path = "/event/" + eventName + '/member/' + rec;
 			retrieveOnceFirebase(firebase, path, function(data) {
 				joined = data.child("joinedTeam").val();
 				joined = "";
