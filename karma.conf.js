@@ -14,11 +14,22 @@ module.exports = function(config) {
 	  'js/*.js',
       'unit_tests/*.js'	  
     ],
-	exclude: ['js/grayscale.js','js/grayscale.min.js'
+	exclude: [
+		'js/grayscale.js',
+		'js/grayscale.min.js',
+		'js/eventDetilTemp.js',
+		'js/fblogin.js',
+		'js/memberDetail.js',
+		'js/memberDetail_linked.js',
+		'js/memberDetailTemp.js',
+		'js/memberDisplay.js',
+		'js/teamDetailTemp.js',
+		'js/teamDisplay.js',
+		'js/index.js'
 	],
 	preprocessors: {	 	
 		 'js/site.js' : ['coverage'],		
-		 'js/index.js' : ['coverage'],
+		 //'js/index.js' : ['coverage'],
 		 'js/admin.js' : ['coverage'],
 		 'js/team.js' : ['coverage'],
 		 'js/member.js' : ['coverage']

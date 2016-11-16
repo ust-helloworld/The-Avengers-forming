@@ -9,9 +9,7 @@ describe('teamform-admin-app module', function() {
 	beforeEach(inject(function($rootScope, $controller) {
 		$scope = $rootScope.$new();
 		AdminCtrl = $controller('AdminCtrl', {$scope: $scope});
-}));
-
-
+    }));
 	  	  
         it('changeMinTeamSize', function() {
             $scope.param.minTeamSize = 1;
@@ -19,26 +17,17 @@ describe('teamform-admin-app module', function() {
             $scope.changeMinTeamSize(1);
 			expect($scope.param.minTeamSize).toEqual(2);
         });
-/*
-    });
-
-    describe('changeMaxTeamSize Unit Test', function() {
-*/	  	  
+	  	  
         it('changeMaxTeamSize', function() {
             $scope.param.minTeamSize = 1;
             $scope.param.maxTeamSize = 10;
             $scope.changeMaxTeamSize(1);
 			expect($scope.param.maxTeamSize).toEqual(11);
         });
-/*
-    });
-    describe('saveFunc Unit Test', function() {
-*/	  	  
+/*  	  
         it('saveFunc', function() {
             $scope.saveFunc();
 			expect($scope.param.$save()).toBeDefined();
         });
-
-
-
+*/
 });
