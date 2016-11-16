@@ -21,10 +21,6 @@ angular.module('teamform-member-app', ['firebase'])
 
 	database = firebase.database();
 	var eventName = getURLParameter("q");
-	refPath = "/event/" + eventName + "/team";	
-	$scope.team = [];
-	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-	$scope.teams = {};
 
 	// Set default member to be the current user
 	firebase.auth().onAuthStateChanged(function(user){
@@ -38,15 +34,13 @@ angular.module('teamform-member-app', ['firebase'])
 			$scope.userName = "Please log in";
 			alert("Please log in");
 		}
-	});	
-
+	});
+	$scope.teams = {};
 
 	$scope.refreshReceived = function(){
 		$scope.invitationByTeams = [];
 		var memberID = $scope.userID;
-		console.log($scope.team);
 		$.each($scope.team, function(i,obj){
-			console.log(obj.$id);
 			if (typeof obj.invitationRequests != "undefined" && obj.invitationRequests.indexOf(memberID) > -1){
 				$scope.invitationByTeams.push(obj);
 			}
@@ -61,7 +55,6 @@ angular.module('teamform-member-app', ['firebase'])
 			retrieveOnceFirebase(firebase, refPath, function(data) {
 				if ( data.child("name").val() != null ) {
 					$scope.userName = data.child("name").val();
-					$scope.refreshReceived();
 				} else {
 					$scope.userName = "";
 				}
@@ -86,8 +79,7 @@ angular.module('teamform-member-app', ['firebase'])
 		if ( userID !== '' && userName !== '' ) {
 			var newData = {
 				'name': userName,
-				'selection': $scope.selection,
-				'joinedTeam': $scope.joinedTeam
+				'selection': $scope.selection
 			};
 			var refPath = "/event/"+ getURLParameter("q") + "/member/" + userID;	
 			var ref = firebase.database().ref(refPath);
