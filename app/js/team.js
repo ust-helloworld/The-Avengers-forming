@@ -95,7 +95,7 @@ angular.module('teamform-team-app', ['firebase'])
 			
 			var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;	
 			var ref = firebase.database().ref(refPath);
-<<<<<<< HEAD
+
 			// for each team members, clear the selection in /[eventName]/team/
 			$.each($scope.param.teamMembers, function(i,obj){
 				//$scope.test += obj;
@@ -104,13 +104,10 @@ angular.module('teamform-team-app', ['firebase'])
 				rec.selection = [];
 				$scope.member.$save(rec);
 			});
-			$.each($scope.mergeRequestReceived, function(i,obj){ // if team B received the request from team A, then team A is removed
-=======
-			
-			
+
 			// for each team membxers, clear the selection in /[eventName]/team/
 			$.each($scope.mergeRequestReceived, function(i,obj){
->>>>>>> refs/remotes/ust-helloworld/master
+
 				var rec = $scope.team.$getRecord(obj.$id);
 				//console.log(rec);
 				$scope.team.$remove(rec);
@@ -169,7 +166,7 @@ angular.module('teamform-team-app', ['firebase'])
 		}		
 		$scope.saveFunc();	
 	}
-	//**************************************
+
 	$scope.invitationRequests = [];
 	$scope.invitationToMembers = function(t){
 		if($scope.param.teamMembers.length + $scope.invitationRequests.length < $scope.param.currentTeamSize && $scope.invitationRequests.indexOf(t) < 0){
@@ -180,35 +177,7 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 		$scope.saveFunc();
 	}
-<<<<<<< HEAD
 
-		/*************** TeamMergeRequest *******************/
-	$scope.mergeSelection = [];
-	$scope.teamMergeRequest = function(teamItem){
-		if(typeof teamItem.teamMembers == "undefined"){ // if team B has no team members, create a team member array of length 0,
-			teamItem.teamMembers = [];
-		}
-		if($scope.param.teamMembers.length + teamItem.teamMembers.length <= teamItem.size && $scope.mergeSelection.length < 1){
-			$scope.mergeSelection.push(teamItem.$id); // if members in team A + members in team B > the maximum size of team B, not allow to merge
-			$scope.saveFunc();
-		}
-		else{
-			alert("Invalid Operation");
-		}
-	}
-
-	$scope.processMergeRequest = function(q){
-		for (var i = 0; i < q.teamMembers.length; i++){ // add members of team A to team B
-			$scope.param.teamMembers.push(q.teamMembers[i])
-		}
-
-		$scope.saveFunc();
-	}
-	//**************************************
-
-=======
-	
->>>>>>> refs/remotes/ust-helloworld/master
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;
 		if ( 
@@ -232,13 +201,14 @@ angular.module('teamform-team-app', ['firebase'])
 			joined = $scope.param.teamName;
 			firebase.database().ref(path).update({"joinedTeam": joined});
 		});
-		
+		/*
 		$.each($scope.param.teamMembers, function(i,obj){
 			var rec = $scope.member.$getRecord(obj);
 			//console.log(rec);
 			rec.selection = [];
 			$scope.member.$save(rec);
 		});
+		*/
 		//$scope.saveFunc();
 	}
 
