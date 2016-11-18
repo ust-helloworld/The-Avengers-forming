@@ -38,18 +38,17 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 	});
 
-	refPath = "event/" + eventName + "/member";
+	refPath = "/event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 
-	refPath = "event/" + eventName + "/team";
+	refPath = "/event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	$scope.requests = [];
 	$scope.mergeRequestReceived = [];
 	$scope.members = [];
 	$scope.refreshViewRequestsReceived = function() {
-		//$scope.test = "";
 		$scope.requests = [];
 		var teamID = $.trim( $scope.param.teamName );	
 				
@@ -93,7 +92,7 @@ angular.module('teamform-team-app', ['firebase'])
 				'invitationRequests':$scope.invitationRequests
 			};		
 			
-			var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;	
+			var refPath = "/event/" + getURLParameter("q") + "/team/" + teamID;	
 			var ref = firebase.database().ref(refPath);
 
 			// for each team members, clear the selection in /[eventName]/team/
@@ -123,7 +122,7 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.loadFunc = function() {
 		var teamID = $.trim( $scope.param.teamName );
 		var eventName = getURLParameter("q");
-		var refPath = "event/" + eventName + "/team/" + teamID ;
+		var refPath = "/event/" + eventName + "/team/" + teamID ;
 		retrieveOnceFirebase(firebase, refPath, function(data) {
 			if ( data.child("size").val() != null ) {
 				$scope.param.currentTeamSize = data.child("size").val();
@@ -179,7 +178,6 @@ angular.module('teamform-team-app', ['firebase'])
 	}
 
 	$scope.processRequest = function(r) {
-		//$scope.test = "processRequest: " + r;
 		if ( 
 		    $scope.param.teamMembers.indexOf(r) < 0 && 
 			$scope.param.teamMembers.length < $scope.param.currentTeamSize  ) {
@@ -195,20 +193,19 @@ angular.module('teamform-team-app', ['firebase'])
 				return false;
 			}
 		});
-		var path = eventName + '/member/' + rec;
+		var path = "/event/" + eventName + '/member/' + rec;
 		retrieveOnceFirebase(firebase, path, function(data) {
 			joined = data.child("joinedTeam").val();
 			joined = $scope.param.teamName;
 			firebase.database().ref(path).update({"joinedTeam": joined});
 		});
-		/*
+
 		$.each($scope.param.teamMembers, function(i,obj){
 			var rec = $scope.member.$getRecord(obj);
 			console.log(rec);
 			rec.selection = [];
 			$scope.member.$save(rec);
 		});
-		*/
 		//$scope.saveFunc();
 	}
 
@@ -224,7 +221,7 @@ angular.module('teamform-team-app', ['firebase'])
 				}
 			});
 			console.log(rec);
-			var path = eventName + '/member/' + rec;
+			var path = "/event/" + eventName + '/member/' + rec;
 			retrieveOnceFirebase(firebase, path, function(data) {
 				joined = data.child("joinedTeam").val();
 				joined = "";

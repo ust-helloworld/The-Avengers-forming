@@ -27,7 +27,7 @@ angular.module('teamform-member-app', ['firebase'])
 		if (user) {
 			$scope.userID = user.uid;
 			$scope.userName = user.displayName;
-			$scope.saveFunc();
+			$scope.createFunc();
 			$scope.loadFunc();
 		} else {
 			$scope.userID = "Please log in";
@@ -45,8 +45,27 @@ angular.module('teamform-member-app', ['firebase'])
 				$scope.invitationByTeams.push(obj);
 			}
 		});
+	}
 
-	}	
+	$scope.createFunc = function() {
+		var userID = $.trim( $scope.userID );
+		var userName = $.trim( $scope.userName );
+		if ( userID !== '' && userName !== '' ) {
+			var newData = {
+				'name': userName
+			};
+			var refPath = "/event/"+ getURLParameter("q") + "/member/" + userID;
+			var ref = firebase.database().ref(refPath);
+			ref.update(newData, function(){
+				// Complete call back
+				//alert("data pushed...");
+
+				// Finally, go back to the front-end
+				//window.location.href= "index.html";
+				console.log("Create data")
+			});
+		}
+	}
 
 	$scope.loadFunc = function() {
 		var userID = $scope.userID;
@@ -81,7 +100,7 @@ angular.module('teamform-member-app', ['firebase'])
 				'name': userName,
 				'selection': $scope.selection
 			};
-			var refPath = "/event/"+ getURLParameter("q") + "/member/" + userID;	
+			var refPath = "/event/"+ getURLParameter("q") + "/member/" + userID;
 			var ref = firebase.database().ref(refPath);
 			ref.set(newData, function(){
 				// Complete call back
@@ -102,7 +121,7 @@ angular.module('teamform-member-app', ['firebase'])
 			list = data.child("teamMembers").val();
 			if (list == null){
 				list = [];
-			} 
+			}
 			//console.log(list[0]);
 			list.push($scope.userID);
 			firebase.database().ref(path).update({"teamMembers":list});
