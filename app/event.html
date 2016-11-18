@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teamform</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <!--<i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap-->
+                    <!--profile-->
+                    <a href="#contact" data-toggle="modal">
+                        <div class="navbar-brand"><img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                        </div>
+                    </a>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="tutorial.html">Tutorial</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="explore.html">Explore</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="login.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+
+                <!--team inform-->
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1">
+                        <div class=" Event">
+                            <div class="event-body">
+                                <div class="page-header">
+                                    <h3>
+                                        <a href="#EventMemList" data-toggle="modal">
+                                            <small>people</small>
+                                        </a>
+                                        Event name
+                                        <small>posted time</small>
+                                    </h3>
+                                </div>
+                                <img class="featuredImg" src="img/event-img.jpg" width="100%">
+                                <p> Event information here... </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="team">
+        <a href="#team">
+            <h1 class="text-center"> Formed teams</h1>
+        </a>
+        <div class="teamse">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="text-center"><a href="team.html">Team Name</a></h3>
+                    <a class="thumbnail" href="team.html"> <img src="img/team.jpg"></a>
+                    <p class="text-center">your position</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!--bottom navbar-->
+    <div class="navbar navbar-inverted navbar-fixed-bottom">
+        <div class="container">
+            <div class="dropup pull-right">
+                <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                <ul class="dropdown-menu">
+                     <li><a href = "#addteam" data-toggle="modal"  class = "navbar-text"> Team </a></li>
+                    <li><a href = "#addevent" data-toggle="modal" class = "navbar-text"> Event </a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="contact">
+        <!--<div class="modal-content">-->
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="col-xs-8 col-xs-offset-2">
+                <center>
+                    <!-- <div class="panel panel-default"><div class="panel-body">-->
+                    <img class="fetureImg" src="profile/brown.png">
+
+                    <h2> {Username} </h2>
+                    <hr>
+                    <h3> {Self-Intro}</h3>
+                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is
+                        grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group",
+                        while toolbars should have a role="toolbar".One exception are groups which only contain a single
+                        control (for instance the justified button groups with elements) or a dropdown. In addition, groups
+                        and toolbars should be given an explicit label, as most assistive technologies will otherwise not
+                        announce them, despite the presence of the correct role attribute. In the examples provided here,
+                        we use aria-label, but alternatives such as aria-labelledby can also be used.
+
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+      <div class="modal fade" id="teamMem1">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-xs-8 col-xs-8 col-xs-offset-2">
+                <center>
+                    <img class="featureImg" src="profile/cony.png">
+                    <h2> {Username-Team Member1} </h2>
+                    <hr>
+                    <h3> {Self-Intro}</h3>
+                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is
+                        grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group",
+                        while toolbars should have a role="toolbar".One exception are groups which only contain a single
+                        control (for instance the justified button groups with elements) or a dropdown.In addition, groups
+                        and toolbars should be given an explicit label, as most assistive technologies will otherwise not
+                        announce them, despite the presence of the correct role attribute. In the examples provided here,
+                        we use aria-label, but alternatives such as aria-labelledby can also be used.
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="teamMem2">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-xs-8 col-xs-8 col-xs-offset-2">
+                <center>
+                    <img class="featureImg" src="profile/sally.png">
+                    <h2> {Username-Team Member1} </h2>
+                    <hr>
+                    <h3> {Self-Intro}</h3>
+                    <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is
+                        grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group",
+                        while toolbars should have a role="toolbar".One exception are groups which only contain a single
+                        control (for instance the justified button groups with elements) or a dropdown.In addition, groups
+                        and toolbars should be given an explicit label, as most assistive technologies will otherwise not
+                        announce them, despite the presence of the correct role attribute. In the examples provided here,
+                        we use aria-label, but alternatives such as aria-labelledby can also be used.
+                    </p>
+                </center>
+            </div>
+        </div>
+    </div>
+    
+         <div class="modal fade" id="EventMemList">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl"></div>
+            </div>
+        </div>
+        <div class="list-group">
+            <a href="#teamMem1" class="list-group-item " data-toggle="modal">
+                <h4 class="list-group-item-heading">Name</h4>
+                <p class="list-group-item-text"> position of the team</p>
+            </a>
+
+            <a href="#teamMem2" class="list-group-item" data-toggle="modal">
+                <h4 class="list-group-item-heading">Name</h4>
+                <p class="list-group-item-text">position of the team</p>
+            </a>
+        </div>
+    </div>   <!-add team form-->
+    <div class ="modal fade2" id ="addteam" role = "dialog">
+        <div class = "modal-dialog">
+            <div class= "modal-content">
+                <form class="Form-horizontal">
+                <div class ="modal-header-addteam">
+                <br><center><h3>Create a Team</h3></center>
+                </div>
+                <div class="modal-body-addteam">
+                    <div class = "form-group">
+                        <label for = "contact-name" class = "col-lg-3 control-lable">Team Name:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your team name"><br>
+                    </div>
+                </div>
+               
+                <div class = "form-group">
+                        <label for = "contact-descrip" class = "col-lg-3 control-lable"> Team description:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-descrip" placeholder = "Describe your team"><br>
+                    </div>
+                  </div>
+                   <div class="form-group">
+					  <label for = "contact-size" class = "col-lg-3 control-lable"> Team Size:</label> 					  
+					  <span>
+						 <span class="badge"> 8</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+
+						  
+					   </span><br>
+				   </div>
+                   <div class = "form-group">
+                       <label for = "contact-img" class = "col-lg-3 control-lable"> Select an image for your team:</label>
+                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                 <div class="form-inline">
+              <div class="form-group">
+                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
+              </div>
+              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
+            </div>
+          </form>
+                   </div>
+        
+          
+
+
+                </div>
+                <div class ="modal-footer">
+                    <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
+                    <a class ="btn btn-default" data-dismiss = "modal">Create </a>
+            
+                
+                </div>
+                </form>
+                </div>
+        </div>
+    </div>  <!- add event form-->
+  <div class ="modal fade3" id ="addevent" role = "dialog">
+         
+        <div class = "modal-dialog">
+            <div class= "modal-content">
+                <form class="Form-horizontal">
+                <div class ="modal-header-addteam">
+                <br><center><h3>Create an Event</h3></center>
+                </div>
+                <div class="modal-body-addteam">
+                    <div class = "form-group">
+                        <label for = "contact-name" class = "col-lg-3 control-lable">Event Name:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your event name"><br>
+                    </div>
+                </div>
+               
+                <div class = "form-group">
+                        <label for = "contact-descrip" class = "col-lg-3 control-lable"> Event description:</label>
+                        <div class ="col-lg-9">
+                            <input type = "text" class = "form-control" id = "contact-descrip" placeholder = "Describe your event"><br>
+                    </div>
+                  </div>
+                   <div class="form-group">
+					  <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label> 					  
+					  <span>
+						 <span class="badge"> 10</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+
+						  
+					   </span>
+				   </div>
+                   <div class = "container"> </div>
+                   <div class="form-group">
+                       
+					  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label> 					  
+					  <span>
+						 <span class="badge"> 6</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+
+						  
+					   </span>
+				   </div>
+                   <div class = "container"> </div>
+                    <div class = "form-group">
+                       <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
+                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                 <div class="form-inline">
+              <div class="form-group">
+                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
+              </div>
+              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
+            </div>
+            
+          </form>
+                   </div>
+
+                </div>
+                <div class ="modal-footer">
+                    <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
+                    <a class ="btn btn-default" data-dismiss = "modal">Create </a>
+            
+                
+                </div>
+                </form>
+                </div>
+        </div>
+         
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/grayscale.min.js"></script>
+
+
+</body>
+
+</html>
