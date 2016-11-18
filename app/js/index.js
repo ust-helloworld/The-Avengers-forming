@@ -30,3 +30,19 @@ $(document).ready(function(){
 
 
 });
+var app = angular.module('indexApp', ["firebase"]);
+
+    app.controller('indexController',
+
+      function($scope,$firebaseArray){
+    	initalizeFirebase();
+        // sync with firebaseArray
+
+        var ref = firebase.database().ref("fir-8b63f");// 抄左angular js 的structure
+
+        $scope.event = $firebaseArray(ref);//firebase copy the data to view also link it to firebase blinding firebase to model
+
+
+
+      }
+    );
