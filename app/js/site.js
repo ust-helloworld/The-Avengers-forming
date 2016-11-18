@@ -27,17 +27,15 @@ function getRandomIntInclusive(min, max) {
 //
 
 function initalizeFirebase() {
-
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyAESlbGbbKZu8eb3WYsAMb0fY4Pbs2ORTY",
-    authDomain: "fir-8b63f.firebaseapp.com",
-    databaseURL: "https://fir-8b63f.firebaseio.com",
-    storageBucket: "fir-8b63f.appspot.com",
-    messagingSenderId: "455156566230"
+    apiKey: "AIzaSyBV26zKbAVJXuHf4jkgiO3Lskyox2JUAqk",
+    authDomain: "teamform-1bf8d.firebaseapp.com",
+    databaseURL: "https://teamform-1bf8d.firebaseio.com",
+    storageBucket: "teamform-1bf8d.appspot.com",
+    messagingSenderId: "24145180042"
   };
   firebase.initializeApp(config);
-
 }
 
 //
