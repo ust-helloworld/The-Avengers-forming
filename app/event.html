@@ -23,6 +23,18 @@
     <link href="css/grayscale.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+	<!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+	<!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>     
+    <script src="lib/angularfire.min.js"></script>
+	
+	<script src="js/exploreTemp.js"></script>
+
+
 
 </head>
 
@@ -234,7 +246,7 @@
                 <p class="list-group-item-text">position of the team</p>
             </a>
         </div>
-    </div>   <!-add team form-->
+    </div>   <!--add team form-->
     <div class ="modal fade2" id ="addteam" role = "dialog">
         <div class = "modal-dialog">
             <div class= "modal-content">
@@ -273,9 +285,9 @@
                 <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
                  <div class="form-inline">
               <div class="form-group">
-                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
+                <input type="file" class = "col-lg-3 control-lable" name="files" id="js-upload-files">
               </div>
-              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
+              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit" ng-click="imgUpload()">Upload files</button>
             </div>
           </form>
                    </div>
@@ -293,80 +305,10 @@
                 </form>
                 </div>
         </div>
-    </div>  <!- add event form-->
-  <div class ="modal fade3" id ="addevent" role = "dialog">
-         
-        <div class = "modal-dialog">
-            <div class= "modal-content">
-                <form class="Form-horizontal">
-                <div class ="modal-header-addteam">
-                <br><center><h3>Create an Event</h3></center>
-                </div>
-                <div class="modal-body-addteam">
-                    <div class = "form-group">
-                        <label for = "contact-name" class = "col-lg-3 control-lable">Event Name:</label>
-                        <div class ="col-lg-9">
-                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your event name"><br>
-                    </div>
-                </div>
-               
-                <div class = "form-group">
-                        <label for = "contact-descrip" class = "col-lg-3 control-lable"> Event description:</label>
-                        <div class ="col-lg-9">
-                            <input type = "text" class = "form-control" id = "contact-descrip" placeholder = "Describe your event"><br>
-                    </div>
-                  </div>
-                   <div class="form-group">
-					  <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label> 					  
-					  <span>
-						 <span class="badge"> 10</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+    </div>  
+	<!-- add event form-->
+    <div class ="modal fade3" id ="addevent" role = "dialog" ng-app = "CreateEventApp" ng-include = "'createEvent.html'">
 
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-                   <div class = "container"> </div>
-                   <div class="form-group">
-                       
-					  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label> 					  
-					  <span>
-						 <span class="badge"> 6</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-                   <div class = "container"> </div>
-                    <div class = "form-group">
-                       <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
-                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-                 <div class="form-inline">
-              <div class="form-group">
-                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
-              </div>
-              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
-            </div>
-            
-          </form>
-                   </div>
-
-                </div>
-                <div class ="modal-footer">
-                    <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
-                    <a class ="btn btn-default" data-dismiss = "modal">Create </a>
-            
-                
-                </div>
-                </form>
-                </div>
-        </div>
-         
     </div>
 
     <!-- jQuery -->
