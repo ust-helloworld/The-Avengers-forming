@@ -365,10 +365,10 @@
                 <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
                 <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
                   <div class="form-inline">
-                     <div class="form-group">
-                       <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
-                     </div>
-                   <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
+				    <div class="form-group">
+                      <input type="file" class = "col-lg-3 control-lable" name="files" id="js-upload-files">
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit" ng-click="imgUpload()">Upload files</button>
                  </div>
             
                 </form>
