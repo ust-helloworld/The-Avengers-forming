@@ -48,7 +48,7 @@
     <script src="js/site.js"></script>
 
     <script src="lib/firebase.js"></script>
-    <script src="js/fblogin.js"></script>
+    <!-- <script src="js/fblogin.js"></script> -->
 
 </head>
 
@@ -90,7 +90,7 @@
                         <a class="page-scroll" href="explore.html">Explore</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="login.html">Logout</a>
+                        <a class="page-scroll" href="login.html" onclick = "initalizeFirebase();firebase.auth().signOut()">Logout</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#selectevent">Enter a event</a>
@@ -149,12 +149,13 @@
                 <button id="btn_member" type="button" class="btn btn-primary">Member</button>
                 <!-- Copy from firebase facebook pop-up auth template -->
                 <!-- Button that handles sign-in/sign-out -->
-                <button disabled class="btn btn-primary" id="quickstart-sign-in" type="button">Log in with Facebook</button>
+                <!-- <button disabled class="btn btn-primary" id="quickstart-sign-in" type="button">Log in with Facebook</button> -->
 
             </div>
         </div>
         <!-- For debugging -->
         <!-- Container where we'll display the user details -->
+        <!--
         <div class="quickstart-user-details-container">
             Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
             <div>Firebase auth <code>currentUser</code> object value:</div>
@@ -162,7 +163,8 @@
             <div>Facebook OAuth Access Token:</div>
             <pre><code id="quickstart-oauthtoken">null</code></pre>
         </div>
-        </section>
+        -->
+      </section>
 
         <!--You program-->
         <section id="events" class="container content-section text-center">
@@ -189,7 +191,7 @@
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
                         <ul class="dropdown-menu">
-                            
+
                             <li><a href = "#addevent" data-toggle="modal" class = "navbar-text"> Event </a></li>
                         </ul>
 
@@ -228,7 +230,7 @@
             </div>
 
             <div class ="modal fade3" id ="addevent" role = "dialog">
-         
+
         <div class = "modal-dialog">
             <div class= "modal-content">
                 <form class="Form-horizontal">
@@ -242,7 +244,7 @@
                             <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your event name"><br>
                     </div>
                 </div>
-               
+
                 <div class = "form-group">
                         <label for = "contact-descrip" class = "col-lg-3 control-lable"> Event description:</label>
                         <div class ="col-lg-9">
@@ -250,29 +252,29 @@
                     </div>
                   </div>
                    <div class="form-group">
-					  <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label> 					  
+					  <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label>
 					  <span>
 						 <span class="badge"> 10</span>
-						  
+
 						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
 						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 
-						  
+
 					   </span>
 				   </div>
                    <div class = "container"> </div>
                    <div class="form-group">
-                       
-					  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label> 					  
+
+					  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label>
 					  <span>
 						 <span class="badge"> 6</span>
-						  
+
 						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
 						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 
-						  
+
 					   </span>
 				   </div>
                    <div class = "container"> </div>
@@ -285,7 +287,7 @@
               </div>
               <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
             </div>
-            
+
           </form>
                    </div>
 
@@ -293,13 +295,13 @@
                 <div class ="modal-footer">
                     <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
                     <a class ="btn btn-default" data-dismiss = "modal">Create </a>
-            
-                
+
+
                 </div>
                 </form>
                 </div>
         </div>
-         
+
     </div>
 
             <!-- jQuery -->
@@ -313,7 +315,7 @@
 
     <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
-    
+
             <!-- Theme JavaScript -->
             <script src="js/grayscale.min.js"></script>
 
