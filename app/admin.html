@@ -83,7 +83,7 @@
 			  <label>Upload Picture for event : <input type=file name="FPhoto" id="FPhoto"></label>
 
 			<br><br>
-             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button> <button type="button" class="btn btn-danger">Close Event</button>
 
 
 			  </div>
@@ -105,7 +105,8 @@
                     <div class="panel-body">
 					  Preferred team size: <span class="badge">{{t.size}}</span> <br>
 					  Current team members: <div ng-repeat = "member in t.teamMembers track by $index">{{member}}</div> <br>
-					  Team Leader: {{t.leader}}
+					  Team Leader: {{t.leader}}<br>
+					  <a ng-href = "teamDisplay.html?e={{eventName}}&q={{t.$id}}" class = "btn-primary">Go To Team Detail</a>
 					</div>
                   </div>
 
