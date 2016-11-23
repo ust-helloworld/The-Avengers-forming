@@ -46,3 +46,13 @@ function initalizeFirebase() {
 function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
 }
+
+function checkUser(firebase) {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      console.log(user.displayName);
+    } else {
+      console.log("Not log in");
+    }
+  })
+}
