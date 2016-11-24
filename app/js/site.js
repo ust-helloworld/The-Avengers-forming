@@ -52,7 +52,8 @@ function checkUser(firebase) {
     if (user) {
       console.log(user.displayName);
     } else {
-      console.log("Not log in");
+      window.location.href = "login.html";
+      alarm("Not log in");
     }
   })
 }
