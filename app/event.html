@@ -120,13 +120,12 @@
         <div class="teamse">
             <div class="row">
                 <div class="col-md-4 text-center" ng-repeat = "x in team">
-                    <h3 class="text-center"><a href="team.html">{{x.$id}}</a></h3>
-                    <a class="thumbnail" href="team.html"> <img src="img/team.jpg"></a><br>
+                    <h3 class="text-center"><a ng-href="team.html?e={{eventName}}&q={{x.$id}}">{{x.$id}}</a></h3>
+                    <a class="thumbnail" ng-href="team.html?e={{eventName}}&q={{x.$id}}"> <img src="img/team.jpg"></a><br>
 					 Preferred team size: <span class="badge">{{x.size}}</span> <br>
 					 Current teamMember: <span class = "badge">{{x.teamMembers.length}}</span><br>
 					 Current team members: <div ng-repeat = "member in x.teamMembers track by $index">{{member}}</div> <br>
 					 Team Leader: {{x.leader}}<br>
-					 <a href = "teamDisplay.html?e={{eventName}}&q={{x.$id}}" class = "btn-primary">Go To Team Detail</a>
 					
                     <p class="text-center">your position</p>
 					<span class="btn btn-default" ng-click = "sendRequest(x.$id)">Request</span>
