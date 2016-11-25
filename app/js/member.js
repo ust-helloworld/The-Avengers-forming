@@ -18,6 +18,10 @@ angular.module('teamform-member-app', ['firebase'])
 	{
 		initalizeFirebase();
 	}
+
+	// Check is there any current user
+	checkUser(firebase);
+
 	database = firebase.database();
 	var refPath = "";
 	var eventName = getURLParameter("q");

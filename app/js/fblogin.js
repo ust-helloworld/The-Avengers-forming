@@ -20,7 +20,7 @@ function toggleSignIn() {
       // The signed-in user info.
       var user = result.user;
       // [START_EXCLUDE]
-      document.getElementById('quickstart-oauthtoken').textContent = token;
+      //document.getElementById('quickstart-oauthtoken').textContent = token;
       // [END_EXCLUDE]
     }).catch(function(error) {
       // Handle Errors here.
@@ -43,7 +43,7 @@ function toggleSignIn() {
     // [END signin]
   } else {
     // [START signout]
-    firebase.auth().signOut();
+    //firebase.auth().signOut();
     // [END signout]
   }
   // [START_EXCLUDE]
@@ -62,6 +62,7 @@ function initApp() {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       // User is signed in.
+      /*
       var displayName = user.displayName;
       var email = user.email;
       var emailVerified = user.emailVerified;
@@ -69,22 +70,24 @@ function initApp() {
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
+      */
       // [START_EXCLUDE]
-      document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-      document.getElementById('quickstart-sign-in').textContent = 'Log out';
-      document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+      window.location.href= "index.html";
+      //document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+      //document.getElementById('quickstart-sign-in').textContent = 'Log out';
+      //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
       // [END_EXCLUDE]
     } else {
       // User is signed out.
       // [START_EXCLUDE]
-      document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-      document.getElementById('quickstart-sign-in').textContent = 'Log in with Facebook';
-      document.getElementById('quickstart-account-details').textContent = 'null';
-      document.getElementById('quickstart-oauthtoken').textContent = 'null';
+      //document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+      //document.getElementById('quickstart-sign-in').textContent = 'Facebook';
+      //document.getElementById('quickstart-account-details').textContent = 'null';
+      //document.getElementById('quickstart-oauthtoken').textContent = 'null';
       // [END_EXCLUDE]
     }
     // [START_EXCLUDE]
-    document.getElementById('quickstart-sign-in').disabled = false;
+    //document.getElementById('quickstart-sign-in').disabled = false;
     // [END_EXCLUDE]
   });
   // [END authstatelistener]
