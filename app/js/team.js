@@ -28,7 +28,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 	};
 
-	refPath =  "event/" + eventName + "/admin";
+	refPath =  "/event/" + eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {
 		if ( data.child("param").val() != null ) {
 			$scope.range = data.child("param").val();
@@ -61,6 +61,7 @@ angular.module('teamform-team-app', ['firebase'])
 			}
 		});
 		$scope.mergeRequestReceived = [];
+		console.log($scope.team);
 		$.each($scope.team, function(i,obj) {			
 			if(typeof obj.mergeRequests != "undefined" && obj.mergeRequests.indexOf(teamID) > -1){
 				$scope.mergeRequestReceived.push(obj);
@@ -227,7 +228,7 @@ angular.module('teamform-team-app', ['firebase'])
 				joined = "";
 				firebase.database().ref(path).update({"joinedTeam": joined});
 			})
-			$scope.saveFunc();
+			//$scope.saveFunc();
 		}	
 	}
 }]);
