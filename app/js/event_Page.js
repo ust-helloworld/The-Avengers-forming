@@ -57,15 +57,19 @@ angular.module('teamform-event-app', ['firebase'])
 	
 	//still might not tested.
 	$scope.sendRequest = function (targetTeam){
-		refPath = "event/" + eventName + "/" + uid;
-		memberDetail = $firebaseObject(firebase.database().ref(refPath));
-		memberDetail.loaded().then(function (data){
+		console.log(targetTeam);
+		refPath = "event/" + eventName + "/member/" + firebase.auth().currentUser.uid;
+		var memberDetail = $firebaseObject(firebase.database().ref(refPath));
+		memberDetail.$loaded().then(function (data){
 			if (typeof memberDetail.selection == "undefined")
 			{
 				memberDetail.selection = [];
 			}
-			memberDetail.selection.append(targetTeam);
-			console.log(memberDetail.selection);
+			if ($.inArray(targetTeam,memberDetail.selection)==-1){
+			memberDetail.selection.push(targetTeam);
+			//console.log(memberDetail.selection);
+			memberDetail.$save();}
+			else {alert("You have sent this!!!");}
 		});
 	}
 	
