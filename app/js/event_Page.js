@@ -51,9 +51,27 @@ angular.module('teamform-event-app', ['firebase'])
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 
 
-	refPath = "event/" + eventName + "/member";
+	refPath = "event/" + eventName + "/member/";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
+	
+	firebase.auth().onAuthStateChanged(function(user) {
+	if (user) {
+		// User is signed in.
+		refPath = "event/" + eventName + "/member/" + user.uid;
+		memberDetail = $firebaseObject(firebase.database().ref(refPath));
+		memberDetail.$loaded().then(function (data){
+		$.each(memberDetail.selection, function (index, teamSelection){
+			console.log(teamSelection);
+			$("#button-"+teamSelection).text ("Cancel request");
+			//still have some problems (the tag cannot be change to cancel request =v="")
+		});
+	});
+	  } else {
+		// No user is signed in.
+	  }
+	});
+	
 	
 	//still might not tested.
 	$scope.sendRequest = function (targetTeam){
@@ -68,8 +86,17 @@ angular.module('teamform-event-app', ['firebase'])
 			if ($.inArray(targetTeam,memberDetail.selection)==-1){
 			memberDetail.selection.push(targetTeam);
 			//console.log(memberDetail.selection);
-			memberDetail.$save();}
-			else {alert("You have sent this!!!");}
+			memberDetail.$save();
+			$("#button-"+targetTeam).text ("Cancel request");
+			}
+			else {
+				alert("You have sent this!!!");
+				memberDetail.selection = $.grep(memberDetail.selection, function(delData){
+					return delData != targetTeam;
+				});
+				memberDetail.$save();
+				$("#button-"+targetTeam).text ("Request");
+			}
 		});
 	}
 	

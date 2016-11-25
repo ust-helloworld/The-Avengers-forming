@@ -129,7 +129,7 @@
 					 Team Leader: {{x.leader}}<br>
 					
                     <p class="text-center">your position</p>
-					<button type="button" class="btn btn-default" ng-click = "sendRequest(x.$id);">Request</button>
+					<button type="button" class="btn btn-default" ng-click = "sendRequest(x.$id);" ng-attr-id="{{'button-' +x.$id}}">Request</button>
 					<br><br><br>
                 </div>
 
