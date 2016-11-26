@@ -44,18 +44,18 @@
 
 
       <h2 id="text_event_name"></h2>
-
+      <span id="showhide"><button id="showURL" onclick="$('#controlPanel').show();$('#hideURL').show();$('#showURL').hide()">show setting</button><button id="hideURL" onclick="$('#controlPanel').hide();$('#hideURL').hide();$('#showURL').show()" style="display:none">hide</button></span>
       <div id="admin_page_controller" ng-controller="AdminCtrl">
 
          <div class="row">
 
             <div class="col-md-2 col-xs-2"></div>
 
-            <div class="col-md-8 col-xs-8 text-left panel">
+            <div class="col-md-8 col-xs-8 text-left panel-info" id = "controlPanel">
 
-
-
-             <strong>Minimum Team Size:</strong>
+			<div class="panel-heading">Setting</div>
+              <div class="panel-body">
+               <strong>Minimum Team Size:</strong>
 
                <span class="badge">
                  {{param.minTeamSize}}</span>
@@ -83,10 +83,10 @@
 			  <label>Upload Picture for event : <input type=file name="FPhoto" id="FPhoto"></label>
 
 			<br><br>
-             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button> <button type="button" class="btn btn-danger">Close Event</button>
 
 
-
+			  </div>
             </div>
 
              <div class="col-md-2 col-xs-2"></div>
@@ -96,33 +96,34 @@
 
          <hr>
 
-		 <div class="row">
-			 <div class="col-md-6 col-xs-6 text-right" >
+		 <div class="row container">
+			 <div class="col-md-6 col-xs-6 text-center">
 
 				<h3>All teams:</h3>
-				<ul ng-repeat="t in team">
-					<li>
-
-						User ID: {{t.$id}}  <br>
-						Preferred team size: <span class="badge">{{t.size}}</span> <br>
-						Current team members: {{t.teamMembers}}
-
-					</li>
-
-				</ul>
+                  <div class="panel panel-primary" ng-repeat="t in team">
+                    <div class="panel-heading">{{t.$id}}</div>
+                    <div class="panel-body">
+					  Preferred team size: <span class="badge">{{t.size}}</span> <br>
+					  Current team members: <div ng-repeat = "member in t.teamMembers track by $index">{{member}}</div> <br>
+					  Team Leader: {{t.leader}}<br>
+					  <a ng-href = "teamDisplay.html?e={{eventName}}&q={{t.$id}}" class = "btn-primary">Go To Team Detail</a>
+					</div>
+                  </div>
 
 			 </div>
 
-			 <div class="col-md-6 col-xs-6 text-left">
+			 <div class="col-md-6 col-xs-6 text-center">
 
 
 			  <h3>All members:</h3>
-			  <ul ng-repeat="m in member">
+			  <div class="panel panel-success" ng-repeat="m in member">
 
-				  <li>ID = {{m.$id}} <br>
-				  Name = {{m.name}} <br>
-				  request to join the following teams: {{m.selection | json}}</li>
-			  </ul>
+				  <div class="panel-heading">{{m.name}} </div>
+				  <div class="panel-body">
+				    UserID = {{m.$id}}<br>
+				    request to join the following teams: {{m.selection | json}}
+				  </div>
+			  </div>
 
 			 </div>
 		 </div>

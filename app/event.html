@@ -23,6 +23,7 @@
     <link href="css/grayscale.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+	<!-- JavaScript of this page -->
 	<!-- Customized libraries shared by pages -->
     <script src="js/site.js"></script>
 	<!-- Angular and Angular-route libraries (v1.5.7) -->
@@ -31,14 +32,13 @@
     <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
     <script src="lib/firebase.js"></script>     
     <script src="lib/angularfire.min.js"></script>
-	
+
+    <script src="js/event_Page.js"></script>
 	<script src="js/exploreTemp.js"></script>
-
-
 
 </head>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="teamform-event-app">
 
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -93,18 +93,18 @@
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1">
                         <div class=" Event">
-                            <div class="event-body">
+                            <div class="event-body" ng-controller="displayCtrl">
                                 <div class="page-header">
                                     <h3>
                                         <a href="#EventMemList" data-toggle="modal">
-                                            <small>people</small>
+                                            <small>Hosted by {{ownerDisplayName}}, Other members...</small>
                                         </a>
-                                        Event name
+                                        {{eventName}}
                                         <small>posted time</small>
                                     </h3>
                                 </div>
-                                <img class="featuredImg" src="img/event-img.jpg" width="100%">
-                                <p> Event information here... </p>
+                                <img class="featuredImg" ng-src="{{param.imgURL}}" width="100%">
+                                <p> {{param.description}}</p>
                             </div>
 
                         </div>
@@ -113,16 +113,23 @@
             </div>
         </div>
     </header>
-    <section id="team">
+    <section id="team" ng-controller="displayCtrl">
         <a href="#team">
             <h1 class="text-center"> Formed teams</h1>
         </a>
         <div class="teamse">
             <div class="row">
-                <div class="col-md-4">
-                    <h3 class="text-center"><a href="team.html">Team Name</a></h3>
-                    <a class="thumbnail" href="team.html"> <img src="img/team.jpg"></a>
+                <div class="col-md-4 text-center" ng-repeat = "x in team">
+                    <h3 class="text-center"><a ng-href="team.html?e={{eventName}}&q={{x.$id}}">{{x.$id}}</a></h3>
+                    <a class="thumbnail" ng-href="team.html?e={{eventName}}&q={{x.$id}}"> <img src="img/team.jpg"></a><br>
+					 Preferred team size: <span class="badge">{{x.size}}</span> <br>
+					 Current teamMember: <span class = "badge">{{x.teamMembers.length}}</span><br>
+					 Current team members: <div ng-repeat = "member in x.teamMembers track by $index">{{member}}</div> <br>
+					 Team Leader: {{x.leader}}<br>
+					
                     <p class="text-center">your position</p>
+					<button type="button" class="btn btn-default" ng-click = "sendRequest(x.$id);" ng-attr-id="{{'button-' +x.$id}}">Request</button>
+					<br><br><br>
                 </div>
 
             </div>
@@ -146,6 +153,8 @@
     </div>
 
 
+	
+	
     <div class="modal fade" id="contact">
         <!--<div class="modal-content">-->
         <div class="close-modal" data-dismiss="modal">
@@ -178,7 +187,7 @@
             </div>
         </div>
     </div>
-      <div class="modal fade" id="teamMem1">
+    <div class="modal fade" id="teamMem1">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
                 <div class="rl"></div>
@@ -229,7 +238,7 @@
         </div>
     </div>
     
-         <div class="modal fade" id="EventMemList">
+    <div class="modal fade" id="EventMemList">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
                 <div class="rl"></div>
@@ -246,7 +255,9 @@
                 <p class="list-group-item-text">position of the team</p>
             </a>
         </div>
-    </div>   <!--add team form-->
+    </div>
+	
+	<!--add team form-->
     <div class ="modal fade2" id ="addteam" role = "dialog">
         <div class = "modal-dialog">
             <div class= "modal-content">
@@ -285,9 +296,9 @@
                 <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
                  <div class="form-inline">
               <div class="form-group">
-                <input type="file" class = "col-lg-3 control-lable" name="files" id="js-upload-files">
+                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
               </div>
-              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit" ng-click="imgUpload()">Upload files</button>
+              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
             </div>
           </form>
                    </div>
@@ -305,10 +316,10 @@
                 </form>
                 </div>
         </div>
-    </div>  
+    </div>
 	<!-- add event form-->
-    <div class ="modal fade3" id ="addevent" role = "dialog" ng-app = "CreateEventApp" ng-include = "'createEvent.html'">
-
+    <div class ="modal fade3" id ="addevent" role = "dialog" ng-include = "'createEvent.html'">
+	
     </div>
 
     <!-- jQuery -->
@@ -319,9 +330,6 @@
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>

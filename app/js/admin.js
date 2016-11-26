@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	$('#admin_page_controller').hide();
+	$('#controlPanel').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
 	var eventName = getURLParameter("q");
 	if (eventName != null && eventName !== '' ) {
@@ -17,13 +18,14 @@ angular.module('teamform-admin-app', ['firebase'])
 	// Call Firebase initialization code defined in site.js
 	if (firebase.apps.length === 0)
 	{
-	initalizeFirebase();
+	  initalizeFirebase();
 	}
 
 
 	var refPath, ref, eventName;
 
 	eventName = getURLParameter("q");
+	$scope.eventName = eventName;
 	refPath = "event/" + eventName + "/admin/param";
 	ref = firebase.database().ref(refPath);
 
@@ -33,6 +35,14 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.param.$loaded()
 		.then( function(data) {
 			// Fill in some initial values when the DB entry doesn't exist
+			if (typeof $scope.param.owner != "undefined")
+			{
+			  if ( $scope.param.owner != firebase.auth().currentUser.uid)
+			  {
+		        console.log("You are not admin!!! View only");
+				$("#showhide").hide();
+			  }
+			}
 			if(typeof $scope.param.maxTeamSize == "undefined"){
 				$scope.param.maxTeamSize = 10;
 			}
@@ -51,12 +61,12 @@ angular.module('teamform-admin-app', ['firebase'])
 		});
 
 
-	refPath = eventName + "/team";
+	refPath = "event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 
 
-	refPath = eventName + "/member";
+	refPath = "event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 
@@ -78,7 +88,7 @@ angular.module('teamform-admin-app', ['firebase'])
 
 	$scope.saveFunc = function() {
 		$scope.param.$save();
-		//refPath = eventName + "/admin/param";
+		//refPath = "event/" + eventName + "/admin/param";
 		var database = firebase.database();
 		//database.ref(refPath).update({'description':$scope.FDescription});
 
@@ -96,7 +106,7 @@ angular.module('teamform-admin-app', ['firebase'])
           eventRef.put(files[0]).then(function(snapshot){
 			 console.log('Uploaded a file!');
 			  var downloadURL = snapshot.downloadURL;
-			  var refPath = eventName + "/admin/param";
+			  var refPath = "event/" + eventName + "/admin/param";
 			  database.ref(refPath).update({'imgURL':downloadURL}).then(function (){
 				   // Finally, go back to the front-end
 			       window.location.href= "index.html";
