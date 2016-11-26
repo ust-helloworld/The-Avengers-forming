@@ -1,0 +1,59 @@
+      <div class = "modal-dialog" ng-controller = "CEA_Form">
+        <div class= "modal-content">
+          <form class="Form-horizontal">
+            <div class ="modal-header-addteam">
+              <br><center><h3>Create an Event</h3></center>
+            </div>
+            <div class="modal-body-addteam">
+              <div class = "form-group">
+                <label for = "contact-name" class = "col-lg-3 control-lable">Event Name:</label>
+                <div class ="col-lg-9">
+                  <input type = "text" ng-model = "eventName" class = "form-control" id = "contact-name" placeholder = "Enter your event name" ng-model="eventName"><br>
+                </div>
+              </div>
+               
+              <div class = "form-group">
+                <label for = "contact-descrip" class = "col-lg-3 control-lable"> Event description:</label>
+                  <div class ="col-lg-9">
+                    <input type = "text" ng-model = "param.description" class = "form-control" id = "contact-descrip" placeholder = "Describe your event"><br>
+                  </div>
+              </div>
+              <div class="form-group">
+		        <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label> 					  
+				  <span>
+				    <span class="badge"> {{param.maxTeamSize}}</span>
+					  <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+					  <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>  
+				  </span>
+			  </div>
+              <div class = "container"> </div>
+              <div class="form-group">
+                  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label> 					  
+				    <span>
+					  <span class="badge"> {{param.minTeamSize}}</span>	  
+			            <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+			            <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>		  
+			        </span>
+		        </div>
+              <div class = "container"> </div>
+              <div class = "form-group">
+                <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
+                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                  <div class="form-inline">
+				    <div class="form-group">
+                      <input type="file" class = "col-lg-3 control-lable" name="files" id="js-upload-files">
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit" ng-click="imgUpload()">Upload files</button>
+                 </div>
+            
+                </form>
+              </div>
+
+            </div>
+            <div class ="modal-footer">
+              <span class ="btn btn-secondary">Close </span>
+			  <input type = "button" class ="btn btn-default"  ng-click = "saveFunc()" value = "Create" data-dismiss = "modal">
+            </div>
+          </form>
+        </div>
+      </div>   
