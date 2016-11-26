@@ -101,7 +101,6 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	}
 	
 }]);
-
 app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', function CEA_Form($scope, $firebaseObject, $firebaseArray) {
 	
 	// Call Firebase initialization code defined in site.js

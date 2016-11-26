@@ -1,5 +1,4 @@
-angular.module('CreateEventApp', ['firebase'])
-.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+function CEA_Form($scope, $firebaseObject, $firebaseArray) {
 	
 	// Call Firebase initialization code defined in site.js
 	if (firebase.apps.length === 0)
@@ -74,4 +73,7 @@ angular.module('CreateEventApp', ['firebase'])
 	};
 	
 		
-}]);
+};
+
+angular.module('CreateEventApp', ['firebase'])
+.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', CEA_Form]);
