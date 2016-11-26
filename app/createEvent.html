@@ -1,3 +1,14 @@
+	<!-- JavaScript of this page -->
+	<!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+	<!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>     
+    <script src="lib/angularfire.min.js"></script>
+	<script src="js/exploreTemp.js"></script>
+	
       <div class = "modal-dialog" ng-controller = "CEA_Form">
         <div class= "modal-content">
           <form class="Form-horizontal">
@@ -51,7 +62,7 @@
 
             </div>
             <div class ="modal-footer">
-              <span class ="btn btn-secondary">Close </span>
+              <span class ="btn btn-default" data-dismiss = "modal">Close </span>
 			  <input type = "button" class ="btn btn-default"  ng-click = "saveFunc()" value = "Create" data-dismiss = "modal">
             </div>
           </form>

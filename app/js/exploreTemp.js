@@ -2,7 +2,10 @@ angular.module('CreateEventApp', ['firebase'])
 .controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	if (firebase.apps.length === 0)
+	{
+	  initalizeFirebase();
+	}
 	firebase.auth().onAuthStateChanged(function (data){
 		console.log(data.uid);
 		$scope.useruid = data.uid;
