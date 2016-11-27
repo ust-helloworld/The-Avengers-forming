@@ -28,21 +28,151 @@ $(document).ready(function(){
     	}
     });
 
-
 });
-var app = angular.module('indexApp', ["firebase"]);
+angular.module('indexApp', ['firebase'])
+.controller('indexController', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+    // Call Firebase initialization code defined in site.js
 
-    app.controller('indexController',
+    initalizeFirebase();
 
-      function($scope,$firebaseArray){
-    	initalizeFirebase();
-        // sync with firebaseArray
-
-        var ref = firebase.database().ref("fir-8b63f");// 抄左angular js 的structure
-
-        $scope.event = $firebaseArray(ref);//firebase copy the data to view also link it to firebase blinding firebase to model
+    database = firebase.database();
+    $scope.userdata = {};
+    $scope.skillname = "";
 
 
 
-      }
-    );
+
+    // Set default member to be the current user
+    firebase.auth().onAuthStateChanged(function(user){
+        if (user) {
+            
+            $scope.userdata.userID = user.uid;
+            $scope.userdata.userName = user.displayName;
+            $scope.userdata.photoURL = user.photoURL;
+            $scope.userdata.email = user.email;
+            $scope.createFunc();
+            $scope.loadFunc();
+            var refPath = "/user/" + $.trim( $scope.userdata.userID ) + "/skills";  
+            $scope.skillList = [];
+            $scope.skillList = $firebaseArray(firebase.database().ref(refPath));
+            
+        } else {
+            window.location.href= "login.html";
+        }
+    });
+    $scope.createFunc = function() {
+        var userID = $.trim( $scope.userdata.userID );
+        var userName = $.trim( $scope.userdata.userName );
+        var photoURL = $.trim( $scope.userdata.photoURL );
+        var email = $.trim( $scope.userdata.email );
+        if ( userID !== '' && userName !== '' ) {
+            var newData = {
+                'name': userName,
+                'photoURL': photoURL,
+                'email': email
+
+            };
+            var refPath = "/user/" + userID;
+            var ref = firebase.database().ref(refPath);
+            ref.update(newData, function(){
+                // Complete call back
+                //alert("data pushed...");
+
+                // Finally, go back to the front-end
+                //window.location.href= "index.html";
+                console.log("Create data")
+            });
+        }
+    }
+
+    $scope.loadFunc = function() {
+        var userID = $scope.userdata.userID;
+        if ( userID !== '' ) {
+            var refPath = "/user/" + userID;
+            retrieveOnceFirebase(firebase, refPath, function(data) {
+                if (data.child("description").val() != null ) {
+                    $scope.userdata.description = data.child("description").val();
+                }
+                else {
+                    $scope.userdata.description = "";
+                }
+                if (data.child("skills").val() != null ) {
+                    $scope.userdata.skills = data.child("skills").val();
+                }
+                else {
+                    $scope.userdata.skills = {};
+                }
+                $scope.$apply();
+            });
+        }
+    }
+    $scope.savedescription = function() {
+        var userID = $.trim( $scope.userdata.userID );
+        if ( userID !== '') {
+            var newData = {
+                'description': $scope.userdata.description
+            };
+            var refPath = "/user/" + userID;
+            var ref = firebase.database().ref(refPath);
+            ref.update(newData, function(){
+                // Complete call back
+                //alert("data pushed...");
+
+                // Finally, go back to the front-end
+                //window.location.href= "index.html";
+                console.log("Save data")
+            });
+        }
+    }
+    $scope.addskill = function() {
+        var userID = $.trim( $scope.userdata.userID );
+        var skillName = $.trim( $scope.skillname );
+        skillName = skillName.toUpperCase();
+        if ( userID !== '' && skillName !=='' && $scope.userdata.skills[skillName] == null) {
+                var newData = {
+                    'agree' : "0",
+                    'total' : "0",
+                    'percent' : "--"
+
+                };
+                $scope.userdata.skills[skillName] = newData;
+                var refPath = "/user/" + userID + "/skills/" + skillName;
+                var ref = firebase.database().ref(refPath);
+                ref.update(newData, function(){
+                    // Complete call back
+                    //alert("data pushed...");
+
+                    // Finally, go back to the front-end
+                    //window.location.href= "index.html";
+                    console.log("Save data")
+                });
+            }
+
+        
+    }
+    $scope.removeskill = function(t) {
+        //var skillName = $.trim( t );
+        delete $scope.userdata.skills[t.$id];
+        var userID = $.trim( $scope.userdata.userID );
+    //var userName = $.trim( $scope.userName );
+
+        if ( userID !== '') {
+            var newData = {
+                'skills': $scope.userdata.skills
+            };
+            var refPath = "/user/" + userID;
+            var ref = firebase.database().ref(refPath);
+            ref.update(newData, function(){
+                // Complete call back
+                //alert("data pushed...");
+
+                // Finally, go back to the front-end
+                //window.location.href= "index.html";
+                console.log("Save data")
+            });
+        
+        }
+        
+    }
+
+}]);

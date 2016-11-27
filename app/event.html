@@ -23,10 +23,22 @@
     <link href="css/grayscale.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+	<!-- JavaScript of this page -->
+	<!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+	<!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>     
+    <script src="lib/angularfire.min.js"></script>
+
+    <script src="js/event_Page.js"></script>
+	<script src="js/exploreTemp.js"></script>
 
 </head>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="teamform-event-app">
 
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -81,18 +93,20 @@
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1">
                         <div class=" Event">
-                            <div class="event-body">
+                            <div class="event-body" ng-controller="displayCtrl">
                                 <div class="page-header">
                                     <h3>
                                         <a href="#EventMemList" data-toggle="modal">
-                                            <small>people</small>
+                                            <small>Hosted by {{ownerDisplayName}}, Other members...</small>
                                         </a>
-                                        Event name
+                                        {{eventName}}
                                         <small>posted time</small>
                                     </h3>
                                 </div>
-                                <img class="featuredImg" src="img/event-img.jpg" width="100%">
-                                <p> Event information here... </p>
+                                <img class="featuredImg" ng-src="{{param.imgURL}}" width="100%">
+                                <p> {{param.description}}</p>
+								{{joined}}
+								<button type = "button" id = "joinButton" class="btn btn-default" ng-click="joinQuit()">Join This Event</button>
                             </div>
 
                         </div>
@@ -101,18 +115,24 @@
             </div>
         </div>
     </header>
-    <section id="team">
+    <section id="team" ng-controller="displayCtrl">
         <a href="#team">
             <h1 class="text-center"> Formed teams</h1>
         </a>
         <div class="teamse">
-            <div class="row">
-                <div class="col-md-4">
-                    <h3 class="text-center"><a href="team.html">Team Name</a></h3>
-                    <a class="thumbnail" href="team.html"> <img src="img/team.jpg"></a>
+            <div class="row" id = "teamInsert">
+                <div class="col-md-4 text-center" ng-repeat = "x in team">
+                    <h3 class="text-center"><a ng-href="team.html?e={{eventName}}&q={{x.$id}}">{{x.$id}}</a></h3>
+                    <a class="thumbnail" ng-href="team.html?e={{eventName}}&q={{x.$id}}"> <img src="img/team.jpg"></a><br>
+					 Preferred team size: <span class="badge">{{x.size}}</span> <br>
+					 Current teamMember: <span class = "badge">{{x.teamMembers.length}}</span><br>
+					 Current team members: <div ng-repeat = "member in x.teamMembers track by $index">{{member}}</div> <br>
+					 Team Leader: {{x.leader}}<br>
+					
                     <p class="text-center">your position</p>
+					<button type="button" class="btn btn-default btn-sendRequest" ng-click = "sendRequest(x.$id);" ng-attr-id="{{'button-' +x.$id}}" ng-attr-style="{{joined?'':'display:none'}}">Request</button>
+					<br><br><br>
                 </div>
-
             </div>
 
         </div>
@@ -134,6 +154,8 @@
     </div>
 
 
+	
+	
     <div class="modal fade" id="contact">
         <!--<div class="modal-content">-->
         <div class="close-modal" data-dismiss="modal">
@@ -166,7 +188,7 @@
             </div>
         </div>
     </div>
-      <div class="modal fade" id="teamMem1">
+    <div class="modal fade" id="teamMem1">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
                 <div class="rl"></div>
@@ -217,7 +239,7 @@
         </div>
     </div>
     
-         <div class="modal fade" id="EventMemList">
+    <div class="modal fade" id="EventMemList">
         <div class="close-modal" data-dismiss="modal">
             <div class="lr">
                 <div class="rl"></div>
@@ -234,7 +256,9 @@
                 <p class="list-group-item-text">position of the team</p>
             </a>
         </div>
-    </div>   <!-add team form-->
+    </div>
+	
+	<!--add team form-->
     <div class ="modal fade2" id ="addteam" role = "dialog">
         <div class = "modal-dialog">
             <div class= "modal-content">
@@ -293,80 +317,10 @@
                 </form>
                 </div>
         </div>
-    </div>  <!- add event form-->
-  <div class ="modal fade3" id ="addevent" role = "dialog">
-         
-        <div class = "modal-dialog">
-            <div class= "modal-content">
-                <form class="Form-horizontal">
-                <div class ="modal-header-addteam">
-                <br><center><h3>Create an Event</h3></center>
-                </div>
-                <div class="modal-body-addteam">
-                    <div class = "form-group">
-                        <label for = "contact-name" class = "col-lg-3 control-lable">Event Name:</label>
-                        <div class ="col-lg-9">
-                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your event name"><br>
-                    </div>
-                </div>
-               
-                <div class = "form-group">
-                        <label for = "contact-descrip" class = "col-lg-3 control-lable"> Event description:</label>
-                        <div class ="col-lg-9">
-                            <input type = "text" class = "form-control" id = "contact-descrip" placeholder = "Describe your event"><br>
-                    </div>
-                  </div>
-                   <div class="form-group">
-					  <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label> 					  
-					  <span>
-						 <span class="badge"> 10</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-                   <div class = "container"> </div>
-                   <div class="form-group">
-                       
-					  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label> 					  
-					  <span>
-						 <span class="badge"> 6</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-                   <div class = "container"> </div>
-                    <div class = "form-group">
-                       <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
-                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-                 <div class="form-inline">
-              <div class="form-group">
-                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
-              </div>
-              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
-            </div>
-            
-          </form>
-                   </div>
-
-                </div>
-                <div class ="modal-footer">
-                    <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
-                    <a class ="btn btn-default" data-dismiss = "modal">Create </a>
-            
-                
-                </div>
-                </form>
-                </div>
-        </div>
-         
+    </div>
+	<!-- add event form-->
+    <div class ="modal fade3" id ="addevent" role = "dialog" ng-include = "'createEvent.html'">
+	
     </div>
 
     <!-- jQuery -->
@@ -377,9 +331,6 @@
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
