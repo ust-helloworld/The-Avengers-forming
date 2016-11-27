@@ -105,7 +105,6 @@
                                 </div>
                                 <img class="featuredImg" ng-src="{{param.imgURL}}" width="100%">
                                 <p> {{param.description}}</p>
-								{{joined}}
 								<button type = "button" id = "joinButton" class="btn btn-default" ng-click="joinQuit()">Join This Event</button>
                             </div>
 
@@ -122,15 +121,19 @@
         <div class="teamse">
             <div class="row" id = "teamInsert">
                 <div class="col-md-4 text-center" ng-repeat = "x in team">
-                    <h3 class="text-center"><a ng-href="team.html?e={{eventName}}&q={{x.$id}}">{{x.$id}}</a></h3>
-                    <a class="thumbnail" ng-href="team.html?e={{eventName}}&q={{x.$id}}"> <img src="img/team.jpg"></a><br>
+                    <h3 class="text-center"><a ng-href="team.html?e={{eventName}}&t={{x.$id}}">{{x.$id}}</a></h3>
+                    <a class="thumbnail" ng-href="team.html?e={{eventName}}&t={{x.$id}}"> <img src="img/team.jpg"></a><br>
 					 Preferred team size: <span class="badge">{{x.size}}</span> <br>
 					 Current teamMember: <span class = "badge">{{x.teamMembers.length}}</span><br>
 					 Current team members: <div ng-repeat = "member in x.teamMembers track by $index">{{member}}</div> <br>
 					 Team Leader: {{x.leader}}<br>
 					
-                    <p class="text-center">your position</p>
-					<button type="button" class="btn btn-default btn-sendRequest" ng-click = "sendRequest(x.$id);" ng-attr-id="{{'button-' +x.$id}}" ng-attr-style="{{joined?'':'display:none'}}">Request</button>
+                    <p class="text-center">{{$parent.memberDetail.joinedTeam ==x.$id?'This is your Team!!' : ''}}</p>
+					<button type="button" class="btn btn-default btn-sendRequest" ng-click = "sendRequest(x.$id);" 
+					ng-attr-id="{{'button-' +x.$id}}" ng-show = "$parent.memberDetail.joinedTeam===''">
+					
+					{{($parent.memberDetail.selection.indexOf(x.$id) == -1 ? 'Request' : 'Cancel Request')}}
+					</button>
 					<br><br><br>
                 </div>
             </div>
