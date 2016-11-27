@@ -28,7 +28,6 @@ $(document).ready(function(){
     	}
     });
 
-
 });
 angular.module('indexApp', ['firebase'])
 .controller('indexController', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
@@ -38,7 +37,10 @@ angular.module('indexApp', ['firebase'])
 
     database = firebase.database();
     $scope.userdata = {};
-    $scope.skill = {};
+    $scope.skillname = "";
+
+
+
 
     // Set default member to be the current user
     firebase.auth().onAuthStateChanged(function(user){
@@ -50,6 +52,9 @@ angular.module('indexApp', ['firebase'])
             $scope.userdata.email = user.email;
             $scope.createFunc();
             $scope.loadFunc();
+            var refPath = "/user/" + $.trim( $scope.userdata.userID ) + "/skills";  
+            $scope.skillList = [];
+            $scope.skillList = $firebaseArray(firebase.database().ref(refPath));
             
         } else {
             window.location.href= "login.html";
@@ -121,11 +126,10 @@ angular.module('indexApp', ['firebase'])
     }
     $scope.addskill = function() {
         var userID = $.trim( $scope.userdata.userID );
-        var skillName = $.trim( $scope.skill.name );
+        var skillName = $.trim( $scope.skillname );
         skillName = skillName.toUpperCase();
         if ( userID !== '' && skillName !=='' && $scope.userdata.skills[skillName] == null) {
                 var newData = {
-                    'name': skillName,
                     'agree' : "0",
                     'total' : "0",
                     'percent' : "--"
@@ -148,7 +152,7 @@ angular.module('indexApp', ['firebase'])
     }
     $scope.removeskill = function(t) {
         //var skillName = $.trim( t );
-        delete $scope.userdata.skills[t.name];
+        delete $scope.userdata.skills[t.$id];
         var userID = $.trim( $scope.userdata.userID );
     //var userName = $.trim( $scope.userName );
 

@@ -224,11 +224,11 @@
                             <button type="button" class="btn btn-primary" ng-click="savedescription();">Save description</button>
                             <hr>
                             <h3> Skills</h3>
-                            <input type = "text" class = "form-control" ng-model="skill.name" placeholder = "Enter your skill"><br>
-                            <button type="button" class="btn btn-primary" ng-click="addskill();">Add skill</button>
-                            <div ng-repeat="skill in userdata.skills">
+                            <input type = "text" class = "form-control" ng-model="skillname" placeholder = "Enter your skill"><br>
+                            <button type="button" class="btn btn-primary" ng-click="addskill(); skillname = null">Add skill</button>
+                            <div ng-repeat="skill in skillList">
                                 <div class="row">
-                                    <h6><button type="button" class="btn" ng-click="removeskill(skill);">{{skill.name}}</button>
+                                    <h6><button type="button" class="btn" ng-click="removeskill(skill);">{{skill.$id}}</button>
                                     Recogniton: {{skill.agree}}, Total Vote: {{skill.total}}, Percentage: {{skill.percent}}%</h6>
                                 </div>
                             </div>
