@@ -1,113 +1,87 @@
 $(document).ready(function(){
-	$('#admin_page_controller').hide();
+	//$('#comment_page_controller').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
 	var eventName = getURLParameter("q");
-	if (eventName != null && eventName !== '' ) {
+	var teamName = getURLParameter("team");
+	if (eventName != null && eventName !== '' && teamName != null && teamName !== '') {
 		$('#text_event_name').text("Thanks for joining " + eventName);
+		$('#text_team_name').text("Your team is " + teamName);
 	}
 });
 
-angular.module('teamform-admin-app', ['firebase'])
-.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
-	// TODO: implementation of AdminCtrl
-
-	// Initialize $scope.param as an empty JSON object
-	$scope.param = {};
+angular.module('teamform-comment-app', ['firebase'])
+.controller('CommentCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 
 	// Call Firebase initialization code defined in site.js
 	if (firebase.apps.length === 0)
 	{
-	initalizeFirebase();
+		initalizeFirebase();
 	}
 
+	// Check is there any current user
+	checkUser(firebase);
 
-	var refPath, ref, eventName;
+	var refPath, ref, eventName, teamName;
 
 	eventName = getURLParameter("q");
-	refPath = "event/" + eventName + "/admin/param";
-	ref = firebase.database().ref(refPath);
+	teamName = getURLParameter("team");
 
-	// Link and sync a firebase object
-
-	$scope.param = $firebaseObject(ref);
-	$scope.param.$loaded()
-		.then( function(data) {
-			// Fill in some initial values when the DB entry doesn't exist
-			if(typeof $scope.param.maxTeamSize == "undefined"){
-				$scope.param.maxTeamSize = 10;
-			}
-			if(typeof $scope.param.minTeamSize == "undefined"){
-				$scope.param.minTeamSize = 1;
-			}
-			if(typeof $scope.param.description == "undefined"){
-				$scope.param.description = null;
-			}
-			// Enable the UI when the data is successfully loaded and synchornized
-			$('#admin_page_controller').show();
-		})
-		.catch(function(error) {
-			// Database connection error handling...
-			//console.error("Error:", error);
-		});
-
-
-	refPath = eventName + "/team";
-	$scope.team = [];
-	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-
-
-	refPath = eventName + "/member";
+	refPath = "event/" + eventName + "/team/" + teamName + "/teamMembers";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 
-	$scope.changeMinTeamSize = function(delta) {
-		var newVal = $scope.param.minTeamSize + delta;
-		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
-			$scope.param.minTeamSize = newVal;
+	// Combine id and skill
+	$scope.combine = [];
+
+	// Wait for the data
+	$scope.member.$loaded().then(function(member) {
+		for (i = 0; i < $scope.member.length; i++) {
+			refPath = "user/" + $scope.member[i].$value;
+
+			var skill = {};
+			var refPathskill = "/user/" + $.trim($scope.member[i].$value) + "/skills";
+			$scope.skillList = [];
+			$scope.skillList = $firebaseArray(firebase.database().ref(refPathskill));
+			/*
+			retrieveOnceFirebase(firebase, refPath, function(data) {
+					if (data.child("skills").val() != null ) {
+							skill = data.child("skills").val();
+					}
+					else {
+							skill = {};
+					}
+					$scope.skills.push(skill);
+					console.log($scope.skills[0].SS);
+			});
+			*/
+			$scope.combine.push({id: $scope.member[i].$value, skillList: $scope.skillList});
 		}
-		$scope.param.$save();
+	})
+	/*
+	$scope.update = function() {
+		for (i = 0; i < $scope.member.length; i++) {
+			var userID = $.trim($scope.member[i].$value);
+			var skillName = $.trim( $scope.skillname );
+			skillName = skillName.toUpperCase();
+			if ( userID !== '' && skillName !=='' && $scope.userdata.skills[skillName] == null) {
+							var newData = {
+									'agree' : "0",
+									'total' : "0",
+									'percent' : "--"
+
+							};
+							var refPath = "/user/" + userID + "/skills/" + skillName;
+							var ref = firebase.database().ref(refPath);
+							ref.update(newData, function(){
+									// Complete call back
+									//alert("data pushed...");
+
+									// Finally, go back to the front-end
+									//window.location.href= "index.html";
+									console.log("Save data")
+							});
+					}
 	}
 
-	$scope.changeMaxTeamSize = function(delta) {
-		var newVal = $scope.param.maxTeamSize + delta;
-		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
-			$scope.param.maxTeamSize = newVal;
-		}
-		$scope.param.$save();
-	}
-
-	$scope.saveFunc = function() {
-		$scope.param.$save();
-		//refPath = eventName + "/admin/param";
-		var database = firebase.database();
-		//database.ref(refPath).update({'description':$scope.FDescription});
-
-		if (typeof document.getElementById("FPhoto").files[0]!="undefined")
-	  {
-		  files = document.getElementById("FPhoto").files;
-		  console.log("have sth to upload");
-		  console.log(files[0].name);
-
-		  // Create a root reference
-          var storageRef = firebase.storage().ref();
-
-          // Create a reference to 'mountains.jpg'
-          var eventRef = storageRef.child("event/"+eventName);
-          eventRef.put(files[0]).then(function(snapshot){
-			 console.log('Uploaded a file!');
-			  var downloadURL = snapshot.downloadURL;
-			  var refPath = eventName + "/admin/param";
-			  database.ref(refPath).update({'imgURL':downloadURL}).then(function (){
-				   // Finally, go back to the front-end
-			       window.location.href= "index.html";
-			  });
-
-
-
-		  });
-	  }
-	  else {// Finally, go back to the front-end
-	    window.location.href= "index.html";
-      }
-	}
+	*/
 }]);
