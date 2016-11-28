@@ -211,3 +211,56 @@ app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', funct
 	
 		
 }]);
+
+app.controller('CEA_Team', ['$scope', '$firebaseObject', '$firebaseArray', function CEA_Team($scope, $firebaseObject, $firebaseArray) {
+	if (firebase.apps.length == 0){
+		initalizeFirebase();
+	}
+
+	var refPath = "";
+	var eventName = getURLParameter("e");
+
+	// TODO: implementation of MemberCtrl
+	$scope.teamdata = {
+		"teamName" : '',
+		"currentTeamSize" : 0,
+		"teamMembers" : [],
+		"description": '',
+		"teamToSelect": [],
+		"owner":null
+
+
+	};
+	console.log($scope.teamdata.currentTeamSize);
+	firebase.auth().onAuthStateChanged(function(user){
+		$scope.userid = user.uid;
+		$scope.teamdata.teamMembers.push(user.displayName);
+		$scope.teamdata.owner = user.uid;
+	});
+	var eventName = getURLParameter("e");
+	var ref = "/event/"+ eventName + "/admin";
+	retrieveOnceFirebase(firebase, ref, function(data) {
+		if ( data.child("param").val() != null ) {
+			$scope.range = data.child("param").val();
+			$scope.teamdata.currentTeamSize = parseInt(($scope.range.minTeamSize + $scope.range.maxTeamSize)/2);
+			$scope.$apply(); // force to refresh
+		}
+	});
+
+	$scope.changeCurrentTeamSize = function(delta) {
+		var newVal = $scope.teamdata.currentTeamSize + delta;
+		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
+			$scope.teamdata.currentTeamSize = newVal;
+		}
+		console.log($scope.teamdata.currentTeamSize);
+	}
+	$scope.createFunc = function(){
+		var teamID = $.trim($scope.teamdata.teamName);
+		console.log(teamID);
+		console.log($scope.teamdata);
+		var refPath = "/event/"+ eventName + "/team/" + teamID;
+		firebase.database().ref(refPath).update($scope.teamdata);
+		var refp = "/user/" + $scope.uid;
+		firebase.database().ref(refp).update({"joinedTeam":teamID});
+ 	}
+}]);

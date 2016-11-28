@@ -99,8 +99,8 @@
                                         </h1>
                                         <hr>
                                         <p> Current members <span class="badge">{{param.teamMembers.length}}</span></p>
-                                        <div class="col-sm-6">
-                                            <h4>Your current members</h4>
+                                        <center>
+                                            <h4>Team members of your group</h4>
                                             <div ng-repeat="m in param.teamMembers ">
                                                 <button type="button" class="btn" ng-click="removeMember(m);">
 						                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{m}}
@@ -112,17 +112,8 @@
 						                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Invitation
 					                        </button>
                                             </div>-->
+                                            </center>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <h4>Requested members</h4>
-                                            <div ng-repeat="r in requests ">
-                                                <button type="button" class="btn" ng-click="processRequest(r);">
-						                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {{r.name}}
-					                        </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                            
                         </div>
                 </center>
                 </div>
@@ -227,79 +218,6 @@
 
 
     <!--bottom navbar-->
-    <div class="navbar navbar-inverted navbar-fixed-bottom">
-        <div class="container">
-            <center>
-                 <div clas="row">
-                <!--edited-->
-                   <div class="col-lg-10 col-lg-offset-2">
-                    <div class="col-lg-6 ">
-                        <button type="button" class="btn btn-default btn-lg left" href="#invitation" data-toggle="modal">Invitation</button>
-                    </div>
-                    <div class="col-lg-6 ">
-                        <button type="button" class="btn btn-default btn-lg left" href="#mergeRequest" data-toggle="modal">Merge request</button>
-                    </div>
-                    </div>
-                    <!--<div class="col-lg-3">
-                        <button  type="button" class="btn btn-default btn-lg left" style="padding: 0px 10px;" ng-click="removeMember(m);">Hello</button>
-                    </div>-->
-                    <!--<div class="dropup pull-right">
-                <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-                <ul class="dropdown-menu">
-
-                    <li><a href="#addevent" data-toggle="modal" class="navbar-text"> Event </a></li>
-
-                </ul>
-           </div>-->
-                
-            </div>
-           </center>
-        </div>
-    </div>
-    <div class="modal fade3" id="mergeRequest" role="dialog">
-
-        <div class="modal-dialog" id="team_page_controller" ng-controller="TeamCtrl">
-            <div class="modal-content">
-                <div class ="modal-header-addteam">
-                    <br><center><h3>Your preferred team to merge</h3></center>
-                </div>
-                <div class="modal-body-addteam">
-                <label>Search: <input ng-model="search.$id"></label>
-				<div ng-repeat="t in param.teamToSelect | filter:search " ng-show="t.$id != param.teamName" align="center">
-					<button type="button" class="btn btn-default btn-lg left" ng-click="teamMergeRequest(t);">
-						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{t.$id}}
-					</button>
-
-				</div>
-				    </div>
-			</div>
-            </div>
-        </div>
-
-    </div>
-        <div class="modal fade3" id="invitation" role="dialog">
-
-        <div class="modal-dialog" id="team_page_controller" ng-controller="TeamCtrl">
-            <div class="modal-content">
-                <div class ="modal-header-addteam">
-                    <br><center><h3>Your preferred member to invite</h3></center>
-                </div>
-                <div class="modal-body-addteam">
-                <label>Search: <input ng-model="search"></label>
-				<div ng-repeat="m in members | filter:search " ng-show="invitationRequests.indexOf(m.$id) < 0" align="center">
-					<button type="button" class="btn btn-default btn-lg left" style="margin: 10px, 0px, 0px, 0px" ng-click="invitationToMembers(m);">
-						<span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{m.name}}
-					</button>
-
-				</div>
-				    </div>
-			</div>
-            </div>
-        </div>
-
-    </div>
 
 
     <!-- Bootstrap Core JavaScript -->

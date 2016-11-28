@@ -39,10 +39,16 @@ angular.module('indexApp', ['firebase'])
     $scope.userdata = {};
     $scope.skillname = "";
 
+    $scope.joined = "";
+    var userID = $scope.userdata.userID;
+    var refPath = "/user/" + "IWs4Qik97oYb5ymSQaTzcdLBhn92";
+    retrieveOnceFirebase(firebase, refPath, function(data) {
+            if (data.child("joinedTeam").val() != null ) {
+                $scope.joined = data.child("joinedTeam").val();
+            }
+            $scope.$apply();
+    });
 
-
-
-    // Set default member to be the current user
     firebase.auth().onAuthStateChanged(function(user){
         if (user) {
             
@@ -59,6 +65,16 @@ angular.module('indexApp', ['firebase'])
         } else {
             window.location.href= "login.html";
         }
+    });
+
+    $scope.joined = "";
+    var userID = $scope.userdata.userID;
+    var refPath = "/user/" + userID;
+    retrieveOnceFirebase(firebase, refPath, function(data) {
+            if (data.child("joinedTeam").val() != null ) {
+                $scope.joined = data.child("joinedTeam").val();
+            }
+            $scope.$apply();
     });
     $scope.createFunc = function() {
         var userID = $.trim( $scope.userdata.userID );
