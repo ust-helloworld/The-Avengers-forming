@@ -100,8 +100,8 @@
                                         {{eventName}}
                                     </h3>
                                 </div>
+								<p> {{param.description}}</p>
                                 <img class="featuredImg" ng-src="{{param.imgURL!=null?param.imgURL:'img/team.jpg'}}" width="100%">
-                                <p> {{param.description}}</p>
 								<button type = "button" id = "closeButton" class="btn btn-danger" ng-click="closeEvent()">
 								{{param.close_event?"Reopen this Event":"Close This Event"}}
 								</button>

@@ -12,7 +12,7 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	}
 
 	$scope.joined = false;
-	
+	$("button#adminButton").hide();
 
 	var refPath, ref, eventName;
 
@@ -29,9 +29,9 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 			// Fill in some initial values when the DB entry doesn't exist
 			if (typeof $scope.param.owner != "undefined")
 			{
-			  if ( $scope.param.owner != firebase.auth().currentUser.uid)
+			  if ( $scope.param.owner == firebase.auth().currentUser.uid)
 			  {
-		        console.log("You are not admin!!! View only");
+		        $("button#adminButton").show();
 			  }
 			}
 			
@@ -133,6 +133,10 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 			$('.btn-sendRequest').hide();
 		}
 	};
+	$scope.adminPage = function (){
+		window.location = "event_admin.html?e=" + eventName;
+	}
+	
 	
 }]);
 app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', function CEA_Form($scope, $firebaseObject, $firebaseArray) {
