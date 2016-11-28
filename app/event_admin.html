@@ -33,7 +33,7 @@
     <script src="lib/firebase.js"></script>     
     <script src="lib/angularfire.min.js"></script>
 
-    <script src="js/event_admin_Page.js"></script>
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="teamform-event-app">
@@ -118,8 +118,9 @@
             <h1 class="text-center"> Formed teams</h1>
         </a>
         <div class="teamse">
-            <div class="row" id = "teamInsert">
-                <div class="col-md-4 text-center" ng-repeat = "x in team">
+            <div class="row" id = "teamInsert" >
+                <div class="col-md-4 text-center" ng-repeat = "x in team" draggable="true" 
+				ondragover="allowDrop(event)" ondragstart="drag(event)" ng-attr-id = "{{x.$id}}">
                     <h3 class="text-center"><a ng-href="team.html?e={{eventName}}&t={{x.$id}}">{{x.$id}}</a></h3>
                     <a class="thumbnail" ng-href="team.html?e={{eventName}}&t={{x.$id}}"> <img src="img/team.jpg"></a><br>
 					 Preferred team size: <span class="badge">{{x.size}}</span> <br>
@@ -366,6 +367,7 @@
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
 
+	<script src="js/event_admin_Page.js"></script>
 
 </body>
 

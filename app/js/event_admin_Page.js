@@ -1,3 +1,18 @@
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+	console.log(ev.target.id);
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+
 app = angular.module('teamform-event-app', ['firebase']);
 app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function displayCtrl ($scope, $firebaseObject, $firebaseArray) {
 	// TODO: implementation of AdminCtrl
