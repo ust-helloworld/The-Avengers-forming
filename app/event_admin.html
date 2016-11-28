@@ -127,7 +127,7 @@
 					 Current team members: <div ng-repeat = "member in x.teamMembers track by $index">{{member}}</div> <br>
 					 Team Leader: {{x.leader}}<br>
 
-					<button type="button" class="btn btn-danger btn-deleteRequest">
+					<button type="button" class="btn btn-danger btn-deleteRequest" ng-click = "deleteTeam(x.$id)">
 						Delete Team 
 					</button>
 					<br><br><br>

@@ -70,31 +70,14 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	
 	
 	//Cannot display the current state of sending request once user enter.
-	$scope.sendRequest = function (targetTeam){
+	$scope.deleteTeam = function (targetTeam){
 		console.log(targetTeam);
 
-		refPath = "event/" + eventName + "/member/" + firebase.auth().currentUser.uid;
-		var memberDetail = $firebaseObject(firebase.database().ref(refPath));
-		memberDetail.$loaded().then(function (data){
-			if (typeof memberDetail.selection == "undefined")
-			{
-				memberDetail.selection = [];
-			}
-			if ($.inArray(targetTeam,memberDetail.selection)==-1){
-			memberDetail.selection.push(targetTeam);
-			//console.log(memberDetail.selection);
-			memberDetail.$save();
-			$("#button-"+targetTeam).text ("Cancel request");
-			}
-			else {
-				//alert("You have sent this!!!");
-				memberDetail.selection = $.grep(memberDetail.selection, function(delData){
-					return delData != targetTeam;
-				});
-				memberDetail.$save();
-				$("#button-"+targetTeam).text ("Request");
-			}
-		});
+		refPath = "event/" + eventName + "/team/";
+		updates = {};
+		updates[targetTeam]=null;
+		console.log(updates);
+		firebase.database().ref(refPath).update(updates).then(function (snapshot){alert("Successfully delete a team~");});
 	};
 	
 	$scope.changeMinTeamSize = function(delta) {
