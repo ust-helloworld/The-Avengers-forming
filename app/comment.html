@@ -48,18 +48,21 @@
                     <label for="{{skills}}">
                       {{skills.$id}}
                     </label>
-                    <input type="checkbox" ng-value="skills" id="{{skills}}">
+                    <input type="checkbox" ng-value="skills" id="{{skills}}" ng-click="addPoint(skills);">
                   </li>
                 </ul>
               </li>
             </ul>
           </div>
         </div>
+        <a href="index.html">
+          <button type="button" class="btn btn-primary" >
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+              Back
+          </button>
+        </a>
+        <button type="button" class="btn btn-primary" ng-click="updateFunc();">Save</button>
       </div>
-      <a href="index.html"
-      <button id="btn_admin" type="button" class="btn btn-primary" >
-      <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-      Back</button></a>
     </div>
 
     <!-- JavaScript of this page -->

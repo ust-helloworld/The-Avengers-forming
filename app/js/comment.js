@@ -42,6 +42,15 @@ angular.module('teamform-comment-app', ['firebase'])
 			var refPathskill = "/user/" + $.trim($scope.member[i].$value) + "/skills";
 			$scope.skillList = [];
 			$scope.skillList = $firebaseArray(firebase.database().ref(refPathskill));
+
+			// Initailise seletected to be false and increment 1 to total
+			$scope.skillList.$loaded().then(function(skillList) {
+				for (i = 0; i < skillList.length; i++) {
+					skillList[i].selected = false;
+					skillList[i].total += 1;
+					console.log(skillList[i]);
+				}
+			});
 			/*
 			retrieveOnceFirebase(firebase, refPath, function(data) {
 					if (data.child("skills").val() != null ) {
@@ -57,31 +66,43 @@ angular.module('teamform-comment-app', ['firebase'])
 			$scope.combine.push({id: $scope.member[i].$value, skillList: $scope.skillList});
 		}
 	})
-	/*
-	$scope.update = function() {
-		for (i = 0; i < $scope.member.length; i++) {
-			var userID = $.trim($scope.member[i].$value);
-			var skillName = $.trim( $scope.skillname );
-			skillName = skillName.toUpperCase();
-			if ( userID !== '' && skillName !=='' && $scope.userdata.skills[skillName] == null) {
-							var newData = {
-									'agree' : "0",
-									'total' : "0",
-									'percent' : "--"
 
-							};
-							var refPath = "/user/" + userID + "/skills/" + skillName;
-							var ref = firebase.database().ref(refPath);
-							ref.update(newData, function(){
-									// Complete call back
-									//alert("data pushed...");
-
-									// Finally, go back to the front-end
-									//window.location.href= "index.html";
-									console.log("Save data")
-							});
-					}
+	$scope.addPoint = function(s) {
+		if (s.selected == false) {
+			s.agree += 1;
+			s.selected = true;
+		}
+		else {
+			s.agree -= 1;
+			s.selected = false;
+		}
+		console.log(s);
 	}
 
-	*/
+	$scope.updateFunc = function() {
+		for (i = 0; i < $scope.combine.length; i++) {
+			var userID = $.trim($scope.combine[i].id);
+			for (j = 0; j < $scope.combine[i].skillList.length; j++){
+				var skillName = $.trim($scope.combine[i].skillList[j].$id);
+				if ( userID !== '' && skillName !=='') {
+					var newData = {
+							'agree' : $scope.combine[i].skillList[j].agree,
+							'total' : $scope.combine[i].skillList[j].total,
+							'percent' : Math.floor($scope.combine[i].skillList[j].agree / $scope.combine[i].skillList[j].total*100)
+					};
+
+					var refPath = "user/" + userID + "/skills/" + skillName;
+					var ref = firebase.database().ref(refPath);
+					ref.update(newData, function(){
+						// Complete call back
+						//alert("data pushed...");
+
+						// Finally, go back to the front-end
+						//window.location.href= "index.html";
+						console.log("Save data");
+					});
+				}
+			}
+		}
+	}
 }]);
