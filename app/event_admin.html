@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Teamform</title>
+    <title>Teamform - Event Admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,9 +33,7 @@
     <script src="lib/firebase.js"></script>     
     <script src="lib/angularfire.min.js"></script>
 
-    <script src="js/event_Page.js"></script>
-	<script src="js/exploreTemp.js"></script>
-
+    <script src="js/event_admin_Page.js"></script>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="teamform-event-app">
@@ -96,16 +94,17 @@
                             <div class="event-body" ng-controller="displayCtrl">
                                 <div class="page-header">
                                     <h3>
-                                        <a href="#EventMemList" data-toggle="modal">
-                                            <small>Hosted by {{ownerDisplayName}}, Other members...</small>
+                                        <a href="#EventParam" data-toggle="modal">
+                                            Edit Details
                                         </a>
                                         {{eventName}}
-                                        <small>posted time</small>
                                     </h3>
                                 </div>
                                 <img class="featuredImg" ng-src="{{param.imgURL!=null?param.imgURL:'img/team.jpg'}}" width="100%">
                                 <p> {{param.description}}</p>
-								<button type = "button" id = "joinButton" class="btn btn-default" ng-click="joinQuit()">Join This Event</button>
+								<button type = "button" id = "closeButton" class="btn btn-danger" ng-click="closeEvent()">
+								{{param.close_event?"Reopen this Event":"Close This Event"}}
+								</button>
                             </div>
 
                         </div>
@@ -127,12 +126,9 @@
 					 Current teamMember: <span class = "badge">{{x.teamMembers.length}}</span><br>
 					 Current team members: <div ng-repeat = "member in x.teamMembers track by $index">{{member}}</div> <br>
 					 Team Leader: {{x.leader}}<br>
-					
-                    <p class="text-center">{{$parent.memberDetail.joinedTeam ==x.$id?'This is your Team!!' : ''}}</p>
-					<button type="button" class="btn btn-default btn-sendRequest" ng-click = "sendRequest(x.$id);" 
-					ng-attr-id="{{'button-' +x.$id}}" ng-show = "$parent.memberDetail.joinedTeam===''">
-					
-					{{($parent.memberDetail.selection.indexOf(x.$id) == -1 ? 'Request' : 'Cancel Request')}}
+
+					<button type="button" class="btn btn-danger btn-deleteRequest">
+						Delete Team 
 					</button>
 					<br><br><br>
                 </div>
@@ -242,24 +238,56 @@
         </div>
     </div>
     
-    <div class="modal fade" id="EventMemList">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-        </div>
-        <div class="list-group">
-            <a href="#teamMem1" class="list-group-item " data-toggle="modal">
-                <h4 class="list-group-item-heading">Name</h4>
-                <p class="list-group-item-text"> position of the team</p>
-            </a>
+    <div class="modal fade" id="EventParam">
+		<div class = "modal-dialog" ng-controller="displayCtrl">
+            <div class= "modal-content">
+				<div class="modal-body-addteam" id = "controlPanel">
 
-            <a href="#teamMem2" class="list-group-item" data-toggle="modal">
-                <h4 class="list-group-item-heading">Name</h4>
-                <p class="list-group-item-text">position of the team</p>
-            </a>
-        </div>
+					<div class="panel-heading">Setting</div>
+					<div class="panel-body">
+						<strong>Minimum Team Size:</strong>
+
+						<span class="badge">
+							{{param.minTeamSize}}
+						</span>
+
+						<button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+
+						<button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+
+						<br><br>
+
+						<strong>Maximum Team Size: </strong>
+
+						<span class="badge">
+							{{param.maxTeamSize}}</span>
+
+						<button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+
+						<button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+
+						<br><br>
+						<label>Description : <input type=text ng-model = "param.description"></label>
+
+							<br><br>
+
+						<label>Upload Picture for event : <input type=file name="FPhoto" id="FPhoto"></label>
+
+						<br><br>
+						<div id = "eventUpdateStatus"></div>
+					</div>
+				</div>
+
+			</div>
+            <div class ="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="saveFunc();" >Modify</button> 
+					<button type="button" class="btn btn-danger" data-dismiss = "modal">Close</button>
+            
+                
+            </div>
+         </div>
     </div>
+			
 	
 	<!--add team form-->
     <div class ="modal fade2" id ="addteam" role = "dialog">
@@ -322,8 +350,8 @@
         </div>
     </div>
 	<!-- add event form-->
-    <div class ="modal fade3" id ="addevent" role = "dialog" ng-include = "'createEvent.html'">
-	
+    <div class ="modal fade3" id ="addevent" role = "dialog">
+		Should be no add event :(
     </div>
 
     <!-- jQuery -->
