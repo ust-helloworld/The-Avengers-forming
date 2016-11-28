@@ -186,10 +186,10 @@
             <!--You team-->
             <div class="teamse">
                 <center>
-                    <div class="row">
+                    <div class="row" ng-controller = "indexController">
                         <div class="col-md-4">
-                            <h3 class="text-center"><a href="team.html">Team Name</h3>
-                    <a class="thumbnail" href="team.html" ><img  src="img/team.jpg" ></a>
+                            <h3 class="text-center"><a href="team.html">{{joined}}</h3>
+                    <a class="thumbnail" href="team.html?e=COMP3111&t={{joined}}"><img  src="img/team.jpg" ></a>
                                 <p class="text-center">your position(team leader, team member or administrator)</p>
                         </div>
                     </div>

@@ -211,3 +211,69 @@ app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', funct
 	
 		
 }]);
+
+app.controller('CEA_Team', ['$scope', '$firebaseObject', '$firebaseArray', function CEA_Team($scope, $firebaseObject, $firebaseArray) {
+	if (firebase.apps.length == 0){
+		initalizeFirebase();
+	}
+
+	var refPath = "";
+	var eventName = getURLParameter("e");
+
+	// TODO: implementation of MemberCtrl
+	$scope.teamName = "";
+	$scope.teamdata = {
+		"size" : 0,
+		"teamMembers" : [],
+		"description": '',
+		"teamToSelect": [],
+		"owner":null
+
+
+	};
+	console.log($scope.teamdata.currentTeamSize);
+	firebase.auth().onAuthStateChanged(function(user){
+		$scope.userid = user.uid;
+		$scope.teamdata.teamMembers.push(user.displayName);
+		$scope.teamdata.owner = user.uid;
+	});
+	var eventName = getURLParameter("e");
+	var ref = "/event/"+ eventName + "/admin";
+	retrieveOnceFirebase(firebase, ref, function(data) {
+		if ( data.child("param").val() != null ) {
+			$scope.range = data.child("param").val();
+			$scope.teamdata.size = parseInt(($scope.range.minTeamSize + $scope.range.maxTeamSize)/2);
+			$scope.$apply(); // force to refresh
+		}
+	});
+
+	$scope.changeCurrentTeamSize = function(delta) {
+		var newVal = $scope.teamdata.size + delta;
+		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
+			$scope.teamdata.size = newVal;
+		}
+		console.log($scope.teamdata.size);
+	}
+	$scope.createFunc = function(){
+		var teamID = $.trim($scope.teamName);
+		console.log(teamID);
+		console.log($scope.teamdata);
+		var refP = "/event/"+ eventName + "/member/" + $scope.userid;
+		var joined;
+		retrieveOnceFirebase(firebase, refP, function(data) {
+			joined = data.child("joinedTeam").val()
+			$scope.$apply();
+			console.log(joined);
+			if(joined == ""){
+				var refPath = "/event/"+ eventName + "/team/" + teamID;
+				firebase.database().ref(refPath).update($scope.teamdata);
+		//var refP = "/event/"+ eventName + "/member/" + $scope.userid;
+				firebase.database().ref(refP).update({"joinedTeam":teamID});
+				var refp = "/user/" + $scope.userid;
+				firebase.database().ref(refp).update({"joinedTeam":teamID});
+			}else{
+				alert("you have team already!");
+			}
+		});
+ 	}
+}]);

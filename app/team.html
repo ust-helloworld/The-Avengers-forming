@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" ng-app="teamform-team-app">
 
 <head>
 
@@ -23,12 +23,16 @@
     <!-- Theme CSS -->
     <link href="css/grayscale.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="js/site.js"></script>
 
 
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
     <!-- Navigation -->
+
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header navbar-left">
@@ -79,29 +83,50 @@
                 <center>
                     <!--team inform-->
                     <div class="row">
-                        <div class="col-lg-10">
-                            <div class=" panel-default">
-                                <div class="panel-body">
-                                    <!--<div class="page-header">
+                         <!--edited-->
+                        <div class="col-lg-10 col-lg-offset-2">
+                            
+                                    <div id="team_page_controller" ng-controller="TeamCtrl">
+                                        <!--<div class="page-header">
                                         <h3>
                                             Your teamname
                                             <small>posted</small>
                                         </h3>
                                     </div>-->
-                                    <h1>Your teamname
-                                        <a href="#"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
-                                        <a href="#teamMemList" data-toggle="modal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-                                    </h1>
-                                    <hr>
-                                    <img class="featuredImg" src="img/team-img.jpg" width="100%">
-                                    <p> your team information here... </p>
-                                </div>
-                            </div>
+                                        <h1>{{param.teamName}}
+                                            <!-- <a href="#"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+                                        <a href="#teamMemList" data-toggle="modal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>-->
+                                        </h1>
+                                        <hr>
+                                        <p> Current members <span class="badge">{{param.teamMembers.length}}</span></p>
+                                        <div class="col-sm-6">
+                                            <h4>Your current members</h4>
+                                            <div ng-repeat="m in param.teamMembers ">
+                                                <button type="button" class="btn" ng-click="removeMember(m);">
+						                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{m}}
+					                        </button>
+                                            </div>
+                                            <!--<br>
+                                            <br>
+                                            <div><button type="button" class="btn btn-default btn-lg" ng-click="removeMember(m);">
+						                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Invitation
+					                        </button>
+                                            </div>-->
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h4>Requested members</h4>
+                                            <div ng-repeat="r in requests ">
+                                                <button type="button" class="btn" ng-click="processRequest(r);">
+						                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {{r.name}}
+					                        </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
                         </div>
-                    </div>
                 </center>
+                </div>
             </div>
-        </div>
     </header>
 
     <div class="modal fade" id="selfProfile">
@@ -204,107 +229,121 @@
     <!--bottom navbar-->
     <div class="navbar navbar-inverted navbar-fixed-bottom">
         <div class="container">
-            <div class="dropup pull-right">
+            <center>
+                 <div clas="row">
+                <!--edited-->
+                   <div class="col-lg-10 col-lg-offset-2">
+                    <div class="col-lg-4 ">
+                        <button type="button" class="btn btn-default btn-lg left" href="#invitation" data-toggle="modal">Invitation</button>
+                    </div>
+                    <div class="col-lg-4 ">
+                        <button type="button" class="btn btn-default btn-lg left" href="#mergeRequest" data-toggle="modal">Merge request</button>
+                    </div>
+                    <div class="col-lg-4 ">
+                        <button type="button" class="btn btn-default btn-lg left" href="#handleMergeRequest" data-toggle="modal">Handle Merge Request</button>
+                    </div>
+                    </div>
+                    <!--<div class="col-lg-3">
+                        <button  type="button" class="btn btn-default btn-lg left" style="padding: 0px 10px;" ng-click="removeMember(m);">Hello</button>
+                    </div>-->
+                    <!--<div class="dropup pull-right">
                 <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    
-                    <li><a href = "#addevent" data-toggle="modal" class = "navbar-text"> Event </a></li>
+
+                    <li><a href="#addevent" data-toggle="modal" class="navbar-text"> Event </a></li>
 
                 </ul>
+           </div>-->
+                
             </div>
+           </center>
         </div>
     </div>
-    <div class ="modal fade3" id ="addevent" role = "dialog">
-         
-        <div class = "modal-dialog">
-            <div class= "modal-content">
-                <form class="Form-horizontal">
+    <div class="modal fade3" id="mergeRequest" role="dialog">
+
+        <div class="modal-dialog" id="team_page_controller" ng-controller="TeamCtrl">
+            <div class="modal-content">
                 <div class ="modal-header-addteam">
-                <br><center><h3>Create an Event</h3></center>
+                    <br><center><h3>Your preferred team to merge</h3></center>
                 </div>
                 <div class="modal-body-addteam">
-                    <div class = "form-group">
-                        <label for = "contact-name" class = "col-lg-3 control-lable">Event Name:</label>
-                        <div class ="col-lg-9">
-                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your event name"><br>
-                    </div>
-                </div>
-               
-                <div class = "form-group">
-                        <label for = "contact-descrip" class = "col-lg-3 control-lable"> Event description:</label>
-                        <div class ="col-lg-9">
-                            <input type = "text" class = "form-control" id = "contact-descrip" placeholder = "Describe your event"><br>
-                    </div>
-                  </div>
-                   <div class="form-group">
-					  <label for = "contact-size1" class = "col-lg-5 control-lable"> Maximum team member Size:</label> 					  
-					  <span>
-						 <span class="badge"> 10</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+                <label>Search: <input ng-model="search.$id"></label>
+				<div ng-repeat="t in param.teamToSelect | filter:search " ng-show="t.$id != param.teamName" align="center">
+					<button type="button" class="btn btn-default btn-lg left" ng-click="teamMergeRequest(t);">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{t.$id}}
+					</button>
 
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-                   <div class = "container"> </div>
-                   <div class="form-group">
-                       
-					  <label for = "contact-size2" class = "col-lg-5 control-lable"> Minimum team member Size:</label> 					  
-					  <span>
-						 <span class="badge"> 6</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-                   <div class = "container"> </div>
-                    <div class = "form-group">
-                       <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
-                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-                 <div class="form-inline">
-              <div class="form-group">
-                <input type="file" class = "col-lg-3 control-lable" name="files[]" id="js-upload-files" multiple>
-              </div>
-              <button type="submit" class="btn btn-sm btn-default" id="js-upload-submit">Upload files</button>
+				</div>
+				    </div>
+			</div>
             </div>
-            
-          </form>
-                   </div>
-
-                </div>
-                <div class ="modal-footer">
-                    <a class ="btn btn-secondary" data-dismiss = "modal">Close </a>
-                    <a class ="btn btn-default" data-dismiss = "modal">Create </a>
-            
-                
-                </div>
-                </form>
-                </div>
         </div>
-         
+
+    </div>
+        <div class="modal fade3" id="invitation" role="dialog">
+
+        <div class="modal-dialog" id="team_page_controller" ng-controller="TeamCtrl">
+            <div class="modal-content">
+                <div class ="modal-header-addteam">
+                    <br><center><h3>Your preferred member to invite</h3></center>
+                </div>
+                <div class="modal-body-addteam">
+                <label>Search: <input ng-model="search"></label>
+				<div ng-repeat="m in members | filter:search " ng-show="invitationRequests.indexOf(m.$id) < 0" align="center">
+					<button type="button" class="btn btn-default btn-lg left" style="margin: 10px, 0px, 0px, 0px" ng-click="invitationToMembers(m);">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{m.name}}
+					</button>
+
+				</div>
+				    </div>
+			</div>
+            </div>
+        </div>
+        <div class="modal fade3" id="handleMergeRequest" role="dialog">
+
+        <div class="modal-dialog" id="team_page_controller" ng-controller="TeamCtrl">
+            <div class="modal-content">
+                <div class ="modal-header-addteam">
+                    <br><center><h3>Some teams send you a merge request</h3></center>
+                </div>
+                <div class="modal-body-addteam">
+				<div ng-repeat="q in mergeRequestReceived" align="center">
+					<button type="button" class="btn btn-default btn-lg left" ng-click="processMergeRequest(q);">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{q.$id}}
+					</button>
+
+				</div>
+				    </div>
+			</div>
+            </div>
+        </div>
+        
+
     </div>
 
-    <!-- jQuery -->
-    <script src="vendor/jquery/jquery.js"></script>
-    
+
     <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>-->
 
     <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>-->
 
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+
+
+    <script src="js/team.js"></script>
+
 </body>
 
 </html>
