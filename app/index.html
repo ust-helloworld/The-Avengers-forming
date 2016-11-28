@@ -54,6 +54,15 @@
     <script src="lib/angularfire.min.js"></script>
     <!-- <script src="js/fblogin.js"></script> -->
 
+    <style>
+#div {
+    width: 200px;
+    height: 400px;
+    padding: 10px;
+    border: 10px solid #aaaaaa;
+}
+</style>
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -126,52 +135,23 @@
         </div>
     </header>
 
-    <!-- Event Directory SEARCH -->
-      <div  class="text-center">
-        <h1>Event Directory</h1>
-        <label>Search: </label>
-
-        <input id="input_text" type="text" class="input-lg" style="color:black !important" placeholder="Search for event">
-
-        <label class="formgroup">by:
-          <select ng-model="">
-            <option value="name">Name</option>
-            <option value="name">Name</option>
-          </select>
-        </label>
-      </div>
-        <!-- Team Directory SEARCH END -->
-
-    <section id="selectevent" class="container content-section text-center">
-        <div class="text-center">
-            <input id="input_text" type="text" class="input-lg" style="color:black !important">
-            <br>
-            <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-            <div>
-                <button id="btn_admin" type="button" class="btn btn-primary">Administrator</button>
-                <button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button>
-                <button id="btn_member" type="button" class="btn btn-primary">Member</button>
-                <!-- Copy from firebase facebook pop-up auth template -->
-                <!-- Button that handles sign-in/sign-out -->
-                <!-- <button disabled class="btn btn-primary" id="quickstart-sign-in" type="button">Log in with Facebook</button> -->
-
+    <!--Event section-->
+    <section class="container content-section text-center">
+        <div class="teamse">
+                <center>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3 class="text-center"><a href="team.html">Event Name</h3>
+                    <a class="thumbnail" href="team.html" ><img  src="img/team.jpg" ></a>
+                                <p class="text-center">your position(team leader, team member or administrator)</p>
+                        </div>
+                    </div>
+                </center>
             </div>
-        </div>
-        <!-- For debugging -->
-        <!-- Container where we'll display the user details -->
-        <!--
-        <div class="quickstart-user-details-container">
-            Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-            <div>Firebase auth <code>currentUser</code> object value:</div>
-            <pre><code id="quickstart-account-details">null</code></pre>
-            <div>Facebook OAuth Access Token:</div>
-            <pre><code id="quickstart-oauthtoken">null</code></pre>
-        </div>
-        -->
-      </section>
-
-        <!--You program-->
+    </section>
+        <!--Team section-->
         <section id="events" class="container content-section text-center">
+            
             <!--You team-->
             <div class="teamse">
                 <center>
@@ -184,6 +164,7 @@
                     </div>
                 </center>
             </div>
+           
         </div>
     </div>
 
@@ -215,23 +196,42 @@
                     <div class="col-xs-8 col-xs-offset-2" ng-controller="indexController">
                         <center>
                             <!-- <div class="panel panel-default"><div class="panel-body">-->
-                            <img class="fetureImg" ng-src={{userdata.photoURL}}>
-                            <h2> {{userdata.userName}} </h2>
-                            <p> Contact: {{userdata.email}}</p>
-                            <hr>
-                            <h3> Description</h3>
-                            <textarea class="form-control" rows="10" ng-model="userdata.description">{{userdata.description}}</textarea>
-                            <button type="button" class="btn btn-primary" ng-click="savedescription();">Save description</button>
+                            <h1 style="margin: 10px" > {{userdata.userName}} </h1>
+                            <img class="fetureImg" height = "300px" ng-src={{userdata.photoURL}}><br>
+                            
+                            <small href="mailto::{{userdata.email}}">{{userdata.email}}</small>
                             <hr>
                             <h3> Skills</h3>
-                            <input type = "text" class = "form-control" ng-model="skillname" placeholder = "Enter your skill"><br>
-                            <button type="button" class="btn btn-primary" ng-click="addskill(); skillname = null">Add skill</button>
-                            <div ng-repeat="skill in skillList">
-                                <div class="row">
-                                    <h6><button type="button" class="btn" ng-click="removeskill(skill);">{{skill.$id}}</button>
-                                    Recogniton: {{skill.agree}}, Total Vote: {{skill.total}}, Percentage: {{skill.percent}}%</h6>
+                            <div class="input-group">
+                            <input type = "text" class = "form-control" ng-model="skillname" placeholder = "Enter your skill">
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="addskill(); skillname = null">Add skill</button>
+                            </span>
+                            </div>
+                            <br>
+                           
+                            
+                                <div class="row" >
+                                    <div ng-repeat="skill in skillList">
+                                    <p>
+                                    <button type="button" class="btn btn-default" ng-click="removeskill(skill);">
+                                        <span class="glyphicon glyphicon-apple" aria-hidden="true"></span>  {{skill.$id}}</button>
+                                    <small>Recogniton: {{skill.agree}}, Total Vote: {{skill.total}}, Percentage: {{skill.percent}}%</small>
+                                    </p>
                                 </div>
                             </div>
+                            <hr>
+
+                            <p>
+                            <h3> Description</h3>
+                            
+                            <textarea class="form-control" rows="10" ng-model="userdata.description">{{userdata.description}}</textarea>
+                           
+                                <button type="button" class="btn btn-default" ng-click="savedescription();">Save description</button>
+                            
+                        
+                            </p>
+                            
                             
 
                         </center>
@@ -289,7 +289,7 @@
 				   </div>
                    <div class = "container"> </div>
                     <div class = "form-group">
-                       <label for = "contact-img" class = "col-lg-5 control-lable"> Select an image for your event:</label>
+                       <label for = "contact-img" class = "col-lg-5 control-lable"> <a>Select an image for your event:</a></label>
                 <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
                  <div class="form-inline">
               <div class="form-group">
