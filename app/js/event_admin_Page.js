@@ -4,13 +4,75 @@ function allowDrop(ev) {
 
 function drag(ev) {
 	console.log(ev.target.id);
-    ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("text/plain", ev.target.id);
 }
 
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+	if (data == ev.target.id) {console.log("Same Team =v="); return;}
+	console.log(ev.target.id);
+	console.log("Merge "+data+" into " +ev.target.id);
+	mergeTeam(data, ev.target.id);
+}
+function mergeTeam(targetTeamA, targetTeamB){
+	if (firebase.apps.length === 0)
+	{
+	  initalizeFirebase();
+	}
+	refPath = "/event/"+getURLParameter('e')+"/admin/param";
+	newTeam = {};
+	newsize = 0;
+	newowner = null;
+	description = "";
+	newTeamMembers = [];
+	
+	retrieveOnceFirebase(firebase,refPath,function(data){
+		newTeam.size = data.child("maxTeamSize").val();
+		
+		refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
+		console.log(newTeam);
+		firebase.database().ref(refPathB).update(newTeam);
+	});
+	console.log(newsize);
+	newTeam.size = newsize;
+	
+	//get TeamB data
+	refPath = "/event/"+getURLParameter('e')+"/team/"+targetTeamB;
+	retrieveOnceFirebase(firebase,refPath,function(data){
+		newTeam.teamMembers = data.child("teamMembers").val();
+		//if (newTeam.teamMembers == null) newTeam.teamMembers = [];
+		newTeam.owner = data.child('owner').val();
+		newTeam.description = data.child('description').val();
+		
+		refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
+		console.log(newTeam);
+		firebase.database().ref(refPathB).update(newTeam);
+	});
+	
+	//console.log(newTeam);
+	// get TeamA data
+	refPath = "/event/"+getURLParameter('e')+"/team/"+targetTeamA;
+	retrieveOnceFirebase(firebase,refPath,function(data){
+		anotherTeamMembers = data.child("teamMembers").val();
+		if (anotherTeamMembers.length + newTeam.teamMembers.length > newTeam.size)
+		{
+			console.log("too large for a team !!!")
+			newTeam = {};//delete tempMerge Team
+			refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
+			console.log(newTeam);
+			firebase.database().ref(refPathB).set(newTeam);
+		}
+		else
+		{	$.merge(newTeam.teamMembers, anotherTeamMembers);
+	
+		refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
+		console.log(newTeam);
+		firebase.database().ref(refPathB).update(newTeam);}
+	});
+	//refPath = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
+	//console.log(newTeam);
+	//firebase.database().ref(refPath).update(newTeam);
 }
 
 app = angular.module('teamform-event-app', ['firebase']);
