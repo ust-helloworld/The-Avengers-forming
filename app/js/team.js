@@ -59,30 +59,34 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.refreshViewRequestsReceived = function() {
 		$scope.requests = [];
 		//var teamID = $.trim( $scope.param.teamName );	
-		var teamID = "test2";
+		//var teamID = "test2";
 		$scope.member.$loaded().then(function(data){	
 		$.each($scope.member, function(i,obj) {			
 			
 			var userID = obj.$id;
-			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1 ) {
+			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamName) > -1 ) {
 				
 				$scope.requests.push(obj);
 			}
 		});
 		});
-		$scope.mergeRequestReceived = [];
 		console.log($scope.member);
-		$.each($scope.team, function(i,obj) {			
-			if(typeof obj.mergeRequests != "undefined" && obj.mergeRequests.indexOf(teamID) > -1){
-				$scope.mergeRequestReceived.push(obj);
-			}
+		console.log($scope.team);
+		$scope.team.$loaded().then(function(data){
+		$.each($scope.team, function(i,obj) {
+				console.log(obj.mergeRequests);			
+				if(typeof obj.mergeRequests != "undefined" && obj.mergeRequests.indexOf(teamName) > -1){
+					$scope.mergeRequestReceived.push(obj);
+				}
+			});
 		});
+		console.log($scope.mergeRequestReceived);
 		$scope.member.$loaded().then(function(data){
-		$.each($scope.member, function(i,obj){
-			if (obj.joinedTeam == ""){
-				$scope.members.push(obj);
-			}
-		});
+			$.each($scope.member, function(i,obj){
+				if (obj.joinedTeam == ""){
+					$scope.members.push(obj);
+				}
+			});
 		});
 		$scope.$apply();
 	}
@@ -113,6 +117,7 @@ angular.module('teamform-team-app', ['firebase'])
 		if ( data.child("invitationRequests").val() != null){
 			$scope.invitationRequests = data.child("invitationRequests").val();
 		}
+		$scope.buttonChange();
 		console.log($scope.param.teamMembers);
 		$scope.$apply(); // force to refresh
 	});
@@ -137,8 +142,8 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 	}
 	$scope.saveFunc = function() {
-		var teamID = $.trim( $scope.param.teamName );
-		if ( teamID !== '' ) {
+		//var teamID = $.trim( $scope.param.teamName );
+		if ( teamName !== '' ) {
 			var newData = {
 				'size': $scope.param.currentTeamSize,
 				'teamMembers': $scope.param.teamMembers,
@@ -146,7 +151,7 @@ angular.module('teamform-team-app', ['firebase'])
 				'invitationRequests':$scope.invitationRequests
 			};		
 			
-			var refPath = "/event/" + getURLParameter("e") + "/team/" + teamID;	
+			var refPath = "/event/" + getURLParameter("e") + "/team/" + teamName;	
 			var ref = firebase.database().ref(refPath);
 
 			// for each team members, clear the selection in /[eventName]/team/
@@ -215,7 +220,25 @@ angular.module('teamform-team-app', ['firebase'])
 
 	$scope.processMergeRequest = function(q){
 		for (var i = 0; i < q.teamMembers.length; i++){
+			var memberid;
 			$scope.param.teamMembers.push(q.teamMembers[i])
+			$.each($scope.member,function(i,obj){
+				console.log(obj);
+				if (obj.name == q.teamMembers[i]){
+					memberid = obj.$id;
+				}
+			});
+			refPs = "/event/" + eventName + "/member/" + memberid;
+			retrieveOnceFirebase(firebase, refPs, function(data) {
+				joined = teamName;
+				firebase.database().ref(refPs).update({"joinedTeam":joined})
+			});
+			refUr = "/user/" + memberid;
+			retrieveOnceFirebase(firebase, refUr, function(data) {
+				joined = teamName;
+				firebase.database().ref(refUr).update({"joinedTeam":joined})
+			});
+			
 		}		
 		$scope.saveFunc();	
 	}
@@ -296,5 +319,63 @@ angular.module('teamform-team-app', ['firebase'])
 			})
 			$scope.saveFunc();
 		}	
+	}
+	$scope.buttonChange = function(){
+		firebase.auth().onAuthStateChanged(function(user){
+		var re = "/user/" + user.uid; 
+		retrieveOnceFirebase(firebase, re, function(data) {
+			if(data.child("joinedTeam").val() == $scope.param.teamName ){
+				console.log(data.child("joinedTeam").val());
+				$("#joinButton").text("Leave");
+			}
+			else{
+				$("joinButton").text("Join");
+			}
+		});
+		});
+	}
+	$scope.joinQuit = function(){
+		firebase.auth().onAuthStateChanged(function(user){
+		var refP = "/user/" + user.uid;
+		console.log(refP);
+		retrieveOnceFirebase(firebase, refP, function(data) {
+			if(data.child("joinedTeam").val() == $scope.param.teamName ){
+				console.log(data.child("joinedTeam").val());
+				firebase.database().ref(refP).update({"joinedTeam":""});
+				var refMember = "/event/" + eventName + "/member/" + user.uid; 
+				firebase.database().ref(refMember).update({"joinedTeam":""});
+				var refpath = "/event/" + eventName + "/team/" + teamName;
+				$scope.param.teamMembers.splice(user.displayName,1);
+				firebase.database().ref(refpath).update({"teamMembers":$scope.param.teamMembers});
+			}
+			else{
+				if(data.child("joinedTeam").val()!= ""){
+					alert("You have another team already");
+				}
+				else{
+					console.log("I am here");
+					var refpath = "/event/" + eventName + "/member/" + user.uid;
+					if(data.child("selection").val() != null){
+						newArray = data.child("selection").val();
+					}
+					else{
+						newArray = [];
+					}
+					if (newArray.indexOf(user.displayName) > -1)
+					{
+						alert("you have sent request to team already!")
+					}
+					else{
+						var refM = "/event/" + eventName + "/member/" + user.uid;
+						newArray.push(teamName);
+						firebase.database().ref(refM).update({"selection":newArray});
+					}
+				}
+
+			}
+		});
+		$scope.$apply();
+	});
+
 	}
 }]);

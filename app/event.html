@@ -273,7 +273,7 @@
                     <div class = "form-group">
                         <label for = "contact-name" class = "col-lg-3 control-lable">Team Name:</label>
                         <div class ="col-lg-9">
-                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your team name", ng-model="teamdata.teamName"><br>
+                            <input type = "text" class = "form-control" id = "contact-name" placeholder = "Enter your team name", ng-model="teamName"><br>
                     </div>
                 </div>
                
@@ -286,7 +286,7 @@
                    <div class="form-group">
 					  <label for = "contact-size" class = "col-lg-3 control-lable"> Team Size:</label> 					  
 					  <span>
-						 <span class="badge"> {{teamdata.currentTeamSize}}</span>
+						 <span class="badge"> {{teamdata.size}}</span>
 						  
 						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
