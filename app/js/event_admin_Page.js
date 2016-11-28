@@ -22,58 +22,49 @@ function mergeTeam(targetTeamA, targetTeamB){
 	}
 	refPath = "/event/"+getURLParameter('e')+"/admin/param";
 	newTeam = {};
-	newsize = 0;
+	window.newsize = 0; //use window to make the "newsize" be global variables
 	newowner = null;
 	description = "";
 	newTeamMembers = [];
 	
 	retrieveOnceFirebase(firebase,refPath,function(data){
-		newTeam.size = data.child("maxTeamSize").val();
-		
-		refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
-		console.log(newTeam);
-		firebase.database().ref(refPathB).update(newTeam);
+		window.newsize = data.child("maxTeamSize").val(); //getLargestSize
 	});
-	console.log(newsize);
-	newTeam.size = newsize;
 	
-	//get TeamB data
-	refPath = "/event/"+getURLParameter('e')+"/team/"+targetTeamB;
+	//get TeamB & TeamA data
+	refPath = "/event/"+getURLParameter('e')+"/team/";
 	retrieveOnceFirebase(firebase,refPath,function(data){
-		newTeam.teamMembers = data.child("teamMembers").val();
+		//make new Team using TeamB's data
+		newTeam.size = window.newsize;
+		newTeam.teamMembers = data.child(targetTeamB+"/teamMembers").val();
 		//if (newTeam.teamMembers == null) newTeam.teamMembers = [];
-		newTeam.owner = data.child('owner').val();
-		newTeam.description = data.child('description').val();
+		newTeam.owner = data.child(targetTeamB+'/owner').val();
+		newTeam.description = data.child(targetTeamB+'/description').val();
 		
-		refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
 		console.log(newTeam);
-		firebase.database().ref(refPathB).update(newTeam);
-	});
-	
-	//console.log(newTeam);
-	// get TeamA data
-	refPath = "/event/"+getURLParameter('e')+"/team/"+targetTeamA;
-	retrieveOnceFirebase(firebase,refPath,function(data){
-		anotherTeamMembers = data.child("teamMembers").val();
+		
+		//merge others' TeamMember
+		anotherTeamMembers = data.child(targetTeamA+"/teamMembers").val();
 		if (anotherTeamMembers.length + newTeam.teamMembers.length > newTeam.size)
 		{
-			console.log("too large for a team !!!")
-			newTeam = {};//delete tempMerge Team
-			refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
-			console.log(newTeam);
-			firebase.database().ref(refPathB).set(newTeam);
+			console.log("too large for a team !!!");
 		}
 		else
-		{	$.merge(newTeam.teamMembers, anotherTeamMembers);
+		{	
+			$.merge(newTeam.teamMembers, anotherTeamMembers);
 	
-		refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
-		console.log(newTeam);
-		firebase.database().ref(refPathB).update(newTeam);}
+			refPathB = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
+			console.log(newTeam);
+			firebase.database().ref(refPathB).update(newTeam);
+			
+			refPathC = "/event/"+getURLParameter('e')+"/team/";
+			firebase.database().ref(refPathC+"/"+targetTeamA).remove();
+			firebase.database().ref(refPathC+"/"+targetTeamB).remove();
+			
+		}
 	});
-	//refPath = "/event/"+getURLParameter('e')+"/team/"+"merged-"+targetTeamB+"+"+targetTeamA;
-	//console.log(newTeam);
-	//firebase.database().ref(refPath).update(newTeam);
-}
+	
+	}
 
 app = angular.module('teamform-event-app', ['firebase']);
 app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function displayCtrl ($scope, $firebaseObject, $firebaseArray) {
