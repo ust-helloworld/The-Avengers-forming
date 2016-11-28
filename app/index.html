@@ -50,7 +50,7 @@
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-route.min.js"></script>
     <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-    <script src="lib/firebase.js"></script>     
+    <script src="lib/firebase.js"></script>
     <script src="lib/angularfire.min.js"></script>
     <!-- <script src="js/fblogin.js"></script> -->
 
@@ -144,13 +144,14 @@
 
     <section id="selectevent" class="container content-section text-center">
         <div class="text-center">
-            <input id="input_text" type="text" class="input-lg" style="color:black !important">
+            <input id="input_team" type="text" class="input-lg" style="color:black !important">
             <br>
             <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
             <div>
                 <button id="btn_admin" type="button" class="btn btn-primary">Administrator</button>
                 <button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button>
                 <button id="btn_member" type="button" class="btn btn-primary">Member</button>
+                <button id="btn_comment" type="button" class="btn btn-primary">Comment(Temp use)</button>
                 <!-- Copy from firebase facebook pop-up auth template -->
                 <!-- Button that handles sign-in/sign-out -->
                 <!-- <button disabled class="btn btn-primary" id="quickstart-sign-in" type="button">Log in with Facebook</button> -->
@@ -232,7 +233,7 @@
                                     Recogniton: {{skill.agree}}, Total Vote: {{skill.total}}, Percentage: {{skill.percent}}%</h6>
                                 </div>
                             </div>
-                            
+
 
                         </center>
                     </div>

@@ -28,6 +28,15 @@ $(document).ready(function(){
     	}
     });
 
+    $("#btn_comment").click(function(){
+    	var val = $('#input_text').val();
+      var team = $('#input_team').val();
+    	if ( val !== '' && team !== '') {
+    		var url = "comment.html?q=" + val + "&team=" + team;
+    		window.location.href= url ;
+    		return false;
+    	}
+    });
 });
 angular.module('indexApp', ['firebase'])
 .controller('indexController', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
@@ -51,17 +60,17 @@ angular.module('indexApp', ['firebase'])
 
     firebase.auth().onAuthStateChanged(function(user){
         if (user) {
-            
+
             $scope.userdata.userID = user.uid;
             $scope.userdata.userName = user.displayName;
             $scope.userdata.photoURL = user.photoURL;
             $scope.userdata.email = user.email;
             $scope.createFunc();
             $scope.loadFunc();
-            var refPath = "/user/" + $.trim( $scope.userdata.userID ) + "/skills";  
+            var refPath = "/user/" + $.trim( $scope.userdata.userID ) + "/skills";
             $scope.skillList = [];
             $scope.skillList = $firebaseArray(firebase.database().ref(refPath));
-            
+
         } else {
             window.location.href= "login.html";
         }
@@ -164,7 +173,7 @@ angular.module('indexApp', ['firebase'])
                 });
             }
 
-        
+
     }
     $scope.removeskill = function(t) {
         //var skillName = $.trim( t );
@@ -186,9 +195,9 @@ angular.module('indexApp', ['firebase'])
                 //window.location.href= "index.html";
                 console.log("Save data")
             });
-        
+
         }
-        
+
     }
 
 }]);
