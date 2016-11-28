@@ -16,7 +16,7 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 
 	var refPath, ref, eventName;
 
-	eventName = getURLParameter("q");
+	eventName = getURLParameter("e");
 	$scope.eventName = eventName;
 	refPath = "event/" + eventName + "/admin/param";
 	ref = firebase.database().ref(refPath);
@@ -51,51 +51,24 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	refPath = "event/" + eventName + "/team";
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
-	
-	/*display = function (inputData){
-		$.each(inputData,function(i, data){
-			console.log(data);
-			insertData = '<div class="col-md-4 text-center" id="team-'+data.$id+'" ng-controller = "displayCtrl">'+
-						'<h3 class="text-center"><a href="team.html?e='+eventName+'&q='+data.$id+'">'+data.$id+'</a></h3>'+
-						'<a class="thumbnail" href="team.html?e='+eventName+'+&q='+data.$id+'"> <img src="img/team.jpg"></a><br>'+
-						'Preferred team size: <span class="badge">'+data.size+'</span> <br>'+
-						'Current teamMember: <span class = "badge">'+data.teamMembers.length+'</span><br>'+
-						'Team Leader: '+data.leader+'<br>'+
-						'<p class="text-center">your position</p>'+
-						'<button type="button" class="btn btn-default btn-sendRequest" ng-click = "sendRequest(\''+data.$id+'\');" id="button-"'+data.$id+'" '+($scope.joined?'':'style="display:none"')+'>Request</button>'+
-						'<br><br><br></div>';
-			if (typeof ($('div#team-'+data.$id).get(0)) =='undefined'){
-				$("div#teamInsert").append(insertData);
-			}
-		});
-	};
-	$scope.team.$loaded().then(display);*/
-	
-	
-	
-
 	refPath = "event/" + eventName + "/member/";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
+	$scope.memberDetail = {joinedTeam:null,selection: []};
+
 	firebase.auth().onAuthStateChanged(function(user) {
 	if (user) {
 		// User is signed in.
 		refPath = "event/" + eventName + "/member/" + user.uid;
-		memberDetail = $firebaseObject(firebase.database().ref(refPath));
-		memberDetail.$loaded().then(function (data){
-			console.log(memberDetail.name +" "+typeof memberDetail.name);
-			if (typeof memberDetail.name!="undefined"){
+		$scope.memberDetail = $firebaseObject(firebase.database().ref(refPath));
+		$scope.memberDetail.$loaded().then(function (data){
+			//console.log($scope.memberDetail.joinedTeam +" "+typeof $scope.memberDetail.joinedTeam +" "+($scope.memberDetail.joinedTeam != ""&& typeof $scope.memberDetail.joinedTeam !='undefined'));
+			if (typeof $scope.memberDetail.joinedTeam!="undefined"){
 				$('#joinButton').text("Leave the event");
 				$scope.joined = true;
-				$(".btn-sendRequest").show();
 			}
-			
-			$.each(memberDetail.selection, function (index, teamSelection){
-				console.log(teamSelection);
-				$("#button-"+teamSelection).text ("Cancel request");
-				//still have some problems (the tag cannot be change to cancel request =v="")
-			});
+
 	});
 	  } else {
 		// No user is signed in.
@@ -134,8 +107,15 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	$scope.joinQuit = function(){
 		refPath = "event/" + eventName + "/member/" + firebase.auth().currentUser.uid;
 		var memberDetail = $firebaseObject(firebase.database().ref(refPath));
+		console.log(memberDetail.joinedTeam != "");
+		if (memberDetail.joinedTeam != "" && typeof memberDetail.joinedTeam != 'undefined')
+		{
+			alert("You are in the team, leave your team first!");
+			return;
+		}
 		if ($scope.joined == false){
 			memberDetail.name = firebase.auth().currentUser.displayName;
+			memberDetail.joinedTeam = "";
 			memberDetail.$save();
 			$('#joinButton').text("Leave the event");
 			$scope.joined = true;
@@ -143,8 +123,10 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 			$('.btn-sendRequest').text("Request");
 		}
 		else {
+			if ($scope.memberDetail.joinedTeam != ""){ alert("You are in the team, leave your team first!");return;}
 			memberDetail.name = null;
 			memberDetail.selection = null;
+			memberDetail.joinedTeam = null;
 			memberDetail.$save();
 			$('#joinButton').text("Join the event");
 			$scope.joined = false;
@@ -161,7 +143,7 @@ app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', funct
 	  initalizeFirebase();
 	}
 	firebase.auth().onAuthStateChanged(function (data){
-		console.log(data.uid);
+		//console.log(data.uid);
 		$scope.useruid = data.uid;
 		
 		// Initialize $scope.param as an pre-set JSON object
@@ -203,8 +185,8 @@ app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', funct
 		if (typeof document.getElementById("js-upload-files").files[0]!="undefined")
 	  {
 		  files = document.getElementById("js-upload-files").files;
-		  console.log("have sth to upload");
-		  console.log(files[0].name);
+		  //console.log("have sth to upload");
+		  //console.log(files[0].name);
 
 		  // Create a root reference
           var storageRef = firebase.storage().ref();
@@ -221,8 +203,8 @@ app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', funct
 
 	$scope.saveFunc = function() {
 		
-		console.log("click saved!!");
-		console.log($scope.param);
+		//console.log("click saved!!");
+		//console.log($scope.param);
 		refPath = "/event/"+$scope.eventName+"/admin/param";
 		firebase.database().ref(refPath).update($scope.param);
 	};
