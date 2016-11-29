@@ -16,19 +16,74 @@
     site.css: A customized css for our web application. Not from any web framework.
     -->
 
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
+
+    <link href="css/styles.css" rel="stylesheet">
+
+
     <script src="lib/jquery.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/site.css" >
+    <!--<link rel="stylesheet" href="css/site.css" > Not such file-->
 
     <!-- Customized libraries shared by pages -->
     <script src="js/site.js"></script>
 
   </head>
-<body>
+  <body>
+    <div class="comment">
+      <div class="comment-body">
+        <div class="container">
+          <div ng-controller="CommentCtrl">
+            <center>
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2 id="text_event_name"></h2>
+                  <h2 id="text_team_name"></h2>
+                  <h3>Leave your comment for your team!</h3>
+                  <h5>Be repectful! Your commemts will affect others, as well as YOUR teamform later on heavily!</h5>
+                  <div class="row">
+                    <h3>All members:</h3>
+                    <div class="col-md-12 col-xs-12 text-left">
+                      <ul ng-repeat="m in combine">
+                        <li>
+                          NAME = {{m.name}} <br>
+                          <ul ng-repeat="skills in m.skillList">
+                            <li>
+                              <label for="{{skills}}">
+                                {{skills.key}}
+                              </label>
+                              <input type="checkbox" ng-value="skills" id="{{skills}}" ng-click="addPoint(skills);">
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </center>
+            <div class="pull-center">
+              <button type="button" class="btn btn-primary" ng-click="updateFunc();">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Old UI
     <div class="text-center">
       <h1>Leave your comment for your team!!!</h1>
 
@@ -64,6 +119,7 @@
         <button type="button" class="btn btn-primary" ng-click="updateFunc();">Save</button>
       </div>
     </div>
+    -->
 
     <!-- JavaScript of this page -->
 
