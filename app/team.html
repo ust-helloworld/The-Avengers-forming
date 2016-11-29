@@ -97,6 +97,7 @@
                                             <!-- <a href="#"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
                                         <a href="#teamMemList" data-toggle="modal"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>-->
                                         </h1>
+                                        <p>{{description}}</p>
                                         <hr>
                                         <p> Current members <span class="badge">{{param.teamMembers.length}}</span></p>
                                         <div class="col-sm-6">
@@ -323,7 +324,7 @@
                 <div class="modal-body-addteam">
 				<div ng-repeat="q in mergeRequestReceived" align="center">
 					<button type="button" class="btn btn-default btn-lg left" ng-click="processMergeRequest(q);">
-						<img  class ="img-circle" src="profile/cony.png"   width ="32" height="32"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{q.$id}}
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{q.$id}}
 					</button>
 
 				</div>

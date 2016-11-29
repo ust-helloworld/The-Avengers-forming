@@ -138,6 +138,9 @@ angular.module('teamform-team-app', ['firebase'])
 		if ( data.child("invitationRequests").val() != null){
 			$scope.invitationRequests = data.child("invitationRequests").val();
 		}
+		if ( data.child("description").val() != null){
+			$scope.description = data.child("description").val();
+		}
 		$scope.buttonChange();
 		console.log($scope.param.teamMembers);
 		$scope.$apply(); // force to refresh
