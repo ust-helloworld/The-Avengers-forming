@@ -12,9 +12,31 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
 	if (data == ev.target.id) {console.log("Same Team =v="); return;}
 	console.log(ev.target.id);
-	console.log("Merge "+data+" into " +ev.target.id);
-	mergeTeam(data, ev.target.id);
+	console.log(data);
+
+	if (data.indexOf("memb") == 0 ) {addMember(data.substring(5,data.length), ev.target.id);}
+	else if(data.indexOf("team-") == 0 ) {
+		console.log("Merge "+data.substring(5,data.length)+" into " +(ev.target.id).substring(5,ev.target.id.length));
+		mergeTeam(data.substring(5,data.length), ev.target.id.substring(5,ev.target.id.length));
+	}
 }
+
+function addMember(member, targetTeam){
+	console.log('trigger addMember function');
+	refPath = "/event/"+getURLParameter('e')+"/team/"+targetTeam;
+	retrieveOnceFirebase(firebase,refPath, function (data){
+		teamMembers = data.child('teamMembers').val();
+		if (teamMembers.length>=data.child('size').val()){alert("Fulled.");return;};
+		teamMembers.push(member);
+		console.log(teamMembers);
+		updates = {"teamMembers": teamMembers}
+		firebase.database().ref(refPath).update(updates);
+		
+		refPathB = "/event/"+getURLParameter('e')+"/member/"+member;
+		firebase.database().ref(refPathB).update({joinedTeam:targetTeam});
+		$("h3#memb-"+member).hide();
+	});
+};
 function mergeTeam(targetTeamA, targetTeamB){
 	if (firebase.apps.length === 0)
 	{
@@ -123,6 +145,13 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	refPath = "event/" + eventName + "/member/";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
+	
+	$scope.member.$loaded().then(function(data){
+		$scope.remaining_member = $.grep($scope.member,function (elem,ind){
+			//console.log(elem);
+			return (elem["joinedTeam"]=="");
+		});
+	});
 	
 	$scope.eventDetail = {};
 

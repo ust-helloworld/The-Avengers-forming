@@ -113,6 +113,18 @@
             </div>
         </div>
     </header>
+	<section id="remaining member">
+		<h1 class = "text-center">Remaining member</h1>
+		<div ng-controller = "displayCtrl">
+			<div class="row" id = "teamInsert" >
+				<div class="col-md-4 text-center" ng-repeat = "x in remaining_member" >
+                    <h3 class="text-center" draggable="true" 
+				ondragover="allowDrop(event)" ondragstart="drag(event)" ng-attr-id = "memb-{{x.$id}}" ondrop = "drop(event)">
+					{{x.$id}}
+				</h3>
+			</div>
+		</div>
+	</section>
     <section id="team" ng-controller="displayCtrl">
         <a href="#team">
             <h1 class="text-center"> Formed teams</h1>
@@ -121,8 +133,7 @@
             <div class="row" id = "teamInsert" >
                 <div class="col-md-4 text-center" ng-repeat = "x in team" >
                     <h3 class="text-center" draggable="true" 
-				ondragover="allowDrop(event)" ondragstart="drag(event)" ng-attr-id = "{{x.$id}}"
-				ondrop = "drop(event)" data-toggle="popover" data-content = "Merge this team to what team">
+				ondragover="allowDrop(event)" ondragstart="drag(event)" ng-attr-id = "team-{{x.$id}}" ondrop = "drop(event)">
 				{{x.$id}}
 				</h3>
                     <a class="thumbnail" ng-href="team.html?e={{eventName}}&t={{x.$id}}"> <img src="img/team.jpg"></a><br>
