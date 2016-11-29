@@ -84,7 +84,7 @@
                     <!--team inform-->
                     <div class="row">
                          <!--edited-->
-                        <div class="col-lg-10 col-lg-offset-2">
+                        <div class="col-xs-12">
                             
                                     <div id="team_page_controller" ng-controller="TeamCtrl">
                                         <!--<div class="page-header">
@@ -102,10 +102,22 @@
                                         <p> Current members <span class="badge">{{param.teamMembers.length}}</span></p>
                                         <div class="col-sm-6">
                                             <h4>Your current members</h4>
+                                            
                                             <div ng-repeat="m in member " ng-show="param.teamMembers.indexOf(m.$id) > -1">
-                                                <button type="button" class="btn" ng-click="removeMember(m.$id);">
-						                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{m.name}}
-					                        </button>
+                                                						<div class="media-left">
+						    <a href="#">
+							<img  class ="img-circle" src="{{userimg[member.indexOf(m)].photoURL}}"   width ="32" height="32">
+                            <div class="media-left" ng-click="removeMember(m.$id);"><a class="btn btn-default" data-dismiss="modal">Remove</a>
+                            </div>
+						</a></div>
+                        	<div class="media-body">
+							    <h4>{{m.name}}</h4>
+    
+											
+							</div>
+                                           <!--<button type="button" class="btn" ng-click="removeMember(m.$id);">-->
+						                    <!--<span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{m.name}}{{member.indexOf(m)}}-->
+					                        <!--</button>-->
                                             </div>
                                             <!--<br>
                                             <br>
@@ -117,6 +129,12 @@
                                         <div class="col-sm-6">
                                             <h4>Requested members</h4>
                                             <div ng-repeat="r in requests ">
+                                                                                                						<div class="media-left">
+						    <a href="#">
+							<img  class ="img-circle" src="{{userimg[member.indexOf(r)].photoURL}}"   width ="32" height="32">
+                            <div class="media-right" ng-click="processRequest(r);"><a class="btn btn-default" data-dismiss="modal">Accept</a>
+                            </div>
+						</a></div>
                                                 <button type="button" class="btn" ng-click="processRequest(r);">
 						                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {{r.name}}
 					                        </button>
@@ -233,7 +251,7 @@
             <center>
                  <div clas="row">
                 <!--edited-->
-                   <div class="col-lg-10 col-lg-offset-2">
+                   <div class="col-lg-12 ">
                     <div class="col-lg-4 ">
                         <button type="button" class="btn btn-default btn-lg left" href="#invitation" data-toggle="modal">Invitation</button>
                     </div>
@@ -244,17 +262,7 @@
                         <button type="button" class="btn btn-default btn-lg left" href="#handleMergeRequest" data-toggle="modal">Handle Merge Request</button>
                     </div>
                     </div>
-                    <!--<div class="col-lg-3">
-                        <button  type="button" class="btn btn-default btn-lg left" style="padding: 0px 10px;" ng-click="removeMember(m);">Hello</button>
-                    </div>-->
-                    <!--<div class="dropup pull-right">
-                <button class="btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#addevent" data-toggle="modal" class="navbar-text"> Event </a></li>
-                </ul>
-           </div>-->
+                    
                 
             </div>
            </center>
@@ -268,7 +276,7 @@
                     <br><center><h3>Your preferred team to merge</h3></center>
                 </div>
                 <div class="modal-body-addteam">
-                <label>Search: <input ng-model="search.$id"></label>
+                <center><label>Search: <input ng-model="search.$id"></label></center>
 				<div ng-repeat="t in param.teamToSelect | filter:search " ng-show="t.$id != param.teamName" align="center">
 					<button type="button" class="btn btn-default btn-lg left" ng-click="teamMergeRequest(t);">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{t.$id}}
@@ -289,18 +297,19 @@
                     <br><center><h3>Your preferred member to invite</h3></center>
                 </div>
                 <div class="modal-body-addteam">
-                    <label>Search: <input ng-model="search"></label>
+                    <center>
+                    <label> Search: <input ng-model="search"></label></center>
                     <div class="media" ng-repeat = "m in members | filter:search" ng-show="invitationRequests.indexOf(m.$id) < 0">
 						<div class="media-left">
 						    <a href="#">
-							<img  class ="img-circle" src="{{userimg[members.indexOf(m)].photoURL}}"   width ="32" height="32">
+							<img  class ="img-circle" src="{{userimg[member.indexOf(m)].photoURL}}"   width ="32" height="32">
 						</a></div>
 							<div class="media-body">
 							    <h4>{{m.name}}</h4>
     
 											
 							</div>
-                            <div class="media-right"> <a class="btn btn-default" data-dismiss="modal">Invite </a>
+                            <div class="media-right" ng-click="invitationToMembers(m)"> <a class="btn btn-default" data-dismiss="modal">Invite </a>
                              </div>
 								
                             </div>

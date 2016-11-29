@@ -299,19 +299,24 @@ app.controller('CEA_Team', ['$scope', '$firebaseObject', '$firebaseArray', funct
 		var refP = "/event/"+ eventName + "/member/" + $scope.userid;
 		var joined;
 		retrieveOnceFirebase(firebase, refP, function(data) {
-			joined = data.child("joinedTeam").val()
-			$scope.$apply();
+			joined = data.child("joinedTeam").val();
+			firebase.auth().onAuthStateChanged(function(user){
+				$scope.userid = user.uid;
+				$scope.teamdata.teamMembers.push(user.uid);// teammembers store
+				$scope.teamdata.owner = user.uid;
+			});
 			console.log(joined);
 			if(joined == ""){
 				var refPath = "/event/"+ eventName + "/team/" + teamID;
 				firebase.database().ref(refPath).update($scope.teamdata);
-		//var refP = "/event/"+ eventName + "/member/" + $scope.userid;
+				var refP = "/event/"+ eventName + "/member/" + $scope.userid;
 				firebase.database().ref(refP).update({"joinedTeam":teamID});
 				var refp = "/user/" + $scope.userid+"/joinedEvent/"+eventName;
 				firebase.database().ref(refp).update({position:"teamleader"});
 			}else{
 				alert("you have team already!");
 			}
+			$scope.$apply();
 		});
  	}
 }]);

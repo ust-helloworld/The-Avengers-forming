@@ -98,15 +98,15 @@ angular.module('teamform-team-app', ['firebase'])
 				if (obj.joinedTeam == ""){
 					$scope.members.push(obj);
 					console.log(obj.$id);
-					$scope.user.$loaded().then(function(data){
+				}
+				$scope.user.$loaded().then(function(data){
 					for (i = 0; i < data.length; i++){
 						if(data[i].$id == obj.$id){
 							console.log(data[i].$id == obj.$id);
 							$scope.userimg.push(data[i]);
 						}
 					}
-					});
-				}
+				});
 			});
 		});
 		$scope.$apply();
@@ -235,7 +235,8 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 		if($scope.param.teamMembers.length + teamItem.teamMembers.length <= teamItem.size && $scope.mergeSelection.length < 1){
 			$scope.mergeSelection.push(teamItem.$id);
-			$scope.saveFunc();
+			var rf = "/event/" + eventName + "/team/" + teamName;
+			firebase.database().ref(rf).update({"mergeRequests" : $scope.mergeSelection})
 		}
 		else{
 			alert("Invalid Operation");
@@ -243,28 +244,33 @@ angular.module('teamform-team-app', ['firebase'])
 	}
 
 	$scope.processMergeRequest = function(q){
+		console.log(q);
 		for (var i = 0; i < q.teamMembers.length; i++){
 			var memberid;
 			$scope.param.teamMembers.push(q.teamMembers[i])
-			$.each($scope.member,function(i,obj){
-				console.log(obj);
+			$.each($scope.member,function(j,obj){
+				console.log(obj.$id);
+				console.log(q.teamMembers[i]);
 				if (obj.$id == q.teamMembers[i]){
+					//console.log(q.teamMembers[i]);
+					console.log(memberid);
 					memberid = obj.$id;
 				}
 			});
+			refm = "/event/" + eventName + "/team/" + teamName;
+			firebase.database().ref(refm).update({"teamMembers":$scope.param.teamMembers});
 			refPs = "/event/" + eventName + "/member/" + memberid;
 			retrieveOnceFirebase(firebase, refPs, function(data) {
 				joined = teamName;
 				firebase.database().ref(refPs).update({"joinedTeam":joined})
 			});
-			refUr = "/user/" + memberid;
-			retrieveOnceFirebase(firebase, refUr, function(data) {
-				joined = teamName;
-				firebase.database().ref(refUr).update({"joinedTeam":joined})
-			});
-			
-		}		
-		$scope.saveFunc();	
+			$.each($scope.mergeRequestReceived, function(i,obj){
+
+				var rec = $scope.team.$getRecord(obj.$id);
+				console.log(rec);
+				$scope.team.$remove(rec);
+			});	
+		}			
 	}
 
 	$scope.invitationRequests = [];
@@ -275,7 +281,8 @@ angular.module('teamform-team-app', ['firebase'])
 		else{
 			alert("Invalid operation.")
 		}
-		$scope.saveFunc();
+		var refs = "/event/" + eventName + "/team/" + teamName;
+		firebase.database().ref(refs).update({"invitationRequests":$scope.invitationRequests});
 	}
 
 	$scope.processRequest = function(r) {
@@ -285,7 +292,6 @@ angular.module('teamform-team-app', ['firebase'])
 			// Not exists, and the current number of team member is less than the preferred team size
 
 			$scope.param.teamMembers.push(r.$id);
-		}
 		var recs;
 		$.each($scope.member, function(i, obj){
 			console.log(obj);
@@ -319,7 +325,9 @@ angular.module('teamform-team-app', ['firebase'])
 			r2.selection = [];
 			$scope.member.$save(r2);
 		});
-		$scope.saveFunc();
+		} else{
+			alert("The team is full");
+		}
 	}
 
 	$scope.removeMember = function(member) {
@@ -340,13 +348,14 @@ angular.module('teamform-team-app', ['firebase'])
 				joined = data.child("joinedTeam").val();
 				joined = "";
 				firebase.database().ref(path).update({"joinedTeam": joined});
-			})
-			$scope.saveFunc();
+			});
+
+			firebase.database().ref("/event/" + eventName + "/team/" + teamName).update({"teamMembers":$scope.param.teamMembers});
 		}	
 	}
 	$scope.buttonChange = function(){
 		firebase.auth().onAuthStateChanged(function(user){
-		var re = "/user/" + user.uid; 
+		var re = "/event/" + eventName + "/team/" + teamName; 
 		retrieveOnceFirebase(firebase, re, function(data) {
 			if(data.child("joinedTeam").val() == $scope.param.teamName ){
 				console.log(data.child("joinedTeam").val());
@@ -364,8 +373,8 @@ angular.module('teamform-team-app', ['firebase'])
 		console.log(refP);
 		retrieveOnceFirebase(firebase, refP, function(data) {
 			if(data.child("joinedTeam").val() == $scope.param.teamName ){
-				console.log(data.child("joinedTeam").val());
-				firebase.database().ref(refP).update({"joinedTeam":""});
+				//console.log(data.child("joinedTeam").val());
+				//firebase.database().ref(refP).update({"joinedTeam":""});
 				var refMember = "/event/" + eventName + "/member/" + user.uid; 
 				firebase.database().ref(refMember).update({"joinedTeam":""});
 				var refpath = "/event/" + eventName + "/team/" + teamName;
