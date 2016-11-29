@@ -130,7 +130,7 @@ angular.module('teamform-comment-app', ['firebase'])
 						//alert("data pushed...");
 
 						// Finally, go back to the front-end
-						//window.location.href= "index.html";
+						window.location.href= "index.html";
 						console.log("Save data");
 					});
 				}
