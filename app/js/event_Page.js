@@ -12,7 +12,7 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	}
 
 	$scope.userid = "";
-	
+
 	$scope.joined = false;
 	$("button#adminButton").hide();
 

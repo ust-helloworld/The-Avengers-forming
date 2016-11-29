@@ -21,51 +21,84 @@ angular.module('teamform-comment-app', ['firebase'])
 	// Check is there any current user
 	checkUser(firebase);
 
+	firebase.auth().onAuthStateChanged(function(user) {
+	  if (user) {
+	    // User is signed in.
+			$scope.currentUserID = user.uid;
+	  } else {
+	    // No user is signed in.
+			$scope.currentUserID = null;
+	  }
+	});
+
 	var refPath, ref, eventName, teamName;
 
 	eventName = getURLParameter("q");
 	teamName = getURLParameter("team");
 
-	refPath = "event/" + eventName + "/team/" + teamName + "/teamMembers";
-	$scope.member = [];
-	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-
 	// Combine id and skill
 	$scope.combine = [];
 
+	refPath = "event/" + eventName + "/team/" + teamName + "/teamMembers";
+	$scope.member = [];
+	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	// Wait for the data
 	$scope.member.$loaded().then(function(member) {
-		for (i = 0; i < $scope.member.length; i++) {
-			refPath = "user/" + $scope.member[i].$value;
-
-			var skill = {};
-			var refPathskill = "/user/" + $.trim($scope.member[i].$value) + "/skills";
-			$scope.skillList = [];
-			$scope.skillList = $firebaseArray(firebase.database().ref(refPathskill));
-
-			// Initailise seletected to be false and increment 1 to total
-			$scope.skillList.$loaded().then(function(skillList) {
-				for (i = 0; i < skillList.length; i++) {
-					skillList[i].selected = false;
-					skillList[i].total += 1;
-					console.log(skillList[i]);
-				}
-			});
-			/*
-			retrieveOnceFirebase(firebase, refPath, function(data) {
-					if (data.child("skills").val() != null ) {
-							skill = data.child("skills").val();
-					}
-					else {
-							skill = {};
-					}
-					$scope.skills.push(skill);
-					console.log($scope.skills[0].SS);
-			});
-			*/
-			$scope.combine.push({id: $scope.member[i].$value, skillList: $scope.skillList});
+		console.log(member);
+		// Remove user from member list
+		var index = -1;
+		for (i = 0; i < member.length; i++) {
+			if (member[i].$value == $scope.currentUserID) {
+				index = i;
+				break;
+			}
 		}
-	})
+		if (index > -1) {
+    	member.splice(index, 1);
+		}
+		else {
+			console.log("ERROR");
+		}
+
+		var refPath = "user/";
+		$scope.userList = [];
+		$scope.userList = $firebaseArray(firebase.database().ref(refPath));
+		// Wait for the data
+		$scope.userList.$loaded().then(function(userList) {
+			console.log(userList);
+			memberName = [];
+
+			// Get skills
+			// For each member in members
+			for (i = 0; i < member.length; i++) {
+				// Get the name of members in member list
+				var index = userList.$indexFor(member[i].$value);
+				console.log(index);
+				memberName.push(userList[index].name);
+				console.log(memberName);
+				console.log(userList[index].skills);
+
+				var skillList = $.map(userList[index].skills, function(value, index) {
+					value.key = index;
+				  return [value];
+				});
+				console.log(skillList);
+
+					//Initailise seletected to be false and increment 1 to total
+					for (j = 0; j < skillList.length; j++) {
+						skillList[j].selected = false;
+						skillList[j].total += 1;
+						console.log(skillList[j]);
+					}
+					console.log(i);
+					console.log(memberName[i]);
+					//console.log($scope.skillList);
+					// Add an object to combine list
+					$scope.combine.push({id: member[i].$value, name: memberName[i], skillList: skillList});
+
+				}
+		});
+	});
 
 	$scope.addPoint = function(s) {
 		if (s.selected == false) {
@@ -80,10 +113,11 @@ angular.module('teamform-comment-app', ['firebase'])
 	}
 
 	$scope.updateFunc = function() {
+		console.log($scope.combine);
 		for (i = 0; i < $scope.combine.length; i++) {
 			var userID = $.trim($scope.combine[i].id);
 			for (j = 0; j < $scope.combine[i].skillList.length; j++){
-				var skillName = $.trim($scope.combine[i].skillList[j].$id);
+				var skillName = $.trim($scope.combine[i].skillList[j].key);
 				if ( userID !== '' && skillName !=='') {
 					var newData = {
 							'agree' : $scope.combine[i].skillList[j].agree,
@@ -91,14 +125,15 @@ angular.module('teamform-comment-app', ['firebase'])
 							'percent' : Math.floor($scope.combine[i].skillList[j].agree / $scope.combine[i].skillList[j].total*100)
 					};
 
-					var refPath = "user/" + userID + "/skills/" + skillName;
-					var ref = firebase.database().ref(refPath);
+					refPath = "user/" + userID + "/skills/" + skillName;
+					console.log(refPath);
+					ref = firebase.database().ref(refPath);
 					ref.update(newData, function(){
 						// Complete call back
 						//alert("data pushed...");
 
 						// Finally, go back to the front-end
-						//window.location.href= "index.html";
+						window.location.href= "index.html";
 						console.log("Save data");
 					});
 				}
