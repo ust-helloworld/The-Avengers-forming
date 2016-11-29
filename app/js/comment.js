@@ -42,61 +42,63 @@ angular.module('teamform-comment-app', ['firebase'])
 	refPath = "event/" + eventName + "/team/" + teamName + "/teamMembers";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-
 	// Wait for the data
 	$scope.member.$loaded().then(function(member) {
-		$scope.memberName = [];
-
-		// Remove user from member list
-		console.log($scope.currentUserID);
 		console.log(member);
+		// Remove user from member list
 		var index = -1;
-		for (i = 0; i < $scope.member.length; i++) {
-			if ($scope.member[i].$value == $scope.currentUserID) {
+		for (i = 0; i < member.length; i++) {
+			if (member[i].$value == $scope.currentUserID) {
 				index = i;
 				break;
 			}
 		}
 		if (index > -1) {
-    	$scope.member.splice(index, 1);
+    	member.splice(index, 1);
 		}
 		else {
 			console.log("ERROR");
 		}
 
-		for (i = 0; i < $scope.member.length; i++) {
-			// Get the name of members in member list
-			refPath = "user/" + $scope.member[i].$value;
-			retrieveOnceFirebase(firebase, refPath, function(data) {
-					if (data.child("name").val() != null ) {
-						$scope.memberName.push(data.child("name").val());
-						//console.log($scope.memberName);
-					}
-					else {
-						$scope.memberName.push("");
-						console.log("ERROR: NO NAME???");
-					}
-			});
+		var refPath = "user/";
+		$scope.userList = [];
+		$scope.userList = $firebaseArray(firebase.database().ref(refPath));
+		// Wait for the data
+		$scope.userList.$loaded().then(function(userList) {
+			console.log(userList);
+			memberName = [];
 
-			refPath = "/user/" + $.trim($scope.member[i].$value) + "/skills";
-			$scope.skillList = [];
-			$scope.skillList = $firebaseArray(firebase.database().ref(refPath));
+			// Get skills
+			// For each member in members
+			for (i = 0; i < member.length; i++) {
+				// Get the name of members in member list
+				var index = userList.$indexFor(member[i].$value);
+				console.log(index);
+				memberName.push(userList[index].name);
+				console.log(memberName);
+				console.log(userList[index].skills);
 
-			// Wait for the data
-			$scope.skillList.$loaded().then(function(skillList) {
-				//Initailise seletected to be false and increment 1 to total
-				for (i = 0; i < skillList.length; i++) {
-					skillList[i].selected = false;
-					skillList[i].total += 1;
-					console.log(skillList[i]);
+				var skillList = $.map(userList[index].skills, function(value, index) {
+					value.key = index;
+				  return [value];
+				});
+				console.log(skillList);
+
+					//Initailise seletected to be false and increment 1 to total
+					for (j = 0; j < skillList.length; j++) {
+						skillList[j].selected = false;
+						skillList[j].total += 1;
+						console.log(skillList[j]);
+					}
+					console.log(i);
+					console.log(memberName[i]);
+					//console.log($scope.skillList);
 					// Add an object to combine list
-					console.log($scope.memberName[i]);
-					console.log($scope.skillList);
-					$scope.combine.push({id: $scope.member[i].$value, name: $scope.memberName[i], skillList: $scope.skillList});
+					$scope.combine.push({id: member[i].$value, name: memberName[i], skillList: skillList});
+
 				}
-			});
-		}
-	})
+		});
+	});
 
 	$scope.addPoint = function(s) {
 		if (s.selected == false) {
@@ -111,10 +113,11 @@ angular.module('teamform-comment-app', ['firebase'])
 	}
 
 	$scope.updateFunc = function() {
+		console.log($scope.combine);
 		for (i = 0; i < $scope.combine.length; i++) {
 			var userID = $.trim($scope.combine[i].id);
 			for (j = 0; j < $scope.combine[i].skillList.length; j++){
-				var skillName = $.trim($scope.combine[i].skillList[j].$id);
+				var skillName = $.trim($scope.combine[i].skillList[j].key);
 				if ( userID !== '' && skillName !=='') {
 					var newData = {
 							'agree' : $scope.combine[i].skillList[j].agree,

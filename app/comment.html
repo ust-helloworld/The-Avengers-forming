@@ -63,7 +63,7 @@
                           <ul ng-repeat="skills in m.skillList">
                             <li>
                               <label for="{{skills}}">
-                                {{skills.$id}}
+                                {{skills.key}}
                               </label>
                               <input type="checkbox" ng-value="skills" id="{{skills}}" ng-click="addPoint(skills);">
                             </li>
@@ -75,7 +75,7 @@
                 </div>
               </div>
             </center>
-            <div class="modal-footer">
+            <div class="pull-center">
               <button type="button" class="btn btn-primary" ng-click="updateFunc();">Save</button>
             </div>
           </div>
