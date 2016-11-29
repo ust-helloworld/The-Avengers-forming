@@ -119,6 +119,7 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 		if ($scope.joined == false){
 			memberDetail.name = firebase.auth().currentUser.displayName;
 			memberDetail.joinedTeam = "";
+			memberDetail.commented = false;
 			memberDetail.$save();
 			$('#joinButton').text("Leave the event");
 			$scope.joined = true;
@@ -134,6 +135,7 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 			memberDetail.name = null;
 			memberDetail.selection = null;
 			memberDetail.joinedTeam = null;
+			memberDetail.commented = null;
 			memberDetail.$save();
 			$('#joinButton').text("Join the event");
 			$scope.joined = false;

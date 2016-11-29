@@ -120,7 +120,7 @@
 				<div class="col-md-4 text-center" ng-repeat = "x in remaining_member" >
                     <h3 class="text-center" draggable="true" 
 				ondragover="allowDrop(event)" ondragstart="drag(event)" ng-attr-id = "memb-{{x.$id}}" ondrop = "drop(event)">
-					{{x.$id}}
+					{{x.name}}
 				</h3>
 			</div>
 		</div>
