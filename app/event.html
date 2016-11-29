@@ -127,7 +127,7 @@
 					 Preferred team size: <span class="badge">{{x.size}}</span> <br>
 					 Current teamMember: <span class = "badge">{{x.teamMembers.length}}</span><br>
 					 Current team members: <div ng-repeat = "member in x.teamMembers track by $index">{{member}}</div> <br>
-					 Team Leader: {{x.leader}}<br>
+					 Team Leader: {{x.owner}}<br>
 					
                     <p class="text-center">{{$parent.memberDetail.joinedTeam ==x.$id?'This is your Team!!' : ''}}</p>
 					<button type="button" class="btn btn-default btn-sendRequest" ng-click = "sendRequest(x.$id);" 
