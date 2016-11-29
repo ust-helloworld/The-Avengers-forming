@@ -40,6 +40,7 @@ $(document).ready(function(){
 });
 angular.module('indexApp', ['firebase'])
 .controller('indexController', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
 	database = firebase.database();
