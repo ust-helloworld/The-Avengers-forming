@@ -370,6 +370,7 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.joinQuit = function(){
 		firebase.auth().onAuthStateChanged(function(user){
 		var refP = "/event/" + eventName + "/member/" + user.uid;
+
 		console.log(refP);
 		retrieveOnceFirebase(firebase, refP, function(data) {
 			if(data.child("joinedTeam").val() == $scope.param.teamName ){
