@@ -14,6 +14,7 @@ angular.module('teamform-team-app', ['firebase'])
 	if (firebase.apps.length == 0){
 		initalizeFirebase();
 	}
+	checkUser(firebase);
 
 	var refPath = "";
 	var eventName = getURLParameter("e");
@@ -37,9 +38,14 @@ angular.module('teamform-team-app', ['firebase'])
 			$('#team_page_controller').show(); // show UI
 		}
 	});
+	refpath = "/event/" + eventName + "/team/" + teamName;
+	console.log(refPath);
 	firebase.auth().onAuthStateChanged(function(user){
-		retrieveOnceFirebase(firebase, refPath, function(data) {
+
+		retrieveOnceFirebase(firebase, refpath, function(data) {
+			console.log(data.child("owner").val());
 			if(data.child("owner").val() != user.uid && window.location.href.indexOf("team.html") > -1){
+				console.log(data.child("owner").val());
 				window.location.href = "teamMember.html?e=" + eventName + "&t=" + teamName;
 			}
 		});
@@ -53,6 +59,12 @@ angular.module('teamform-team-app', ['firebase'])
 	refPath = "/event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
+	
+	var refi = "/user/"
+	$scope.userimg = [];
+	$scope.user = [];
+	$scope.user = $firebaseArray(firebase.database().ref(refi));
+	console.log($scope.user);
 	$scope.requests = [];
 	$scope.mergeRequestReceived = [];
 	$scope.members = [];
@@ -85,12 +97,21 @@ angular.module('teamform-team-app', ['firebase'])
 			$.each($scope.member, function(i,obj){
 				if (obj.joinedTeam == ""){
 					$scope.members.push(obj);
+					console.log(obj.$id);
+					$scope.user.$loaded().then(function(data){
+					for (i = 0; i < data.length; i++){
+						if(data[i].$id == obj.$id){
+							console.log(data[i].$id == obj.$id);
+							$scope.userimg.push(data[i]);
+						}
+					}
+					});
 				}
 			});
 		});
 		$scope.$apply();
 	}
-
+	console.log($scope.userimg);
 	$scope.changeCurrentTeamSize = function(delta) {
 		var newVal = $scope.param.currentTeamSize + delta;
 		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
@@ -224,7 +245,7 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.param.teamMembers.push(q.teamMembers[i])
 			$.each($scope.member,function(i,obj){
 				console.log(obj);
-				if (obj.name == q.teamMembers[i]){
+				if (obj.$id == q.teamMembers[i]){
 					memberid = obj.$id;
 				}
 			});
@@ -256,11 +277,11 @@ angular.module('teamform-team-app', ['firebase'])
 
 	$scope.processRequest = function(r) {
 		if ( 
-		    $scope.param.teamMembers.indexOf(r.name) < 0 && 
+		    $scope.param.teamMembers.indexOf(r.$id) < 0 && 
 			$scope.param.teamMembers.length < $scope.param.currentTeamSize  ) {
 			// Not exists, and the current number of team member is less than the preferred team size
 
-			$scope.param.teamMembers.push(r.name);
+			$scope.param.teamMembers.push(r.$id);
 		}
 		var recs;
 		$.each($scope.member, function(i, obj){
@@ -305,7 +326,7 @@ angular.module('teamform-team-app', ['firebase'])
 			var rec;
 			console.log(member);
 			$.each($scope.member, function(i, obj){
-				if (obj.name == member){
+				if (obj.$id == member){  //id
 					rec = obj.$id
 					return false;
 				}
@@ -345,7 +366,7 @@ angular.module('teamform-team-app', ['firebase'])
 				var refMember = "/event/" + eventName + "/member/" + user.uid; 
 				firebase.database().ref(refMember).update({"joinedTeam":""});
 				var refpath = "/event/" + eventName + "/team/" + teamName;
-				$scope.param.teamMembers.splice(user.displayName,1);
+				$scope.param.teamMembers.splice(user.uid,1);
 				firebase.database().ref(refpath).update({"teamMembers":$scope.param.teamMembers});
 			}
 			else{
