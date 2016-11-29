@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-
+<html lang="en" ng-app="teamform-exploreEvent-app">
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,17 +27,18 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
+
     <!-- Customized libraries shared by pages -->
     <script src="js/site.js"></script>
 	<!-- Angular and Angular-route libraries (v1.5.7) -->
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-route.min.js"></script>
     <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-    <script src="lib/firebase.js"></script>     
+    <script src="lib/firebase.js"></script>
     <script src="lib/angularfire.min.js"></script>
-	
-	<script src="js/exploreTemp.js"></script>
+
+	<!-- <script src="js/exploreTemp.js"></script> ??? -->
+  <script src="js/explore_event.js"></script>
 
 </head>
 
@@ -140,25 +140,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <h3><a href="#">abcdefg</a></h3>
-                    <a href=""><img src="img/event1.jpg" height="279"></a>
-                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to
-                        divide our page into 12 columns.</p>
-                </div>
-                <div class="col-md-4">
-                    <h3><a href="#">abcdefg</a></h3>
-                    <a href=""><img src="img/event2.jpeg" height="279"></a>
-                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to
-                        divide our page into 12 columns.</p>
-                </div>
-                <div class="col-md-4">
-                    <h3><a href="#">abcdefg</a></h3>
-                    <a href=""><img src="img/event3.jpg" height="279"></a>
-                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to
-                        divide our page into 12 columns.</p>
-                </div>
+            <div ng-controller="exploreEventCtrl">
+              <div class="row">
+                  <div class="col-md-4" ng-repeat="event in events">
+                      <h3><a href="#">{{event.$id}}</a></h3>
+                      <a href=""><img ng-src="{{event.admin.param.imgURL}}" height="279"></a>
+                      <p>{{event.admin.param.description}}</p>
+                  </div>
+              </div>
             </div>
         </center>
     </section>
@@ -283,7 +272,7 @@
                 </button>
                 <ul class="dropdown-menu">
 
-                    
+
                     <li><a href = "#addevent" data-toggle="modal" class = "navbar-text"> Event </a></li>
 
                 </ul>
@@ -320,12 +309,12 @@
             </div>
         </div>
     </div>
-    
-    
+
+
     <div class ="modal fade3" id ="addevent" role = "dialog" ng-app = "CreateEventApp" ng-include = "'createEvent.html'">
 
     </div>
-    
+
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.js"></script>
