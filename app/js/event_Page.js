@@ -11,6 +11,8 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	  initalizeFirebase();
 	}
 
+	$scope.userid = "";
+	
 	$scope.joined = false;
 	$("button#adminButton").hide();
 
@@ -60,6 +62,7 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 	firebase.auth().onAuthStateChanged(function(user) {
 	if (user) {
 		// User is signed in.
+		$scope.userid = user.uid;
 		refPath = "event/" + eventName + "/member/" + user.uid;
 		$scope.memberDetail = $firebaseObject(firebase.database().ref(refPath));
 		$scope.memberDetail.$loaded().then(function (data){
@@ -121,6 +124,10 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 			$scope.joined = true;
 			$('.btn-sendRequest').show();
 			$('.btn-sendRequest').text("Request");
+			
+			firebase.database().ref("/user/"+firebase.auth().currentUser.uid+"/joinedEvent/"+eventName)
+			.update({position:"Member"});
+			
 		}
 		else {
 			if ($scope.memberDetail.joinedTeam != ""){ alert("You are in the team, leave your team first!");return;}
@@ -131,12 +138,39 @@ app.controller('displayCtrl', ['$scope', '$firebaseObject', '$firebaseArray', fu
 			$('#joinButton').text("Join the event");
 			$scope.joined = false;
 			$('.btn-sendRequest').hide();
+			
+			firebase.database().ref("/user/"+firebase.auth().currentUser.uid+"/joinedEvent/"+eventName)
+			.update({position:null});
 		}
 	};
 	$scope.adminPage = function (){
 		window.location = "event_admin.html?e=" + eventName;
 	}
-	
+	$scope.acceptInvFromTeam = function(targetTeam) {
+		console.log(targetTeam);
+		refPath = "event/" + eventName + "/member/" + firebase.auth().currentUser.uid;
+		var memberDetail = $firebaseObject(firebase.database().ref(refPath));
+		memberDetail.$loaded().then(function (data){
+			console.log(memberDetail.joinedTeam);
+			if (memberDetail.joinedTeam != ""){alert("You have entered another team! NO join permit!");return;}
+			refPath = "event/" + eventName + "/team/" + targetTeam;
+			var targetT_obj = $firebaseObject(firebase.database().ref(refPath));
+			targetT_obj.$loaded().then(function (data){
+				console.log(targetT_obj);
+				targetT_obj.teamMembers.push($scope.userid);
+				targetT_obj.invitationRequests = $.grep(targetT_obj.invitationRequests, function(elem, ind){
+					return elem != $scope.userid;
+				});
+				targetT_obj.$save();
+				$("span#invi-"+targetTeam).hide();
+			})
+			memberDetail.joinedTeam = targetTeam;
+			memberDetail.$save();
+		})
+		
+		
+
+	}
 	
 }]);
 app.controller('CEA_Form', ['$scope', '$firebaseObject', '$firebaseArray', function CEA_Form($scope, $firebaseObject, $firebaseArray) {
@@ -273,8 +307,8 @@ app.controller('CEA_Team', ['$scope', '$firebaseObject', '$firebaseArray', funct
 				firebase.database().ref(refPath).update($scope.teamdata);
 		//var refP = "/event/"+ eventName + "/member/" + $scope.userid;
 				firebase.database().ref(refP).update({"joinedTeam":teamID});
-				var refp = "/user/" + $scope.userid;
-				firebase.database().ref(refp).update({"joinedTeam":teamID});
+				var refp = "/user/" + $scope.userid+"/joinedEvent/"+eventName;
+				firebase.database().ref(refp).update({position:"teamleader"});
 			}else{
 				alert("you have team already!");
 			}
