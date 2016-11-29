@@ -33,7 +33,7 @@
     <script src="lib/firebase.js"></script>     
     <script src="lib/angularfire.min.js"></script>
 
-    <script src="js/event_admin_Page.js"></script>
+
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="teamform-event-app">
@@ -100,8 +100,8 @@
                                         {{eventName}}
                                     </h3>
                                 </div>
+								<p> {{param.description}}</p>
                                 <img class="featuredImg" ng-src="{{param.imgURL!=null?param.imgURL:'img/team.jpg'}}" width="100%">
-                                <p> {{param.description}}</p>
 								<button type = "button" id = "closeButton" class="btn btn-danger" ng-click="closeEvent()">
 								{{param.close_event?"Reopen this Event":"Close This Event"}}
 								</button>
@@ -113,14 +113,29 @@
             </div>
         </div>
     </header>
+	<section id="remaining member">
+		<h1 class = "text-center">Remaining member</h1>
+		<div ng-controller = "displayCtrl">
+			<div class="row" id = "teamInsert" >
+				<div class="col-md-4 text-center" ng-repeat = "x in remaining_member" >
+                    <h3 class="text-center" draggable="true" 
+				ondragover="allowDrop(event)" ondragstart="drag(event)" ng-attr-id = "memb-{{x.$id}}" ondrop = "drop(event)">
+					{{x.$id}}
+				</h3>
+			</div>
+		</div>
+	</section>
     <section id="team" ng-controller="displayCtrl">
         <a href="#team">
             <h1 class="text-center"> Formed teams</h1>
         </a>
         <div class="teamse">
-            <div class="row" id = "teamInsert">
-                <div class="col-md-4 text-center" ng-repeat = "x in team">
-                    <h3 class="text-center"><a ng-href="team.html?e={{eventName}}&t={{x.$id}}">{{x.$id}}</a></h3>
+            <div class="row" id = "teamInsert" >
+                <div class="col-md-4 text-center" ng-repeat = "x in team" >
+                    <h3 class="text-center" draggable="true" 
+				ondragover="allowDrop(event)" ondragstart="drag(event)" ng-attr-id = "team-{{x.$id}}" ondrop = "drop(event)">
+				{{x.$id}}
+				</h3>
                     <a class="thumbnail" ng-href="team.html?e={{eventName}}&t={{x.$id}}"> <img src="img/team.jpg"></a><br>
 					 Preferred team size: <span class="badge">{{x.size}}</span> <br>
 					 Current teamMember: <span class = "badge">{{x.teamMembers.length}}</span><br>
@@ -366,6 +381,7 @@
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
 
+	<script src="js/event_admin_Page.js"></script>
 
 </body>
 

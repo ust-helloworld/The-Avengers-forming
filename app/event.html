@@ -33,9 +33,6 @@
     <script src="lib/firebase.js"></script>     
     <script src="lib/angularfire.min.js"></script>
 
-    <script src="js/event_Page.js"></script>
-	<script src="js/exploreTemp.js"></script>
-
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="teamform-event-app">
@@ -102,9 +99,10 @@
                                         {{eventName}}
                                         <small>posted time</small>
                                     </h3>
+									<p> {{param.description}}</p>
                                 </div>
                                 <img class="featuredImg" ng-src="{{param.imgURL!=null?param.imgURL:'img/team.jpg'}}" width="100%">
-                                <p> {{param.description}}</p>
+								<button type = "button" id = "adminButton" class="btn btn-default" ng-click="adminPage()">Goto Admin Page</button>
 								<button type = "button" id = "joinButton" class="btn btn-default" ng-click="joinQuit()">Join This Event</button>
                             </div>
 
@@ -325,7 +323,9 @@
 
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
-
+	
+	<script src="js/event_Page.js"></script>
+	<script src="js/exploreTemp.js"></script>
 
 </body>
 
