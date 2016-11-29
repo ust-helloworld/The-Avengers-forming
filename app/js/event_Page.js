@@ -234,7 +234,7 @@ app.controller('CEA_Team', ['$scope', '$firebaseObject', '$firebaseArray', funct
 	console.log($scope.teamdata.currentTeamSize);
 	firebase.auth().onAuthStateChanged(function(user){
 		$scope.userid = user.uid;
-		$scope.teamdata.teamMembers.push(user.uid);// teammembers store
+		$scope.teamdata.teamMembers.push(user.displayName);
 		$scope.teamdata.owner = user.uid;
 	});
 	var eventName = getURLParameter("e");
