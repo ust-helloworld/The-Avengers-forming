@@ -59,7 +59,7 @@
                     <div class="col-md-12 col-xs-12 text-left">
                       <ul ng-repeat="m in combine">
                         <li>
-                          ID = {{m.id}} <br>
+                          NAME = {{m.name}} <br>
                           <ul ng-repeat="skills in m.skillList">
                             <li>
                               <label for="{{skills}}">
@@ -76,9 +76,7 @@
               </div>
             </center>
             <div class="modal-footer">
-              <a href="index.html">
-                <button type="button" class="btn btn-primary" ng-click="updateFunc();">Save</button>
-              </a>
+              <button type="button" class="btn btn-primary" ng-click="updateFunc();">Save</button>
             </div>
           </div>
         </div>
@@ -124,7 +122,7 @@
     -->
 
     <!-- JavaScript of this page -->
-    
+
     <!-- Angular and Angular-route libraries (v1.5.7) -->
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-route.min.js"></script>
