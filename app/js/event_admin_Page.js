@@ -14,18 +14,21 @@ function drop(ev) {
 	console.log(ev.target.id);
 	console.log(data);
 
-	if (data.indexOf("memb") == 0 ) {addMember(data.substring(5,data.length), ev.target.id);}
+	if (data.indexOf("memb") == 0 ) {addMember(data.substring(5,data.length), (ev.target.id).substring(5,ev.target.id.length));}
 	else if(data.indexOf("team-") == 0 ) {
 		console.log("Merge "+data.substring(5,data.length)+" into " +(ev.target.id).substring(5,ev.target.id.length));
-		mergeTeam(data.substring(5,data.length), ev.target.id.substring(5,ev.target.id.length));
+		mergeTeam(data.substring(5,data.length), (ev.target.id).substring(5,ev.target.id.length));
 	}
 }
 
 function addMember(member, targetTeam){
 	console.log('trigger addMember function');
+	
+	console.log(member+' '+targetTeam);
 	refPath = "/event/"+getURLParameter('e')+"/team/"+targetTeam;
 	retrieveOnceFirebase(firebase,refPath, function (data){
 		teamMembers = data.child('teamMembers').val();
+		console.log(teamMembers);
 		if (teamMembers.length>=data.child('size').val()){alert("Fulled.");return;};
 		teamMembers.push(member);
 		console.log(teamMembers);
